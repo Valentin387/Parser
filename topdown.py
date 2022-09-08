@@ -49,6 +49,8 @@ class Tokenizer:
         (r'/',                       lambda s,tok: Token('/', tok)),
         (r'%',                       lambda s,tok: Token('%', tok)),
         (r'=',                       lambda s,tok: Token('=', tok)),
+        (r'\(',                       lambda s,tok: Token('(', tok)),
+        (r'\)',                       lambda s,tok: Token(')', tok)),
         (r'.',                       lambda s,tok: print(f"Error: Caracter ilegal '{tok}'"))]
 
     def tokenize(self, txt):
