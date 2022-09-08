@@ -75,21 +75,10 @@ class RecursiveDescendentParser:
     El atributo `.tok` contiene el ultimo token aceptado. El atributo
     `.nexttok` contiene el siguiente toekn leido.
     '''
-    def assign(self):
-        '''
-        assign ::= IDENT '=' expr
-        '''
-        if self._accept('IDENT'):
-            name = self.tok.value
-            self._expect('=')
-            mem[name] = self.expr()
-            return mem[name]
-        else:
-            raise SyntaxError("Esperando 'IDENT'")
 
     def lista(self):
         '''
-        list     ::= ( '\n' | expr )*
+        list ::= ( '\n' | expr )*
         '''
         expr=self.expr()
         while self._accept('\n'):
@@ -108,69 +97,26 @@ class RecursiveDescendentParser:
             return self.tok.value
         elif self._accept('IDENT'):
             name = self.tok.value
-            self._expect('=')
-            mem[name] = self.expr()
-            return mem[name]
+            if self._accept('='):
+                mem[name] = self.expr()
+                return mem[name]
+            else:
+                return name
         elif  self._accept('+'):
-            self._expect(self.expr())
+            return self.expr()
         elif  self._accept('-'):
-            self._expect(self.expr())
+            return self.expr()
         elif  self._accept('*'):
-            self._expect(self.expr())
+            return self.expr()
         elif  self._accept('/'):
-            self._expect(self.expr())
+            return self.expr()
         elif self._accept('%'):
-            self._expect(self.expr())
+            return self.expr()
         else:
             self._accept('(')
             expr = self.expr()
             self._expect(')')
         return expr
-
-
-    def term(self):
-        '''
-        term ::= factor { ( '*' | '/' | '%' ) factor }
-        '''
-        term = self.factor()
-        while self._accept('*') or self._accept('/') or self._accept('%'):
-            oper  = self.tok.value
-            if oper == '*':
-                term *= self.factor()
-            elif oper == '/':
-                term /= self.factor()
-            else:
-                term %= self.factor()
-
-        return term
-
-    def factor(self):
-        '''
-        factor ::= '-'? ( IDENT | NUMBER | '(' expr ')' )
-        '''
-
-        if self._accept('-'):
-            if self._accept('IDENT'): #it works
-                return -1*mem[self.tok.value]
-            elif self._accept('NUMBER'): #it works
-                return -1*self.tok.value
-            elif self._accept('('):
-                expr = self.expr()
-                self._expect(')')
-                return expr
-            else:
-                raise SyntaxError("Esperando IDENT, NUMBER o (")
-
-        elif self._accept('IDENT'):
-            return mem[self.tok.value]
-        elif self._accept('NUMBER'):
-            return self.tok.value
-        elif self._accept('('):
-            expr = self.expr()
-            self._expect(')')
-            return expr
-        else:
-            raise SyntaxError("Esperando IDENT, NUMBER o (")
 
     # -----------------------------------------------------------------
     # Funciones de Utilidad. No debe cambiar nada
