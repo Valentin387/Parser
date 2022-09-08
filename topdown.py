@@ -3,22 +3,21 @@ topdown.py
 
 Analizador Descendente Recursivo para la siguiente gramatica
 
-assign ::= 'IDEN' '=' expr
-
-expr ::= term '+' expr
-       | term '-' expr
-       | term
+list ::= /* nothing */
+       | list '\n'
+       | list expr
 
 
-term ::= factor '*' term
-       | factor '/' term
-       | factor '%' term
-       | factor
-
-
-factor ::= NUMBER
-         | '-' factor
-         | '(' expr ')'
+expr ::= NUMBER
+       | VAR
+       | VAR '=' expr
+       | expr '+' expr
+       | expr '-' expr
+       | expr '*' expr
+       | expr '/' expr
+       | expr '%' expr
+       | '(' expr ')'
+       | '-' expr
 '''
 from dataclasses import dataclass
 
@@ -88,18 +87,46 @@ class RecursiveDescendentParser:
         else:
             raise SyntaxError("Esperando 'IDENT'")
 
+    def lista(self):
+        '''
+        list     ::= ( '\n' | expr )*
+        '''
+        expr=self.expr()
+        while self._accept('\n'):
+            expr=self.expr()
+        return expr
+
     def expr(self):
         '''
-        expr ::= term { ( '+' | '-' ) term }
+        expr::= NUMBER
+           | VAR ( '=' expr )?
+           | ( expr ( '+' | '-' | '*' | '/' | '%' ) | '-' ) expr
+           | '(' expr ')'
         '''
-        expr = self.term()
-        while self._accept('+') or self._accept('-'):
-            oper  = self.tok.value
-            if oper == '+':
-                expr += self.term()
-            else:
-                expr -= self.term()
+
+        if self._accept('NUMBER'):
+            return self.tok.value
+        elif self._accept('IDENT'):
+            name = self.tok.value
+            self._expect('=')
+            mem[name] = self.expr()
+            return mem[name]
+        elif  self._accept('+'):
+            self._expect(self.expr())
+        elif  self._accept('-'):
+            self._expect(self.expr())
+        elif  self._accept('*'):
+            self._expect(self.expr())
+        elif  self._accept('/'):
+            self._expect(self.expr())
+        elif self._accept('%'):
+            self._expect(self.expr())
+        else:
+            self._accept('(')
+            expr = self.expr()
+            self._expect(')')
         return expr
+
 
     def term(self):
         '''
@@ -169,7 +196,7 @@ class RecursiveDescendentParser:
     def start(self):
         'Punto de entrada al parser'
         self._advanced()
-        return self.assign()
+        return self.lista()
 
     def parse(self, tokens):
         'Punto de entrada'
@@ -186,7 +213,7 @@ parser= RecursiveDescendentParser()
 
 while True:
     try:
-        text = input("Calc ")
+        text = input("Input: ")
         print(parser.parse(lex.tokenize(text)))
     except KeyError:
         break
