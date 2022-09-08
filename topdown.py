@@ -119,7 +119,20 @@ class RecursiveDescendentParser:
         '''
         factor ::= '-'? ( IDENT | NUMBER | '(' expr ')' )
         '''
-        if self._accept('IDENT'):
+
+        if self._accept('-'):
+            if self._accept('IDENT'): #it works
+                return -1*mem[self.tok.value]
+            elif self._accept('NUMBER'): #it works
+                return -1*self.tok.value
+            elif self._accept('('):
+                expr = self.expr()
+                self._expect(')')
+                return expr
+            else:
+                raise SyntaxError("Esperando IDENT, NUMBER o (")
+
+        elif self._accept('IDENT'):
             return mem[self.tok.value]
         elif self._accept('NUMBER'):
             return self.tok.value
