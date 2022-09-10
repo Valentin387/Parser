@@ -80,43 +80,56 @@ class RecursiveDescendentParser:
         '''
         list ::= ( '\n' | expr )*
         '''
-        expr=self.expr()
-        while self._accept('\n'):
-            expr=self.expr()
+        try:
+            a = self.expr()
+        except KeyboardInterrupt:
+            return
+        print(a)
+        self.lista()
+
+     def expr(self):
+        '''
+        expr ::= term { ( '+' | '-' ) term }
+        '''
+        expr = self.term()
+        while self._accept('+') or self._accept('-'):
+            oper  = self.tok.value
+            if oper == '+':
+                expr += self.term()
+            else:
+                expr -= self.term()
         return expr
 
-    def expr(self):
+    def term(self):
         '''
-        expr::= NUMBER
-           | VAR ( '=' expr )?
-           | ( expr ( '+' | '-' | '*' | '/' | '%' ) | '-' ) expr
-           | '(' expr ')'
+        term ::= factor { ( '*' | '/' | '%' ) factor }
         '''
-
-        if self._accept('NUMBER'):
-            return self.tok.value
-        elif self._accept('IDENT'):
-            name = self.tok.value
-            if self._accept('='):
-                mem[name] = self.expr()
-                return mem[name]
+        term = self.factor()
+        while self._accept('*') or self._accept('/') or self._accept('%'):
+            oper  = self.tok.value
+            if oper == '*':
+                term *= self.factor()
+            elif oper == '/':
+                term /= self.factor()
             else:
-                return name
-        elif  self._accept('+'):
-            return self.expr()
-        elif  self._accept('-'):
-            return self.expr()
-        elif  self._accept('*'):
-            return self.expr()
-        elif  self._accept('/'):
-            return self.expr()
-        elif self._accept('%'):
-            return self.expr()
-        else:
-            self._accept('(')
+                term %= self.factor()
+
+        return term
+
+    def factor(self):
+        '''
+        factor ::= '-'? ( IDENT | NUMBER | '(' expr ')' )
+        '''
+        if self._accept('IDENT'):
+            return mem[self.tok.value]
+        elif self._accept('NUMBER'):
+            return self.tok.value
+        elif self._accept('('):
             expr = self.expr()
             self._expect(')')
-        return expr
+            return expr
+        else:
+            raise SyntaxError("Esperando IDENT, NUMBER o (")
 
     # -----------------------------------------------------------------
     # Funciones de Utilidad. No debe cambiar nada
