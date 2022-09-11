@@ -29,6 +29,7 @@ forStmt ::= 'for' '(' ( varDecl | exprStmt )? ';'
 
 ifStmt ::= 'if' '(' expression ')' statement
   ( 'else' statement )?
+
 printStmt ::= 'print' expression ';'
 
 returnStmt ::= 'return' expression? ';'
@@ -114,17 +115,98 @@ class Parser(sly.Parser):
     def expr_stmt(self, p):
         pass
 
-    @_("FOR '(' for_initialize ';' [ expression ] ';' [ expression ] ')' stmt")
+    @_("FOR '(' for_initialize ';' [ expression ] ';' [ expression ] ')' statement")
     def for_stmt(self, p):
         pass
 
-    @_("FOR '(' ';' [ expression ] ';' [ expression ] ')' stmt")
+    @_("FOR '(' ';' [ expression ] ';' [ expression ] ')' statement")
     def for_stmt(self, p):
         pass
 
     @_("var_declaration", "expr_stmt")
     def for_initialize(self, p):
         pass
+
+    @_("IF '(' [ expression ] ')' statement [ '(' ELSE ')' statement ]  ")
+    def ifStmt(self, p):
+        pass
+
+    @_("PRINT expression")
+    def printStmt(self, p):
+        pass
+
+    @_("RETURN [ expression ]")
+    def returnStmt (self, p):
+        pass
+
+    @_("WHILE '(' expression ')' statement")
+    def whileStmt(self, p):
+        pass
+
+    @_("'{' { declaration } '}'")
+    def block(self, p):
+        pass
+
+    @_("assignment")
+    def expression(self, p):
+        pass
+
+    @_("[ call '.' ] IDENT '=' expression")
+    def assignment(self, p):
+        pass
+
+    @_("logic_or")
+    def assignment(self, p):
+        pass
+
+    @_("logic_and { '||' logic_and }")
+    def logic_or(self, p):
+        pass
+
+    @_("equality { '&&' equality }")
+    def logic_and(self, p):
+        pass
+
+    @_("comparison { ( '!=' | '==' ) comparison }")
+    def equality(self, p):
+        pass
+
+    @_("term { ( '>' | '>=' | '<' | '<=' ) term }")
+    def comparison(self, p):
+        pass
+
+    @_("factor { ( '-' | '+' ) factor }")
+    def term(self, p):
+        pass
+
+    @_("unary { ( '/' | '*' ) unary }")
+    def factor(self, p):
+        pass
+
+    @_("( '!' | '-' ) unary | call")
+    def unary(self, p):
+        pass
+
+    @_("primary { '(' [arguments] ')' | '.' IDENTIFIER }")
+    def call(self, p):
+        pass
+
+    @_("'TRUE' | 'FALSE' | 'NIL' | 'THIS'| NUM | REAL | STRING | IDENT | '(' expression ')' | 'super' '.' IDENT")
+    def primary(self, p):
+        pass
+
+    @_("IDENT '(' [parameters] ')' block")
+    def function(self, p):
+        pass
+
+    @_("IDENT { ',' IDENTIFIER }")
+    def parameters(self, p):
+        pass
+
+    @_("expression { ',' expression }")
+    def arguments(self, p):
+        pass
+
 
     def error(self, p):
         if p:
