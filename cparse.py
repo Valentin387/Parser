@@ -114,6 +114,18 @@ class Parser(sly.Parser):
     def expr_stmt(self, p):
         pass
 
+    @_("FOR '(' for_initialize ';' [ expression ] ';' [ expression ] ')' stmt")
+    def for_stmt(self, p):
+        pass
+
+    @_("FOR '(' ';' [ expression ] ';' [ expression ] ')' stmt")
+    def for_stmt(self, p):
+        pass
+
+    @_("var_declaration", "expr_stmt")
+    def for_initialize(self, p):
+        pass
+
     def error(self, p):
         if p:
             print("Error de sintaxis en token", p.type)
@@ -132,6 +144,6 @@ if __name__ == '__main__':
     l = Lexer()     # Analizador Lexico
     p = Parser()    # Analizador Sintactico
 
-    root = p.parse(
+    root = p.parse( #we'll start to build our AST
         l.tokenize(open(sys.argv[1], encoding='utf-8'))
     )
