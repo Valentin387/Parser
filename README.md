@@ -16,7 +16,7 @@ Prototype, intermediate for McFly02
 fully operational program, it reads a list os expressions, the list can be empty, I have to use some programming tricks but it works fine
 
 Example for CMD:
-Input: 1 \n
+Input: 1
 1.0
 Input: 2
 2.0
