@@ -112,7 +112,7 @@ class Parser(sly.Parser):
 
     @_("expression ';'")
     def expr_stmt(self, p):
-    pass
+        pass
 
     def error(self, p):
         if p:
