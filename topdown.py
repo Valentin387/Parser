@@ -83,16 +83,10 @@ class RecursiveDescendentParser:
         try:
             a = self.expr()
         except KeyboardInterrupt:
-            print("error 101")
             return
         print("--------")
         print(a)
         print("--------")
-
-        if self._accept('\n'):
-            self.lista()
-        else:
-            print("ok")
 
     def expr(self):
         '''
@@ -136,7 +130,6 @@ class RecursiveDescendentParser:
         if self._accept('IDENT'):
             return mem[self.tok.value]
         elif self._accept('NUMBER'):
-            print("I am a number")
             return self.tok.value
         elif self._accept('('):
             expr = self.expr()
@@ -190,6 +183,7 @@ parser= RecursiveDescendentParser()
 while True:
     try:
         text = input("Input: ")
-        print(parser.parse(lex.tokenize(text)))
+        if not text=="":
+            print(parser.parse(lex.tokenize(text)))
     except KeyError:
         break
