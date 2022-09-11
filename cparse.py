@@ -1,189 +1,137 @@
 '''
-topdown.py
+program ::= declaration*                 { } - repeticion (0 o mas)
+                                         [ ] - opcionalidad
+Declaration ::= classDecl
+  | funDecl
+  | varDecl
+  | statement
 
-Analizador Descendente Recursivo para la siguiente gramatica
+classDecl ::= 'class' IDENTIFIER ( '<' IDENTIFIER )?
+  '{' function* '}'
 
-list ::= /* nothing */
-       | list '\n'
-       | list expr
+funDecl ::= 'fun' function
 
+varDecl ::= 'var' IDENTIFIER ( '=' expression )? ';'
 
-expr ::= NUMBER
-       | VAR
-       | VAR '=' expr
-       | expr '+' expr
-       | expr '-' expr
-       | expr '*' expr
-       | expr '/' expr
-       | expr '%' expr
-       | '(' expr ')'
-       | '-' expr
+statement ::= exprStmt
+  | forStmt
+  | ifStmt
+  | printStmt
+  | returnStmt
+  | whileStmt
+  | block
+
+exprStmt ::= expression ';'
+
+forStmt ::= 'for' '(' ( varDecl | exprStmt )? ';'
+  expression? ';'
+  expression? ')' statement
+
+ifStmt ::= 'if' '(' expression ')' statement
+  ( 'else' statement )?
+printStmt ::= 'print' expression ';'
+
+returnStmt ::= 'return' expression? ';'
+
+whileStmt ::= 'while' '(' expression ')' statement
+
+block ::= '{' declaration* '}'
+
+expression ::= assignment
+
+assignment ::= ( call '.' )? IDENTIFIER '=' expression
+   | logic_or
+
+logic_or ::= logic_and ( '||' logic_and )*
+
+logic_and ::= equality ( '&&' equality )*
+
+equality ::= comparison ( ( '!=' | '==' ) comparison )*
+
+comparison ::= term ( ( '>' | '>=' | '<' | '<=' ) term )*
+
+term ::= factor ( ( '-' | '+' ) factor )*
+
+factor ::= unary ( ( '/' | '*' ) unary )*
+
+unary ::= ( '!' | '-' ) unary | call
+
+call ::= primary ( '(' arguments? ')' | '.' IDENTIFIER )*
+
+primary ::= 'true' | 'false' | 'nil' | 'this'
+   | NUMBER | STRING | IDENTIFIER | '(' expression ')'
+   | 'super' '.' IDENTIFIER
+
+function ::= IDENTIFIER '(' parameters? ')' block
+
+parameters ::= IDENTIFIER ( ',' IDENTIFIER )*
+
+arguments ::= expression ( ',' expression )*
 '''
-from dataclasses import dataclass
-
-import re
-
-# =====================================================================
-# Analisis Lexico
-# =====================================================================
-@dataclass
-class Token:
-    '''
-    Representacion de un Simbol Terminal
-    '''
-    type  : str
-    value : str or float
-    lineno: int = 1
+from clex import Lexer
+import sly
 
 
-class Tokenizer:
+class Parser(sly.Parser):
+    # La lista de tokens se copia desde Lexer
+    tokens = Lexer.tokens
 
-    tokens = [
-        (r'\s+', None),
-        (r'\d+(\.\d+)?(E[-+]?\d+)?', lambda s,tok: Token('NUMBER', float(tok))),
-        (r'[a-zA-Z_]\w*',            lambda s,tok: Token('IDENT', tok)),
-        (r'\+',                      lambda s,tok: Token('+', tok)),
-        (r'-',                       lambda s,tok: Token('-', tok)),
-        (r'\*',                      lambda s,tok: Token('*', tok)),
-        (r'/',                       lambda s,tok: Token('/', tok)),
-        (r'%',                       lambda s,tok: Token('%', tok)),
-        (r'=',                       lambda s,tok: Token('=', tok)),
-        (r'\(',                       lambda s,tok: Token('(', tok)),
-        (r'\)',                       lambda s,tok: Token(')', tok)),
-        (r'.',                       lambda s,tok: print(f"Error: Caracter ilegal '{tok}'"))]
+    # Definimos las reglas en BNF (o en EBNF)
+    @_("{ declaration }")
+    def program(self, p):
+        pass
 
-    def tokenize(self, txt):
-        scanner = re.Scanner(self.tokens)
-        result, _ = scanner.scan(txt)
-        return iter(result)
+    @_("class_declaration",
+       "func_declaration",
+       "var_declaration",
+       "statement")
+    def declaration(self, p):
+        pass
 
+    @_("CLASS IDENT [ LT IDENT ] '{' { function } '}'")
+    def class_declaration(self, p):
+        pass
 
-# =====================================================================
-# Analizador Descendente Recursivo
-# =====================================================================
-class RecursiveDescendentParser:
-    '''
-    Implementacion de un Analizador Descendente Recursivo.  Cada
-    metodo implementa una sola regla de la gramatica.
+    @_("FUN function")
+    def func_declaration(self, p):
+        pass
 
-    Use el metodo `._accept()` para aprobar y aceptar el token
-    actualmente leido.
-    Use el metodo `._expect()` para coincidir y descartar exactamente
-    el token siguiente en la entrada (o levantar un SystAXError si no
-    coincide).
+    @_("VAR IDENT [ '=' expression ]")
+    def var_declaration(self, p):
+        pass
 
-    El atributo `.tok` contiene el ultimo token aceptado. El atributo
-    `.nexttok` contiene el siguiente toekn leido.
-    '''
+    @_("expr_stmt",
+       "for_stmt",
+       "if_stmt",
+       "print_stmt",
+       "return_stmt",
+       "while_stmt",
+       "block")
+    def statement(self, p):
+        pass
 
-    def lista(self):
-        '''
-        list ::= ( '\n' | expr )*
-        '''
-        try:
-            if self._accept('IDENT'):
-                name=self.tok.value
-                self._expect('=')
-                mem[name] = self.expr()
-                return mem[name]
-            else:
-                a=self.expr()
-                return a
-        except KeyboardInterrupt:
-            print("KeyboardInterrupt")
-            return
+    @_("expression ';'")
+    def expr_stmt(self, p):
+    pass
 
-
-    def expr(self):
-        '''
-        expr ::= term { ( '+' | '-' ) term }
-        '''
-        expr = self.term()
-        while self._accept('+') or self._accept('-'):
-            oper  = self.tok.value
-            if oper == '+':
-                expr += self.term()
-            else:
-                expr -= self.term()
-        return expr
-
-    def term(self):
-        '''
-        term ::= factor { ( '*' | '/' | '%' ) factor }
-        '''
-        term = self.factor()
-        while self._accept('*') or self._accept('/') or self._accept('%'):
-            oper  = self.tok.value
-            if oper == '*':
-                term *= self.factor()
-            elif oper == '/':
-                term /= self.factor()
-            else:
-                term %= self.factor()
-
-        return term
-
-    def factor(self):
-        '''
-        factor ::= '-'? ( IDENT | NUMBER | '(' expr ')' )
-        '''
-        if self._accept('IDENT'):
-            return mem[self.tok.value]
-        elif self._accept('NUMBER'):
-            return self.tok.value
-        elif self._accept('('):
-            expr = self.expr()
-            self._expect(')')
-            return expr
-        elif self._accept('-'):
-            a=-1*self.factor()
-            return a
+    def error(self, p):
+        if p:
+            print("Error de sintaxis en token", p.type)
+            # Just discard the token and tell the parser it's okay.
+            self.errok()
         else:
-            raise SyntaxError("Esperando IDENT, NUMBER o (")
+            print("Error de sintaxis en EOF")
 
-    # -----------------------------------------------------------------
-    # Funciones de Utilidad. No debe cambiar nada
+if __name__ == '__main__':
+    import sys
 
-    def _advanced(self):
-        'Avanza el tokenizer en un simbol'
-        self.tok, self.nexttok = self.nexttok, next(self.tokens, None)
+    if len(sys.argv) != 2:
+        print('Usage: python cparse.py filename')
+        exit(0)
 
-    def _accept(self, toktype):
-        'Consume el siguiente token si coincide con el tipo esperado'
-        if self.nexttok and self.nexttok.type == toktype:
-            self._advanced()
-            return True
-        else:
-            return False
+    l = Lexer()     # Analizador Lexico
+    p = Parser()    # Analizador Sintactico
 
-    def _expect(self, toktype):
-        'Consume o descarta el siguiente token o raise SyntaxError'
-        if not self._accept(toktype):
-            raise SyntaxError(f"Se esperaba '{toktype}")
-
-
-    def start(self):
-        'Punto de entrada al parser'
-        self._advanced()
-        return self.lista()
-
-    def parse(self, tokens):
-        'Punto de entrada'
-        self.tok = None             # Ultimo simbol consumido
-        self.nexttok = None         # Siguiente simbol tokinizado
-        self.tokens = tokens
-        return self.start()
-
-# Tabla de simbolos (memoria)
-mem = {}
-
-lex   = Tokenizer()
-parser= RecursiveDescendentParser()
-
-while True:
-    try:
-        text = input("Input: ")
-        if not text=="":
-            print(parser.parse(lex.tokenize(text)))
-    except KeyError:
-        break
+    root = p.parse(
+        l.tokenize(open(sys.argv[1], encoding='utf-8'))
+    )
