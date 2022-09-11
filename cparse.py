@@ -167,31 +167,31 @@ class Parser(sly.Parser):
     def logic_and(self, p):
         pass
 
-    @_("comparison { ( NE | EQ ) comparison }")
+    @_("comparison { '(' NE '|' EQ ')' comparison }")
     def equality(self, p):
         pass
 
-    @_("term { ( GT | GE | LT | LE ) term }")
+    @_("term { '(' GT '|' GE '|' LT '|' LE ')' term }")
     def comparison(self, p):
         pass
 
-    @_("factor { ( MINUS | PLUS ) factor }")
+    @_("factor { '(' MINUS '|' PLUS ')' factor }")
     def term(self, p):
         pass
 
-    @_("unary { ( DIVIDE | TIMES ) unary }")
+    @_("unary { '(' DIVIDE '|' TIMES ')' unary }")
     def factor(self, p):
         pass
 
-    @_("( NOT | MINUS ) unary | call")
+    @_("'(' NOT '|' MINUS ')' unary '|' call")
     def unary(self, p):
         pass
 
-    @_("primary { LPAREN [ arguments ] RPAREN | POINT IDENT }")
+    @_("primary { LPAREN [ arguments ] RPAREN '|' POINT IDENT }")
     def call(self, p):
         pass
 
-    @_("TRUE | FALSE | NIL | THIS | REAL | NUM | STRING | IDENT | LPAREN expression RPAREN | SUPER POINT IDENT")
+    @_("TRUE '|' FALSE '|' NIL '|' THIS '|' REAL '|' NUM '|' STRING '|' IDENT '|' LPAREN expression RPAREN '|' SUPER POINT IDENT")
     def primary(self, p):
         pass
 
