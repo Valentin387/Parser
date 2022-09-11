@@ -89,7 +89,7 @@ class Parser(sly.Parser):
     def declaration(self, p):
         pass
 
-    @_("CLASS IDENT [ LT IDENT ] '{' { function } '}'")
+    @_("CLASS IDENT [ LT IDENT ] LBRACE { function } RBRACE")
     def class_declaration(self, p):
         pass
 
@@ -97,7 +97,7 @@ class Parser(sly.Parser):
     def func_declaration(self, p):
         pass
 
-    @_("VAR IDENT [ '=' expression ]")
+    @_("VAR IDENT [ ASSIGN expression ]")
     def var_declaration(self, p):
         pass
 
@@ -111,15 +111,15 @@ class Parser(sly.Parser):
     def statement(self, p):
         pass
 
-    @_("expression ';'")
+    @_("expression SEMI")
     def expr_stmt(self, p):
         pass
 
-    @_("FOR '(' for_initialize ';' [ expression ] ';' [ expression ] ')' statement")
+    @_("FOR LPAREN for_initialize SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
         pass
 
-    @_("FOR '(' ';' [ expression ] ';' [ expression ] ')' statement")
+    @_("FOR LPAREN SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
         pass
 
@@ -127,23 +127,23 @@ class Parser(sly.Parser):
     def for_initialize(self, p):
         pass
 
-    @_("IF '(' [ expression ] ')' statement [ '(' ELSE ')' statement ]  ")
-    def ifStmt(self, p):
+    @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ]  ")
+    def if_stmt(self, p):
         pass
 
     @_("PRINT expression")
-    def printStmt(self, p):
+    def print_stmt(self, p):
         pass
 
     @_("RETURN [ expression ]")
-    def returnStmt (self, p):
+    def return_stmt (self, p):
         pass
 
-    @_("WHILE '(' expression ')' statement")
-    def whileStmt(self, p):
+    @_("WHILE LPAREN expression RPAREN statement")
+    def while_stmt(self, p):
         pass
 
-    @_("'{' { declaration } '}'")
+    @_("LBRACE { declaration } RBRACE")
     def block(self, p):
         pass
 
@@ -151,7 +151,7 @@ class Parser(sly.Parser):
     def expression(self, p):
         pass
 
-    @_("[ call '.' ] IDENT '=' expression")
+    @_("[ call POINT ] IDENT ASSIGN expression")
     def assignment(self, p):
         pass
 
@@ -159,54 +159,53 @@ class Parser(sly.Parser):
     def assignment(self, p):
         pass
 
-    @_("logic_and { '||' logic_and }")
+    @_("logic_and { OR logic_and }")
     def logic_or(self, p):
         pass
 
-    @_("equality { '&&' equality }")
+    @_("equality { AND equality }")
     def logic_and(self, p):
         pass
 
-    @_("comparison { ( '!=' | '==' ) comparison }")
+    @_("comparison { ( NE | EQ ) comparison }")
     def equality(self, p):
         pass
 
-    @_("term { ( '>' | '>=' | '<' | '<=' ) term }")
+    @_("term { ( GT | GE | LT | LE ) term }")
     def comparison(self, p):
         pass
 
-    @_("factor { ( '-' | '+' ) factor }")
+    @_("factor { ( MINUS | PLUS ) factor }")
     def term(self, p):
         pass
 
-    @_("unary { ( '/' | '*' ) unary }")
+    @_("unary { ( DIVIDE | TIMES ) unary }")
     def factor(self, p):
         pass
 
-    @_("( '!' | '-' ) unary | call")
+    @_("( NOT | MINUS ) unary | call")
     def unary(self, p):
         pass
 
-    @_("primary { '(' [arguments] ')' | '.' IDENTIFIER }")
+    @_("primary { LPAREN [ arguments ] RPAREN | POINT IDENT }")
     def call(self, p):
         pass
 
-    @_("'TRUE' | 'FALSE' | 'NIL' | 'THIS'| NUM | REAL | STRING | IDENT | '(' expression ')' | 'super' '.' IDENT")
+    @_("TRUE | FALSE | NIL | THIS | REAL | NUM | STRING | IDENT | LPAREN expression RPAREN | SUPER POINT IDENT")
     def primary(self, p):
         pass
 
-    @_("IDENT '(' [parameters] ')' block")
+    @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
         pass
 
-    @_("IDENT { ',' IDENTIFIER }")
+    @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
         pass
 
-    @_("expression { ',' expression }")
+    @_("expression { COMMA expression }")
     def arguments(self, p):
         pass
-
 
     def error(self, p):
         if p:

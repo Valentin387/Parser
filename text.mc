@@ -3,21 +3,25 @@ ARDILLA = 77;
 for( i=1; i < 4 && i.even(); i+=1){
 
     temp[0]=bitcoin_to_become_poor(14.005);
-    printf("evento");
+    printf("this.evento");
     scanf("\d",temp);
     //estudiante
+    this.function(a,b,c);
 
     /*
     comentario
     de varias lineas
+
+
+
+    ?
+    "hola
+    mundo"
+    "salut /* tout le*/ monde"
     */
-
-
-?
-"hola
-mundo"
-"salut /* tout le*/ monde"
 }
+
+/*
 
 false
 _valentin
@@ -33,4 +37,5 @@ andres
 3.1415
 13.
 +
-/
+
+*/
