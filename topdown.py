@@ -81,23 +81,23 @@ class RecursiveDescendentParser:
         list ::= ( '\n' | expr )*
         '''
         try:
-            a = self.expr()
+            if self._accept('IDENT'):
+                name=self.tok.value
+                self._expect('=')
+                mem[name] = self.expr()
+                return mem[name]
+            else:
+                a=self.expr()
+                return a
         except KeyboardInterrupt:
+            print("KeyboardInterrupt")
             return
-        print("--------")
-        print(a)
-        print("--------")
+
 
     def expr(self):
         '''
         expr ::= term { ( '+' | '-' ) term }
         '''
-        if self._accept('IDENT'):
-            name=self.tok.value
-            self._expect('=')
-            mem[name] = self.expr()
-            return mem[name]
-
         expr = self.term()
         while self._accept('+') or self._accept('-'):
             oper  = self.tok.value
@@ -136,7 +136,7 @@ class RecursiveDescendentParser:
             self._expect(')')
             return expr
         elif self._accept('-'):
-            a=-1*self.fator()
+            a=-1*self.factor()
             return a
         else:
             raise SyntaxError("Esperando IDENT, NUMBER o (")
