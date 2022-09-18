@@ -71,6 +71,7 @@ arguments ::= expression ( ',' expression )*
 '''
 from clex import Lexer
 import sly
+from rich import print
 
 
 class Parser(sly.Parser):
@@ -80,26 +81,26 @@ class Parser(sly.Parser):
     # Definimos las reglas en BNF (o en EBNF)
     @_("{ declaration }")
     def program(self, p):
-        pass
+        return Program(p.declaration)
 
     @_("class_declaration",
        "func_declaration",
        "var_declaration",
        "statement")
     def declaration(self, p):
-        pass
+        return p[0]
 
     @_("CLASS IDENT [ LT IDENT ] LBRACE { function } RBRACE")
     def class_declaration(self, p):
-        pass
+        return ClassDeclaration(p.IDENT0, p.IDENT1, p.function)
 
     @_("FUN function")
     def func_declaration(self, p):
-        pass
+        return p[0]
 
     @_("VAR IDENT [ ASSIGN expression ]")
     def var_declaration(self, p):
-        pass
+        return VarDeclaration()
 
     @_("expr_stmt",
        "for_stmt",
@@ -225,6 +226,8 @@ if __name__ == '__main__':
     l = Lexer()     # Analizador Lexico
     p = Parser()    # Analizador Sintactico
 
-    root = p.parse( #we'll start to build our AST
+    ast = p.parse( #we'll start to build our AST
         l.tokenize(open(sys.argv[1], encoding='utf-8'))
     )
+
+    print(ast)
