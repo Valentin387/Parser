@@ -1,6 +1,6 @@
-ARDILLA = 77
+ARDILLA = 77;
 
 while (a < 4){
-print(a)
-a=a+1
+print(a);
+a=a+1;
 }
