@@ -91,7 +91,7 @@ class Parser(sly.Parser):
     def declaration(self, p):
         return p[0]
 
-    @_("CLASS IDENT [ LT IDENT ] LBRACE { function } RBRACE")
+    @_("CLASS IDENT [ LT IDENT ] LBRACE { function } RBRACE ")
     def class_declaration(self, p):
         return ClassDeclaration(p.IDENT0, p.IDENT1, p.function)
 
@@ -134,11 +134,11 @@ class Parser(sly.Parser):
     def if_stmt(self, p):
         return IfStmt(p.expression, p.statement0, p.statement1)
 
-    @_("PRINT expression")
+    @_("PRINT expression SEMI")
     def print_stmt(self, p):
         return Print(p.expression)
 
-    @_("RETURN [ expression ]")
+    @_("RETURN [ expression ] SEMI")
     def return_stmt (self, p):
         return Return(p.expression)
 
