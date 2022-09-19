@@ -72,6 +72,7 @@ arguments ::= expression ( ',' expression )*
 from clex import Lexer
 import sly
 from rich import print
+from cast import *
 
 
 class Parser(sly.Parser):
@@ -98,9 +99,9 @@ class Parser(sly.Parser):
     def func_declaration(self, p):
         return p[0]
 
-    @_("VAR IDENT [ ASSIGN expression ]")
+    @_("VAR IDENT [ ASSIGN expression ] SEMI")
     def var_declaration(self, p):
-        return VarDeclaration()
+        return VarDeclaration(p.IDENT, p.expression)
 
     @_("expr_stmt",
        "for_stmt",
@@ -110,103 +111,104 @@ class Parser(sly.Parser):
        "while_stmt",
        "block")
     def statement(self, p):
-        pass
+        return p[0]
 
     @_("expression SEMI")
     def expr_stmt(self, p):
-        pass
+        return ExprStmt(p.expression)
 
     @_("FOR LPAREN for_initialize SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        pass
+        return WhileStmt(p.expresion0, p.statement)
 
     @_("FOR LPAREN SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        pass
+        return WhileStmt(p.expresion0, p.statement)
 
-    @_("var_declaration", "expr_stmt")
+    @_("var_declaration",
+        "expr_stmt")
     def for_initialize(self, p):
-        pass
+        return p[0]
 
     @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ]  ")
     def if_stmt(self, p):
-        pass
+        return IfStmt(p.expression, p.statement0, p.statement1)
 
     @_("PRINT expression")
     def print_stmt(self, p):
-        pass
+        return Print(p.expression)
 
     @_("RETURN [ expression ]")
     def return_stmt (self, p):
-        pass
+        return Return(p.expression)
 
     @_("WHILE LPAREN expression RPAREN statement")
     def while_stmt(self, p):
-        pass
+        return WhileStmt(p.expression, p.statement)
 
     @_("LBRACE { declaration } RBRACE")
     def block(self, p):
-        pass
+        return Block(p.declaration)
 
     @_("assignment")
     def expression(self, p):
-        pass
+        return p[0]
 
     @_("[ call POINT ] IDENT ASSIGN expression")
     def assignment(self, p):
-        pass
+        return Assign(p.IDENT, p.expression)
 
     @_("logic_or")
     def assignment(self, p):
-        pass
+        return p[0]
 
     @_("logic_and { OR logic_and }")
     def logic_or(self, p):
-        pass
+        return Logical(p.OR, p.logic_and0, p.logic_and1)
 
     @_("equality { AND equality }")
     def logic_and(self, p):
-        pass
+        return Logical(p.AND, p.equality0, p.equality1)
 
     @_("comparison { '(' NE '|' EQ ')' comparison }")
     def equality(self, p):
-        pass
+        return Logical(p[1], p.comparison0, p.comparison1)
 
     @_("term { '(' GT '|' GE '|' LT '|' LE ')' term }")
     def comparison(self, p):
-        pass
+        return Logical(p[1], p.term0, p.term1)
 
     @_("factor { '(' MINUS '|' PLUS ')' factor }")
     def term(self, p):
-        pass
+        return Binary(p[1], p.factor0, p.factor1)
 
     @_("unary { '(' DIVIDE '|' TIMES ')' unary }")
     def factor(self, p):
-        pass
+        return Binary(p[1], p.unary0, p.unary1)
 
     @_("'(' NOT '|' MINUS ')' unary '|' call")
     def unary(self, p):
-        pass
+        return Unary(p[0], p[1])
 
     @_("primary { LPAREN [ arguments ] RPAREN '|' POINT IDENT }")
     def call(self, p):
-        pass
+        return Call(p.primary, p[1])
 
     @_("TRUE '|' FALSE '|' NIL '|' THIS '|' REAL '|' NUM '|' STRING '|' IDENT '|' LPAREN expression RPAREN '|' SUPER POINT IDENT")
     def primary(self, p):
-        pass
+        return Literal(p[0])
 
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
-        pass
+        return FunDeclaration(p.IDENT, p.parameters, p.block)
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
-        pass
+        return ExprStmt(p[0])
 
     @_("expression { COMMA expression }")
     def arguments(self, p):
-        pass
+        return ExprStmt(p[0])
 
     def error(self, p):
         if p:

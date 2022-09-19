@@ -22,7 +22,7 @@ class Visitor(metaclass=multimeta):
 
 @dataclass
 class Node:
-    def accept(self, vis: Visitor, *args **kwargs): #no son punteros como en C
+    def accept(self, vis: Visitor, *args, **kwargs): #no son punteros como en C
         return vis.visit(self, *args, **kwargs)
 
 
@@ -44,7 +44,7 @@ class Declaration(Statement):
 #---------------------------------------------------------------
 #  Nodos del Tipo Declaration, son Statement especiales que declaran la existencia de algo
 #---------------------------------------------------------------
-@dataclassclass
+@dataclass
 class ClassDeclaration(Declaration):
     name   : str
     sclass : str
@@ -54,11 +54,10 @@ class ClassDeclaration(Declaration):
 @dataclass
 class FunDeclaration(Declaration):
     name   : str
-    sclass : str
     methods: List[Expression] = field(default_factory=list)
     stmts  : List[Statement] = field(default_factory=list)
 
-@_dataclass
+@dataclass
 class VarDeclaration(Declaration):
     name   : str
     expr   : Expression
@@ -167,45 +166,11 @@ class Super(Expression):
 
 @dataclass
 class This(Expression):
-    pass
-
-
-
+    name   : str
 
 
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-#---------------------------------------------------------------
-
-#---------------------------------------------------------------
-
-# PARA EL CPARSE
-
-from rich import print
-
-@_("----")
-def class_declaration(self, p):
-    return ClassDeclaration(p.IDENT0, p.IDENT1, p.function)
-
-@_("---")
-def declaration(self, p):
-    return p[0]
-
-para Program
-return Program(p.declaration)
-
-
-para func declaration
-return p[0]
-
-para var declaration
-return VarDeclaration()
-
-
-
-ast = p.parse(...)
-
-print(ast)
 
 #más aelante usaremos el Visitor para imprimir el AST de forma bonita usando tree.py
 #repositorio de rich en github, el archivo tree
