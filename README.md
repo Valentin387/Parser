@@ -39,3 +39,7 @@ Input:
 example: python cparse.py text.mc
 
 This one uses SLY, everything looks good, I only have to solve the infinite recursion problem
+
+*AST01
+
+this one uses my first version of an AST, but I have to solve the infinite recursion problem
