@@ -42,4 +42,4 @@ This one uses SLY, everything looks good, I only have to solve the infinite recu
 
 *AST01
 
-this one uses my first version of an AST, but I have to solve the infinite recursion problem
+First fully functional version at commit "finally the parser works"
