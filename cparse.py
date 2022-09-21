@@ -76,6 +76,7 @@ from cast import *
 
 
 class Parser(sly.Parser):
+    debugfile="minic.txt"
     # La lista de tokens se copia desde Lexer
     tokens = Lexer.tokens
 
@@ -117,7 +118,7 @@ class Parser(sly.Parser):
     def expr_stmt(self, p):
         return ExprStmt(p.expression)
 
-    @_("FOR LPAREN for_initialize SEMI [ expression ] SEMI [ expression ] RPAREN statement")
+    @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
         return WhileStmt(p.expresion0, p.statement)
 
@@ -170,31 +171,59 @@ class Parser(sly.Parser):
     def logic_and(self, p):
         return Logical(p.AND, p.equality0, p.equality1)
 
-    @_("comparison { '(' NE '|' EQ ')' comparison }")
+    @_("comparison { oper1 comparison }")
     def equality(self, p):
         return Logical(p[1], p.comparison0, p.comparison1)
 
-    @_("term { '(' GT '|' GE '|' LT '|' LE ')' term }")
+    @_("NE","EQ")
+    def oper1(self, p):
+        pass
+
+    @_("term { oper2 term }")
     def comparison(self, p):
         return Logical(p[1], p.term0, p.term1)
 
-    @_("factor { '(' MINUS '|' PLUS ')' factor }")
+    @_("GT", "GE",  "LT", "LE")
+    def oper2(self, p):
+        pass
+
+    @_("factor { oper3 factor }")
     def term(self, p):
         return Binary(p[1], p.factor0, p.factor1)
 
-    @_("unary { '(' DIVIDE '|' TIMES ')' unary }")
+    @_("MINUS", "PLUS")
+    def oper3(self, p):
+        pass
+
+    @_("unary { oper4 unary }")
     def factor(self, p):
         return Binary(p[1], p.unary0, p.unary1)
 
-    @_("'(' NOT '|' MINUS ')' unary '|' call")
+    @_("DIVIDE", "TIMES")
+    def oper4(self, p):
+        pass
+
+    @_("oper5 unary")
     def unary(self, p):
         return Unary(p[0], p[1])
 
-    @_("primary { LPAREN [ arguments ] RPAREN '|' POINT IDENT }")
+    @_("call")
+    def unary(self, p):
+        return Unary(p[0], p[1])
+
+    @_("NOT", "MINUS")
+    def oper5(self, p):
+        pass
+
+    @_("primary { oper6 }")
     def call(self, p):
         return Call(p.primary, p[1])
 
-    @_("TRUE '|' FALSE '|' NIL '|' THIS '|' REAL '|' NUM '|' STRING '|' IDENT '|' LPAREN expression RPAREN '|' SUPER POINT IDENT")
+    @_("LPAREN [ arguments ] RPAREN", " POINT IDENT")
+    def oper6(self, p):
+        pass
+
+    @_("TRUE", "FALSE", "NIL", "THIS", "REAL", "NUM", "STRING", "IDENT", "LPAREN expression RPAREN", "SUPER POINT IDENT")
     def primary(self, p):
         return Literal(p[0])
 
