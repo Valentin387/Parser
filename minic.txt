@@ -152,8 +152,8 @@ Rule 148   _24_item -> COMMA expression
 
 Unused terminals:
 
-    RSQBRA
     LSQBRA
+    RSQBRA
 
 Terminals, with rules where they appear:
 
