@@ -112,7 +112,7 @@ class DotRender(Visitor):
 
     def visit(self, node : Statement):
         name  = self.name()
-        label = 'Statements'
+        label = 'Statement'
         if not self.program:
             self.program = True
             label = 'Program'
@@ -182,7 +182,7 @@ class DotRender(Visitor):
             self.dot.edge(name, self.visit(arg))
         return name
 
-    """
+
     def visit(self, node : Bltin):
         name = self.name()
         self.dot.node(name, label=f"Bltin\nname: {node.name}")
@@ -194,6 +194,7 @@ class DotRender(Visitor):
         self.dot.node(name, label=f"Block\nname: {node.name}")
         self.dot.edge(name, self.visit(node.expr))
         return name
+    """
 
     def visit(self, node : Get):
         name = self.name()

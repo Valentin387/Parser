@@ -143,19 +143,20 @@ Rule 139   _23_repeat -> <empty>
 Rule 140   _23_items -> _23_items _23_item
 Rule 141   _23_items -> _23_item
 Rule 142   _23_item -> COMMA IDENT
-Rule 143   arguments -> expression _24_repeat
-Rule 144   _24_repeat -> _24_items
-Rule 145   _24_repeat -> <empty>
-Rule 146   _24_items -> _24_items _24_item
-Rule 147   _24_items -> _24_item
-Rule 148   _24_item -> COMMA expression
+Rule 143   Bltin -> <empty>
+Rule 144   arguments -> expression _24_repeat
+Rule 145   _24_repeat -> _24_items
+Rule 146   _24_repeat -> <empty>
+Rule 147   _24_items -> _24_items _24_item
+Rule 148   _24_items -> _24_item
+Rule 149   _24_item -> COMMA expression
 
 Terminals, with rules where they appear:
 
 AND                  : 75
 ASSIGN               : 21 61
 CLASS                : 11
-COMMA                : 142 148
+COMMA                : 142 149
 DIVIDE               : 109
 ELSE                 : 46
 EQ                   : 82
@@ -195,6 +196,7 @@ error                :
 
 Nonterminals, with rules where they appear:
 
+Bltin                : 
 _10_optional         : 43
 _11_optional         : 49
 _12_item             : 56 57
@@ -230,9 +232,9 @@ _22_optional         : 134
 _23_item             : 140 141
 _23_items            : 138 140
 _23_repeat           : 137
-_24_item             : 146 147
-_24_items            : 144 146
-_24_repeat           : 143
+_24_item             : 147 148
+_24_items            : 145 147
+_24_repeat           : 144
 _2_optional          : 11
 _3_item              : 16 17
 _3_items             : 14 16
@@ -252,7 +254,7 @@ comparison           : 76 81
 declaration          : 6 58
 equality             : 70 75
 expr_stmt            : 29 41
-expression           : 21 30 32 34 37 39 44 48 50 52 61 125 143 148
+expression           : 21 30 32 34 37 39 44 48 50 52 61 125 144 149
 factor               : 94 99
 for_initialize       : 36
 for_stmt             : 28
@@ -2432,7 +2434,7 @@ state 83
     (121) oper6 -> LPAREN . _21_optional RPAREN
     (122) _21_optional -> . arguments
     (123) _21_optional -> .
-    (143) arguments -> . expression _24_repeat
+    (144) arguments -> . expression _24_repeat
     (59) expression -> . assignment
     (60) assignment -> . logic_or
     (61) assignment -> . _13_optional IDENT ASSIGN expression
@@ -3628,13 +3630,13 @@ state 138
 
 state 139
 
-    (143) arguments -> expression . _24_repeat
-    (144) _24_repeat -> . _24_items
-    (145) _24_repeat -> .
-    (146) _24_items -> . _24_items _24_item
-    (147) _24_items -> . _24_item
-    (148) _24_item -> . COMMA expression
-    RPAREN          reduce using rule 145 (_24_repeat -> .)
+    (144) arguments -> expression . _24_repeat
+    (145) _24_repeat -> . _24_items
+    (146) _24_repeat -> .
+    (147) _24_items -> . _24_items _24_item
+    (148) _24_items -> . _24_item
+    (149) _24_item -> . COMMA expression
+    RPAREN          reduce using rule 146 (_24_repeat -> .)
     COMMA           shift and go to state 167
 
     _24_repeat                     shift and go to state 164
@@ -4108,30 +4110,30 @@ state 163
 
 state 164
 
-    (143) arguments -> expression _24_repeat .
-    RPAREN          reduce using rule 143 (arguments -> expression _24_repeat .)
+    (144) arguments -> expression _24_repeat .
+    RPAREN          reduce using rule 144 (arguments -> expression _24_repeat .)
 
 
 state 165
 
-    (144) _24_repeat -> _24_items .
-    (146) _24_items -> _24_items . _24_item
-    (148) _24_item -> . COMMA expression
-    RPAREN          reduce using rule 144 (_24_repeat -> _24_items .)
+    (145) _24_repeat -> _24_items .
+    (147) _24_items -> _24_items . _24_item
+    (149) _24_item -> . COMMA expression
+    RPAREN          reduce using rule 145 (_24_repeat -> _24_items .)
     COMMA           shift and go to state 167
 
     _24_item                       shift and go to state 181
 
 state 166
 
-    (147) _24_items -> _24_item .
-    COMMA           reduce using rule 147 (_24_items -> _24_item .)
-    RPAREN          reduce using rule 147 (_24_items -> _24_item .)
+    (148) _24_items -> _24_item .
+    COMMA           reduce using rule 148 (_24_items -> _24_item .)
+    RPAREN          reduce using rule 148 (_24_items -> _24_item .)
 
 
 state 167
 
-    (148) _24_item -> COMMA . expression
+    (149) _24_item -> COMMA . expression
     (59) expression -> . assignment
     (60) assignment -> . logic_or
     (61) assignment -> . _13_optional IDENT ASSIGN expression
@@ -4441,16 +4443,16 @@ state 180
 
 state 181
 
-    (146) _24_items -> _24_items _24_item .
-    COMMA           reduce using rule 146 (_24_items -> _24_items _24_item .)
-    RPAREN          reduce using rule 146 (_24_items -> _24_items _24_item .)
+    (147) _24_items -> _24_items _24_item .
+    COMMA           reduce using rule 147 (_24_items -> _24_items _24_item .)
+    RPAREN          reduce using rule 147 (_24_items -> _24_items _24_item .)
 
 
 state 182
 
-    (148) _24_item -> COMMA expression .
-    COMMA           reduce using rule 148 (_24_item -> COMMA expression .)
-    RPAREN          reduce using rule 148 (_24_item -> COMMA expression .)
+    (149) _24_item -> COMMA expression .
+    COMMA           reduce using rule 149 (_24_item -> COMMA expression .)
+    RPAREN          reduce using rule 149 (_24_item -> COMMA expression .)
 
 
 state 183

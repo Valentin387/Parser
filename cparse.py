@@ -236,6 +236,10 @@ class Parser(sly.Parser):
     def parameters(self, p):
         return ExprStmt(p[0])
 
+    @_("")
+    def Bltin(self, p):
+        return Bltin(p[0])
+
     @_("expression { COMMA expression }")
     def arguments(self, p):
         return ExprStmt(p[0])
@@ -244,7 +248,7 @@ class Parser(sly.Parser):
         if p:
             print("Error de sintaxis en token", p.type)
             # Just discard the token and tell the parser it's okay.
-            self.errok()
+            self.error()
         else:
             print("Error de sintaxis en EOF")
 
@@ -255,11 +259,12 @@ if __name__ == '__main__':
         print('Usage: python cparse.py filename')
         exit(1)
 
+    file=open(argv[1]).read
     l = Lexer()     # Analizador Lexico
     p = Parser()    # Analizador Sintactico
 
     ast = p.parse( #we'll start to build our AST
-        l.tokenize(open(argv[1], encoding='utf-8'))
+        l.tokenize(file)
     )
     dot = DotRender.render(ast)
 

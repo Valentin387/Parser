@@ -168,6 +168,9 @@ class Super(Expression):
 class This(Expression):
     name   : str
 
+@dataclass
+class Bltin(Expression):
+    name   : str
 
 #---------------------------------------------------------------
 #---------------------------------------------------------------
