@@ -75,8 +75,9 @@ class Lexer(sly.Lexer):
 
         # Operadores de Relacion (long-2)
         PLUS, MINUS, TIMES, DIVIDE, POINT, SEMI, COMMA, LPAREN,
-        RPAREN, LBRACE, RBRACE, LSQBRA, RSQBRA,  LT, LE, GT, GE,
+        RPAREN, LBRACE, RBRACE, LT, LE, GT, GE,
         EQ, NE, AND, OR, NOT, ASSIGN,
+        #LSQBRA, RSQBRA,
 
         # Otros tokens
         IDENT, NUM, REAL, STRING
@@ -113,8 +114,8 @@ class Lexer(sly.Lexer):
     RPAREN =r'\)'
     LBRACE =r'{'
     RBRACE =r'}'
-    LSQBRA =r'\['
-    RSQBRA =r'\]'
+    #LSQBRA =r'\['
+    #RSQBRA =r'\]'
     LE  = r'<='
     LT  = r'<'
     GE  = r'>='

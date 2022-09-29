@@ -150,11 +150,6 @@ Rule 146   _24_items -> _24_items _24_item
 Rule 147   _24_items -> _24_item
 Rule 148   _24_item -> COMMA expression
 
-Unused terminals:
-
-    LSQBRA
-    RSQBRA
-
 Terminals, with rules where they appear:
 
 AND                  : 75
@@ -174,7 +169,6 @@ IF                   : 43
 LBRACE               : 11 53
 LE                   : 90
 LPAREN               : 31 36 43 52 121 125 134
-LSQBRA               : 
 LT                   : 12 91
 MINUS                : 101 112
 NE                   : 83
@@ -189,7 +183,6 @@ RBRACE               : 11 53
 REAL                 : 129
 RETURN               : 49
 RPAREN               : 31 36 43 52 121 125 134
-RSQBRA               : 
 SEMI                 : 20 30 31 31 36 48 49
 STRING               : 127
 SUPER                : 124
