@@ -52,7 +52,7 @@ class ClassDeclaration(Declaration):
 
 
 @dataclass
-class FunDeclaration(Declaration):
+class FuncDeclaration(Declaration):
     name   : str
     methods: List[Expression] = field(default_factory=list)
     stmts  : List[Statement] = field(default_factory=list)

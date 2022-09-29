@@ -69,10 +69,11 @@ parameters ::= IDENTIFIER ( ',' IDENTIFIER )*
 
 arguments ::= expression ( ',' expression )*
 '''
-from clex import Lexer
-import sly
-from rich import print
 from cast import *
+from clex import Lexer
+from render import DotRender
+from rich import print
+import sly
 
 
 class Parser(sly.Parser):
@@ -229,7 +230,7 @@ class Parser(sly.Parser):
 
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
-        return FunDeclaration(p.IDENT, p.parameters, p.block)
+        return FuncDeclaration(p.IDENT, p.parameters, p.block)
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
@@ -248,17 +249,18 @@ class Parser(sly.Parser):
             print("Error de sintaxis en EOF")
 
 if __name__ == '__main__':
-    import sys
+    from sys import argv
 
-    if len(sys.argv) != 2:
+    if len(argv) != 2:
         print('Usage: python cparse.py filename')
-        exit(0)
+        exit(1)
 
     l = Lexer()     # Analizador Lexico
     p = Parser()    # Analizador Sintactico
 
     ast = p.parse( #we'll start to build our AST
-        l.tokenize(open(sys.argv[1], encoding='utf-8'))
+        l.tokenize(open(argv[1], encoding='utf-8'))
     )
+    dot = DotRender.render(ast)
 
-    print(ast)
+    print(dot)
