@@ -69,11 +69,11 @@ parameters ::= IDENTIFIER ( ',' IDENTIFIER )*
 
 arguments ::= expression ( ',' expression )*
 '''
-from cast import *
 from clex import Lexer
-from render import DotRender
-from rich import print
 import sly
+from rich import print
+from cast import *
+from render import DotRender
 
 
 class Parser(sly.Parser):
@@ -121,11 +121,27 @@ class Parser(sly.Parser):
 
     @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        return WhileStmt(p.expresion0, p.statement)
+        body = p.statement
+        if p.expression1:
+            if not isinstance(body, Block):
+                body = Block([ body ])
+
+            body.stmts.append(ExprStmt(p.expression1))
+        body = WhileStmt(p.expression0 or Literal(True), body)
+        body = Block([p.for_initializer, body])
+        return body
+
 
     @_("FOR LPAREN SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        return WhileStmt(p.expresion0, p.statement)
+        body = p.statement
+        if p.expression1:
+            if not isinstance(body, Block):
+                body = Block([ body ])
+
+            body.stmts.append(ExprStmt(p.expression1))
+        body = WhileStmt(p.expression0 or Literal(True), body)
+        return body
 
     @_("var_declaration",
         "expr_stmt")
@@ -166,15 +182,24 @@ class Parser(sly.Parser):
 
     @_("logic_and { OR logic_and }")
     def logic_or(self, p):
-        return Logical(p.OR, p.logic_and0, p.logic_and1)
+        lval = p.logic_and0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("equality { AND equality }")
     def logic_and(self, p):
-        return Logical(p.AND, p.equality0, p.equality1)
+        lval = p.equality0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("comparison { oper1 comparison }")
     def equality(self, p):
-        return Logical(p[1], p.comparison0, p.comparison1)
+        lval = p.comparison0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("NE","EQ")
     def oper1(self, p):
@@ -182,7 +207,10 @@ class Parser(sly.Parser):
 
     @_("term { oper2 term }")
     def comparison(self, p):
-        return Logical(p[1], p.term0, p.term1)
+        lval = p.term0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("GT", "GE",  "LT", "LE")
     def oper2(self, p):
@@ -190,7 +218,10 @@ class Parser(sly.Parser):
 
     @_("factor { oper3 factor }")
     def term(self, p):
-        return Binary(p[1], p.factor0, p.factor1)
+        lval = p.factor0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("MINUS", "PLUS")
     def oper3(self, p):
@@ -198,7 +229,10 @@ class Parser(sly.Parser):
 
     @_("unary { oper4 unary }")
     def factor(self, p):
-        return Binary(p[1], p.unary0, p.unary1)
+        lval = p.unary0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("DIVIDE", "TIMES")
     def oper4(self, p):
@@ -210,7 +244,7 @@ class Parser(sly.Parser):
 
     @_("call")
     def unary(self, p):
-        return Unary(p[0], p[1])
+        return p[0]
 
     @_("NOT", "MINUS")
     def oper5(self, p):
@@ -234,38 +268,40 @@ class Parser(sly.Parser):
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
-        return ExprStmt(p[0])
-
-    @_("")
-    def Bltin(self, p):
-        return Bltin(p[0])
+        lval = p.IDENT0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     @_("expression { COMMA expression }")
     def arguments(self, p):
-        return ExprStmt(p[0])
+        lval = p.expression0
+        for op, rval in p[1]:
+            lval = Logical(op, lval, rval)
+        return lval
 
     def error(self, p):
         if p:
             print("Error de sintaxis en token", p.type)
             # Just discard the token and tell the parser it's okay.
-            self.error()
+            self.errok()
         else:
             print("Error de sintaxis en EOF")
 
 if __name__ == '__main__':
-    from sys import argv
+    import sys
 
-    if len(argv) != 2:
+    if len(sys.argv) != 2:
         print('Usage: python cparse.py filename')
-        exit(1)
+        exit(0)
 
-    file=open(argv[1]).read
     l = Lexer()     # Analizador Lexico
     p = Parser()    # Analizador Sintactico
 
-    ast = p.parse( #we'll start to build our AST
-        l.tokenize(file)
+    #we'll start to build our AST
+    ast = p.parse(
+        l.tokenize(open(sys.argv[1], encoding='utf-8').read())
     )
-    dot = DotRender.render(ast)
-
-    print(dot)
+    print(ast)
+    #dot = DotRender.render(ast)
+    #print(dot)

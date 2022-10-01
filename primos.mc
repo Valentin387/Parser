@@ -4,7 +4,7 @@
 fun isprime(n) {
   var factor = 2;
   while (factor * factor <= n) {
-      if (n % factor == 0) {
+      if (n / factor == 0) {
           return false;
       }
       factor += 1;
