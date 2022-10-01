@@ -128,7 +128,7 @@ class Parser(sly.Parser):
 
             body.stmts.append(ExprStmt(p.expression1))
         body = WhileStmt(p.expression0 or Literal(True), body)
-        body = Block([p.for_initializer, body])
+        body = Block([p.for_initialize, body])
         return body
 
 
@@ -282,7 +282,7 @@ class Parser(sly.Parser):
 
     def error(self, p):
         if p:
-            print("Error de sintaxis en token", p.type)
+            print("Error de sintaxis en token", p.type, "due to: ", p)
             # Just discard the token and tell the parser it's okay.
             self.errok()
         else:

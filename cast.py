@@ -78,13 +78,16 @@ class Print(Statement):
 @dataclass
 class IfStmt(Statement):
     cond   : Expression
-    cons   : Statement           #el consecuente
-    altr   : Statement
+    #cons   : Statement           #el consecuente
+    #altr   : Statement
+    cons   : List [Statement]=field(default_factory=list)
+    altr   : List [Statement]=field(default_factory=list)
 
 @dataclass
 class WhileStmt(Statement):
     cond  : Expression
-    body  : Statement
+    #body  : Statement
+    body  : List[Statement]=field(default_factory=list)
 
 @dataclass
 class Return(Statement):
@@ -168,9 +171,6 @@ class Super(Expression):
 class This(Expression):
     name   : str
 
-@dataclass
-class Bltin(Expression):
-    name   : str
 
 #---------------------------------------------------------------
 #---------------------------------------------------------------

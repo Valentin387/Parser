@@ -2,17 +2,17 @@
 // print "Numeros primos: \n"
 
 fun isprime(n) {
-  var factor = 2;
+  var factor=2;
   while (factor * factor <= n) {
       if (n / factor == 0) {
           return false;
       }
-      factor += 1;
-      }
+      var factor = factor + 1;
+  }
       return true;
 }
 
-for (var n = 2; n <= 100; n += 1) {
+for (n=2; n <= 10; n=n+1) {
     if (isprime(n)) {
         print n;
     }
