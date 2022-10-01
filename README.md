@@ -46,4 +46,4 @@ First fully functional version at commit "finally the parser works"
 
 *renderDesktop01
 
-first approach to graphviz
+Thanks to professeur, the AST is starting to grow good
