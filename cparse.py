@@ -81,6 +81,18 @@ class Parser(sly.Parser):
     # La lista de tokens se copia desde Lexer
     tokens = Lexer.tokens
 
+    # preceencia de operadores
+    precedence = (
+        ('right', ASSIGN),     # menor precedencia
+        ('left', OR),
+        ('left', AND),
+        ('left', EQ, NE),
+        ('left', LT, LE, GT, GE),
+        ('left', PLUS, MINUS),
+        ('left', TIMES, DIVIDE, MODULE),
+        ('right', UNARY),
+    )
+
     # Definimos las reglas en BNF (o en EBNF)
     @_("{ declaration }")
     def program(self, p):
@@ -117,7 +129,8 @@ class Parser(sly.Parser):
 
     @_("expression SEMI")
     def expr_stmt(self, p):
-        return ExprStmt(p.expression)
+        #return ExprStmt(p.expression)
+        pass
 
     @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
@@ -168,99 +181,76 @@ class Parser(sly.Parser):
     def block(self, p):
         return Block(p.declaration)
 
-    @_("assignment")
+    @_("expression ASSIGN expression")
     def expression(self, p):
-        return p[0]
+        if isinstance(p.expression0, Variable):
+            return Assign(p.expression0.name, p.expression1)
+        elif isinstance(p.expression0, Get):
+            return Set(p.expression0.obj, p.expression0.name, p.expression1)
 
-    @_("[ call POINT ] IDENT ASSIGN expression")
-    def assignment(self, p):
-        return Assign(p.IDENT, p.expression)
+    @_("expression OR  expression",
+       "expression AND expression")
+    def expression(self, p):
+        return Logical(p[1], p.expression0, p.expression1)
 
-    @_("logic_or")
-    def assignment(self, p):
-        return p[0]
+    @_("expression PLUS expression",
+       "expression MINUS expression",
+       "expression TIMES expression" ,
+       "expression DIVIDE expression" ,
+       "expression MODULE expression" ,
+       "expression LT  expression" ,
+       "expression LE  expression" ,
+       "expression GT  expression" ,
+       "expression GE  expression" ,
+       "expression EQ  expression" ,
+       "expression NE  expression" )
+    def expression(self, p):
+        return Binary(p[1], p.expression0, p.expression1)
 
-    @_("logic_and { OR logic_and }")
-    def logic_or(self, p):
-        lval = p.logic_and0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
+    @_("factor")
+    def expression(self, p):
+        return p.factor
 
-    @_("equality { AND equality }")
-    def logic_and(self, p):
-        lval = p.equality0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
-
-    @_("comparison { oper1 comparison }")
-    def equality(self, p):
-        lval = p.comparison0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
-
-    @_("NE","EQ")
-    def oper1(self, p):
-        pass
-
-    @_("term { oper2 term }")
-    def comparison(self, p):
-        lval = p.term0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
-
-    @_("GT", "GE",  "LT", "LE")
-    def oper2(self, p):
-        pass
-
-    @_("factor { oper3 factor }")
-    def term(self, p):
-        lval = p.factor0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
-
-    @_("MINUS", "PLUS")
-    def oper3(self, p):
-        pass
-
-    @_("unary { oper4 unary }")
+    @_("REAL", "NUM", "STRING")
     def factor(self, p):
-        lval = p.unary0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
-
-    @_("DIVIDE", "TIMES")
-    def oper4(self, p):
-        pass
-
-    @_("oper5 unary")
-    def unary(self, p):
-        return Unary(p[0], p[1])
-
-    @_("call")
-    def unary(self, p):
-        return p[0]
-
-    @_("NOT", "MINUS")
-    def oper5(self, p):
-        pass
-
-    @_("primary { oper6 }")
-    def call(self, p):
-        return Call(p.primary, p[1])
-
-    @_("LPAREN [ arguments ] RPAREN", " POINT IDENT")
-    def oper6(self, p):
-        pass
-
-    @_("TRUE", "FALSE", "NIL", "THIS", "REAL", "NUM", "STRING", "IDENT", "LPAREN expression RPAREN", "SUPER POINT IDENT")
-    def primary(self, p):
         return Literal(p[0])
+
+    @_("TRUE", "FALSE")
+    def factor(self, p):
+        return Literal(p[0] == 'true')
+
+    @_("NIL")
+    def factor(self, p):
+        return Literal(None)
+
+    @_("THIS")
+    def factor(self, p):
+        return This()
+
+    @_("IDENT")
+    def factor(self, p):
+        return Variable(p.IDENT)
+
+    @_("SUPER POINT IDENT")
+    def factor(self, p):
+        return Super(p.IDENT)
+
+    @_("factor POINT IDENT")
+    def factor(self, p):
+        return Get(p.factor, p.IDENT)
+
+    @_("factor LPAREN [ arguments ] RPAREN ")
+    def factor(self, p):
+        return Call(p.factor, p.arguments)
+
+    @_(" LPAREN expression RPAREN ")
+    def factor(self, p):
+        return Grouping(p.expr)
+
+    @_("MINUS factor %prec UNARY",
+       "NOT factor %prec UNARY")
+    def factor(self, p):
+        return Unary(p[0], p.factor)
 
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
@@ -268,17 +258,11 @@ class Parser(sly.Parser):
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
-        lval = p.IDENT0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
+        return [ p.IDENT0 ] + p.IDENT1
 
     @_("expression { COMMA expression }")
     def arguments(self, p):
-        lval = p.expression0
-        for op, rval in p[1]:
-            lval = Logical(op, lval, rval)
-        return lval
+        return [ p. expression0 ] + p.expression1
 
     def error(self, p):
         if p:

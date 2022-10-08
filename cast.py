@@ -169,7 +169,7 @@ class Super(Expression):
 
 @dataclass
 class This(Expression):
-    name   : str
+    pass
 
 
 #---------------------------------------------------------------

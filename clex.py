@@ -76,13 +76,13 @@ class Lexer(sly.Lexer):
         # Operadores de Relacion (long-2)
         PLUS, MINUS, TIMES, DIVIDE, POINT, SEMI, COMMA, LPAREN,
         RPAREN, LBRACE, RBRACE, LT, LE, GT, GE,
-        EQ, NE, AND, OR, NOT, ASSIGN,
+        EQ, NE, AND, OR, NOT, ASSIGN, MODULE,
         #LSQBRA, RSQBRA,
 
         # Otros tokens
         IDENT, NUM, REAL, STRING
     }
-    literals = '+-*/=(){}[];,'
+    literals = '+-*/%=(){}[];,'
 
     # Ignoramos espacios en blanco (white-space)
     ignore = ' \t\r'
@@ -126,6 +126,7 @@ class Lexer(sly.Lexer):
     OR  = r'\|\|'
     NOT = r'!'
     ASSIGN=r'='
+    MODULE=r'%'
 
     IDENT = r'[a-zA-Z_][a-zA-Z0-9_]*'
     IDENT['fun']    = FUN
