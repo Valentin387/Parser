@@ -6,14 +6,14 @@ fun isprime(n) {
   while (factor * factor <= n) {
       if (n % factor == 0) {
           return false;
-      }
-      var factor = factor + 1;
+      }end_if
+      factor = factor + 1;
   }
       return true;
 }
 
 for (n=2; n <= 10; n=n+1) {
     if (isprime(n)) {
-        print n;
-    }
+        print(n);
+    }end_if
 }

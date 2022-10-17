@@ -76,7 +76,7 @@ class Lexer(sly.Lexer):
         # Operadores de Relacion (long-2)
         PLUS, MINUS, TIMES, DIVIDE, POINT, SEMI, COMMA, LPAREN,
         RPAREN, LBRACE, RBRACE, LT, LE, GT, GE,
-        EQ, NE, AND, OR, NOT, ASSIGN, MODULE,
+        EQ, NE, AND, OR, NOT, ASSIGN, MODULE, END_IF,
         #LSQBRA, RSQBRA,
 
         # Otros tokens
@@ -145,6 +145,7 @@ class Lexer(sly.Lexer):
     IDENT['nil']  = NIL
     IDENT['this']  = THIS
     IDENT['super']  = SUPER
+    IDENT['end_if'] = END_IF
 
     @_(r'".*"')
     def STRING(self, t):

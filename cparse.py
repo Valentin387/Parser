@@ -160,12 +160,13 @@ class Parser(sly.Parser):
         "expr_stmt")
     def for_initialize(self, p):
         return p[0]
-
-    @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ]  ")
+#########################################
+    @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ] END_IF")
     def if_stmt(self, p):
         return IfStmt(p.expression, p.statement0, p.statement1)
 
-    @_("PRINT expression SEMI")
+#########################################
+    @_("PRINT LPAREN expression RPAREN SEMI")
     def print_stmt(self, p):
         return Print(p.expression)
 
