@@ -35,7 +35,7 @@ class Parser(sly.Parser):
     def declaration(self, p):
         return p[0]
 
-    @_("CLASS IDENT [ LT IDENT ] LBRACE { function } RBRACE ")
+    @_("CLASS IDENT [ LPAREN LT IDENT RPAREN ] LBRACE { function } RBRACE ")
     def class_declaration(self, p):
         return ClassDeclaration(p.IDENT0, p.IDENT1, p.function)
 
@@ -59,8 +59,8 @@ class Parser(sly.Parser):
 
     @_("expression SEMI")
     def expr_stmt(self, p):
-        #return ExprStmt(p.expression)
-        pass
+        return ExprStmt(p.expression)
+        #pass
 
     @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
@@ -176,7 +176,7 @@ class Parser(sly.Parser):
 
     @_(" LPAREN expression RPAREN ")
     def factor(self, p):
-        return Grouping(p.expr)
+        return Grouping(p.expression)
 
     @_("MINUS factor %prec UNARY",
        "NOT factor %prec UNARY")
@@ -218,5 +218,5 @@ if __name__ == '__main__':
         l.tokenize(open(sys.argv[1], encoding='utf-8').read())
     )
     print(ast)
-    #dot = DotRender.render(ast)
-    #print(dot)
+    dot = DotRender.render(ast)
+    print(dot)
