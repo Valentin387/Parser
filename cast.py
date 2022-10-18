@@ -54,7 +54,7 @@ class ClassDeclaration(Declaration):
 @dataclass
 class FuncDeclaration(Declaration):
     name   : str
-    methods: List[Expression] = field(default_factory=list)
+    parameters: List[Expression] = field(default_factory=list)
     stmts  : List[Statement] = field(default_factory=list)
 
 @dataclass

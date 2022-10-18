@@ -1,74 +1,4 @@
-'''
-program ::= declaration*                 { } - repeticion (0 o mas)
-                                         [ ] - opcionalidad
-Declaration ::= classDecl
-  | funDecl
-  | varDecl
-  | statement
 
-classDecl ::= 'class' IDENTIFIER ( '<' IDENTIFIER )?
-  '{' function* '}'
-
-funDecl ::= 'fun' function
-
-varDecl ::= 'var' IDENTIFIER ( '=' expression )? ';'
-
-statement ::= exprStmt
-  | forStmt
-  | ifStmt
-  | printStmt
-  | returnStmt
-  | whileStmt
-  | block
-
-exprStmt ::= expression ';'
-
-forStmt ::= 'for' '(' ( varDecl | exprStmt )? ';'
-  expression? ';'
-  expression? ')' statement
-
-ifStmt ::= 'if' '(' expression ')' statement
-  ( 'else' statement )?
-
-printStmt ::= 'print' expression ';'
-
-returnStmt ::= 'return' expression? ';'
-
-whileStmt ::= 'while' '(' expression ')' statement
-
-block ::= '{' declaration* '}'
-
-expression ::= assignment
-
-assignment ::= ( call '.' )? IDENTIFIER '=' expression
-   | logic_or
-
-logic_or ::= logic_and ( '||' logic_and )*
-
-logic_and ::= equality ( '&&' equality )*
-
-equality ::= comparison ( ( '!=' | '==' ) comparison )*
-
-comparison ::= term ( ( '>' | '>=' | '<' | '<=' ) term )*
-
-term ::= factor ( ( '-' | '+' ) factor )*
-
-factor ::= unary ( ( '/' | '*' ) unary )*
-
-unary ::= ( '!' | '-' ) unary | call
-
-call ::= primary ( '(' arguments? ')' | '.' IDENTIFIER )*
-
-primary ::= 'true' | 'false' | 'nil' | 'this'
-   | NUMBER | STRING | IDENTIFIER | '(' expression ')'
-   | 'super' '.' IDENTIFIER
-
-function ::= IDENTIFIER '(' parameters? ')' block
-
-parameters ::= IDENTIFIER ( ',' IDENTIFIER )*
-
-arguments ::= expression ( ',' expression )*
-'''
 from clex import Lexer
 import sly
 from rich import print
@@ -111,7 +41,7 @@ class Parser(sly.Parser):
 
     @_("FUN function")
     def func_declaration(self, p):
-        return p[0]
+        return p[1]
 
     @_("VAR IDENT [ ASSIGN expression ] SEMI")
     def var_declaration(self, p):
