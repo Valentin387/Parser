@@ -1,222 +1,267 @@
+# checker.py
 
-from clex import Lexer
-import sly
-from rich import print
 from cast import *
-from render import DotRender
+
+# ---------------------------------------------------------------------
+#  Tabla de Simbolos
+# ---------------------------------------------------------------------
+
+class Symtab:
+    '''
+    Tabla de símbolos.
+
+    Este es un objeto simple que sólo mantiene una hashtable (dict)
+    de nombres de simbolos y los nodos de declaracion a los que se
+    refieren.
+    Hay una tabla de simbolos separada para cada elemento de
+    código que tiene su propio contexto (por ejemplo cada función,
+    clase, tendra su propia tabla de simbolos). Como resultado,
+    las tablas de simbolos se pueden anidar si los elementos de
+    código estan anidados y las búsquedas de las tablas de
+    simbolos se repetirán hacia arriba a través de los padres
+    para representar las reglas de alcance léxico.
+    '''
+    class SymbolDefinedError(Exception):
+        '''
+        Se genera una excepción cuando el código intenta agregar
+        un simbol a una tabla donde el simbol ya se ha definido.
+        Tenga en cuenta que 'definido' se usa aquí en el sentido
+        del lenguaje C, es decir, 'se ha asignado espacio para el
+        simbol', en lugar de una declaración.
+        '''
+        pass
+
+    def __init__(self, parent=None):
+        '''
+        Crea una tabla de símbolos vacia con la tabla de
+        simbolos padre dada.
+        '''
+        self.entries = {}
+        self.parent = parent
+        if self.parent:
+            self.parent.children.append(self)
+        self.children = []
+
+    def add(self, name, value):
+        '''
+        Agrega un simbol con el valor dado a la tabla de simbolos.
+        El valor suele ser un nodo AST que representa la declaración
+        o definición de una función, variable (por ejemplo, Declaración
+        o FuncDeclaration)
+        '''
+        if name in self.entries:
+            raise Symtab.SymbolDefinedError()
+        self.entries[name] = value
+
+    def get(self, name):
+        '''
+        Recupera el símbol con el nombre dado de la tabla de
+        simbol, recurriendo hacia arriba a traves de las tablas
+        de simbol principales si no se encuentra en la actual.
+        '''
+        if name in self.entries:
+            return self.entries[name]
+        elif self.parent:
+            return self.parent.get(name)
+        return None
 
 
-class Parser(sly.Parser):
-    debugfile="minic.txt"
-    # La lista de tokens se copia desde Lexer
-    tokens = Lexer.tokens
 
-    # preceencia de operadores
-    precedence = (
-        ('right', ASSIGN),     # menor precedencia
-        ('left', OR),
-        ('left', AND),
-        ('left', EQ, NE),
-        ('left', LT, LE, GT, GE),
-        ('left', PLUS, MINUS),
-        ('left', TIMES, DIVIDE, MODULE),
-        ('right', UNARY),
-    )
+class Checker(Visitor):
+    '''
+    Visitante que crea y enlaza tablas de simbolos al AST
+    '''
+    def _add_symbol(self, node, env: Symtab):
+        '''
+        Intenta agregar un símbolo para el nodo dado a
+        la tabla de símbolos actual, capturando cualquier
+        excepción que ocurra e imprimiendo errores si es
+        necesario.
+        '''
+        try:
+            env.add(node.name, node)
+        except Symtab.SymbolDefinedError:
+            self.error(f"Simbol '{node.name}' esta definido.")
 
-    # Definimos las reglas en BNF (o en EBNF)
-    @_("{ declaration }")
-    def program(self, p):
-        return Program(p.declaration)
+    def error(self, txt):
+        pass
 
-    @_("class_declaration",
-       "func_declaration",
-       "var_declaration",
-       "statement")
-    def declaration(self, p):
-        return p[0]
+    @classmethod
+    def check(cls, model):
+        checker = cls()
+        model.accept(checker, Symtab())
+        return checker
 
-    @_("CLASS IDENT [ LPAREN LT IDENT RPAREN ] LBRACE { function } RBRACE ")
-    def class_declaration(self, p):
-        return ClassDeclaration(p.IDENT0, p.IDENT1, p.function)
+    # nodos de Declaration
 
-    @_("FUN function")
-    def func_declaration(self, p):
-        return p[1]
+    def visit(self, node: ClassDeclaration, env: Symtab):
+        '''
+        1. Agregar el nombre de la clase a la tabla de simbolos actual
+        2. Si esta definida la superclass, buscarla. Si no se encuentra,
+           especificar un error.
+        3. Crear una nueva tabla de simbolos (contexto)
+        4. Visitar la definicion de metodos de la clase.
+        '''
+        self._add_symbol(node, env)
+        if node.sclass:
+            value = env.get(node.sclass)
+            if value is None:
+                self.error(f"No se encontró la clase: '{node.sclass}'")
+        env = Symtab(env)
+        for meth in node.methods:
+            meth.accept(self, env)
 
-    @_("VAR IDENT [ ASSIGN expression ] SEMI")
-    def var_declaration(self, p):
-        return VarDeclaration(p.IDENT, p.expression)
+    def visit(self, node: FuncDeclaration, env: Symtab):
+        '''
+        1. Agregar el nombre de la función a la tabla de simbolos actual
+        2. Crear una nueva tabla de simbolos (contexto)
+        3. Agregamos los parametros a la nueva tabla de simbolos
+        4. Visitar cada una de las instrucciones del cuerpo de la funcion
+        '''
+        self._add_symbol(node, env)
+        env = Symtab(env)
+        for param in node.params:
+            self._add_symbol(VarDeclaration(param), env)
+        for stmt in node.stmts:
+            stmt.accept(self, env)
 
-    @_("expr_stmt",
-       "for_stmt",
-       "if_stmt",
-       "print_stmt",
-       "return_stmt",
-       "while_stmt",
-       "block")
-    def statement(self, p):
-        return p[0]
+    def visit(self, node: VarDeclaration, env: Symtab):
+        '''
+        1. Agregar el nombre de la variable a la tabla de simbolos actual
+        2. Visitar la expresion, si esta definida
+        '''
+        self._add_symbol(node, env)
+        if node.expr:
+            node.expr.accept(self, env)
 
-    @_("expression SEMI")
-    def expr_stmt(self, p):
-        return ExprStmt(p.expression)
-        #pass
+    # Statement
 
-    @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
-    def for_stmt(self, p):
-        body = p.statement
-        if p.expression1:
-            if not isinstance(body, Block):
-                body = Block([ body ])
+    def visit(self, node: Block, env: Symtab):
+        '''
+        1. Visitar cada una de las instrucciones
+        '''
+        for stmt in node.stmts:
+            stmt.accept(self, env)
 
-            body.stmts.append(ExprStmt(p.expression1))
-        body = WhileStmt(p.expression0 or Literal(True), body)
-        body = Block([p.for_initialize, body])
-        return body
+    def visit(self, node: Print, env: Symtab):
+        '''
+        1. Visitar expresion
+        '''
+        node.expr.accept(self, env)
 
+    def visit(self, node: IfStmt, env: Symtab):
+        '''
+        1. Visitar la condicion
+        2. Visitar las instrucciones del then
+        3. Visitar las instrucciones del opt, si esta definido
+        '''
+        node.cond.accept(self, env)
+        node.cons.accept(self, env)
+        if node.altr:
+            node.altr.accept(self, env)
 
-    @_("FOR LPAREN SEMI [ expression ] SEMI [ expression ] RPAREN statement")
-    def for_stmt(self, p):
-        body = p.statement
-        if p.expression1:
-            if not isinstance(body, Block):
-                body = Block([ body ])
+    def visit(self, node: WhileStmt, env: Symtab):
+        '''
+        1. Visitar la condicion
+        2. Visitar las instrucciones del cuerpo
+        Nota : ¿Generar un nuevo contexto?
+        '''
+        node.cond.accept(self, env)
+        # env = Symtab(env) ?????
+        node.body.accept(self, env)
 
-            body.stmts.append(ExprStmt(p.expression1))
-        body = WhileStmt(p.expression0 or Literal(True), body)
-        return body
+    def visit(self, node: Return, env: Symtab):
+        '''
+        1. Visitar expresion
+        '''
+        if node.expr:
+            node.expr.accept(self, env)
 
-    @_("var_declaration",
-        "expr_stmt")
-    def for_initialize(self, p):
-        return p[0]
-#########################################
-    @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ] END_IF")
-    def if_stmt(self, p):
-        return IfStmt(p.expression, p.statement0, p.statement1)
+    def visit(self, node: ExprStmt, env: Symtab):
+        '''
+        1. Visitar expresion
+        '''
+        node.expr.accept(self, env)
 
-#########################################
-    @_("PRINT LPAREN expression RPAREN SEMI")
-    def print_stmt(self, p):
-        return Print(p.expression)
+    # Expression
 
-    @_("RETURN [ expression ] SEMI")
-    def return_stmt (self, p):
-        return Return(p.expression)
+    def visit(self, node: Literal, env: Symtab):
+        '''
+        No se hace nada
+        '''
+        pass
 
-    @_("WHILE LPAREN expression RPAREN statement")
-    def while_stmt(self, p):
-        return WhileStmt(p.expression, p.statement)
+    def visit(self, node: Binary, env: Symtab):
+        '''
+        1. Visitar el hijo izquierdo
+        2. Visitar el hijo derecho
+        '''
+        pass
 
-    @_("LBRACE { declaration } RBRACE")
-    def block(self, p):
-        return Block(p.declaration)
+    def visit(self, node: Logical, env: Symtab):
+        '''
+        1. Visitar el hijo izquierdo
+        2. Visitar el hijo derecho
+        '''
+        pass
 
-    @_("expression ASSIGN expression")
-    def expression(self, p):
-        if isinstance(p.expression0, Variable):
-            return Assign(p.expression0.name, p.expression1)
-        elif isinstance(p.expression0, Get):
-            return Set(p.expression0.obj, p.expression0.name, p.expression1)
+    def visit(self, node: Unary, env: Symtab):
+        '''
+        1. Visitar expresion
+        '''
+        pass
 
-    @_("expression OR  expression",
-       "expression AND expression")
-    def expression(self, p):
-        return Logical(p[1], p.expression0, p.expression1)
+    def visit(self, node: Grouping, env: Symtab):
+        '''
+        1. Visita Expresion
+        '''
+        pass
 
-    @_("expression PLUS expression",
-       "expression MINUS expression",
-       "expression TIMES expression" ,
-       "expression DIVIDE expression" ,
-       "expression MODULE expression" ,
-       "expression LT  expression" ,
-       "expression LE  expression" ,
-       "expression GT  expression" ,
-       "expression GE  expression" ,
-       "expression EQ  expression" ,
-       "expression NE  expression" )
-    def expression(self, p):
-        return Binary(p[1], p.expression0, p.expression1)
+    def visit(self, node: Variable, env: Symtab):
+        '''
+        1. Buscar nombre en la tabla de simbolos (contexto actual)
+        '''
+        pass
 
-    @_("factor")
-    def expression(self, p):
-        return p.factor
+    def visit(self, node: Assign, env: Symtab):
+        '''
+        1. Visitar el hijo izquierdo (OJO)
+        2. Visitar el hijo derecho
+        '''
+        pass
 
-    @_("REAL", "NUM", "STRING")
-    def factor(self, p):
-        return Literal(p[0])
+    def visit(self, node: Call, env: Symtab):
+        '''
+        1. Buscar la funcion en la tabla de simbolos
+        2. Validar el numero de argumentos pasados
+        3. Visitar las expr de los argumentos
+        '''
+        pass
 
-    @_("TRUE", "FALSE")
-    def factor(self, p):
-        return Literal(p[0] == 'true')
+    def visit(self, node: Get, env: Symtab):
+        '''
+        1. Buscar objeto en la tabla de simbolos (contexto actual)
+        2. Buscar nombre en la tabla de simbolos (contexto actual)
+        '''
+        pass
 
-    @_("NIL")
-    def factor(self, p):
-        return Literal(None)
+    def visit(self, node: Set, env: Symtab):
+        '''
+        1. Buscar objeto en la tabla de simbolos (contexto actual)
+        2. Buscar nombre en la tabla de simbolos (contexto actual)
+        3. Visitar expresion
+        '''
+        pass
 
-    @_("THIS")
-    def factor(self, p):
-        return This()
+    def visit(self, node: This, env: Symtab):
+        '''
+        No hacemos nada (debe de estar en un contexto de una clase)
+        '''
+        pass
 
-    @_("IDENT")
-    def factor(self, p):
-        return Variable(p.IDENT)
-
-    @_("SUPER POINT IDENT")
-    def factor(self, p):
-        return Super(p.IDENT)
-
-    @_("factor POINT IDENT")
-    def factor(self, p):
-        return Get(p.factor, p.IDENT)
-
-    @_("factor LPAREN [ arguments ] RPAREN ")
-    def factor(self, p):
-        return Call(p.factor, p.arguments)
-
-    @_(" LPAREN expression RPAREN ")
-    def factor(self, p):
-        return Grouping(p.expression)
-
-    @_("MINUS factor %prec UNARY",
-       "NOT factor %prec UNARY")
-    def factor(self, p):
-        return Unary(p[0], p.factor)
-
-    @_("IDENT LPAREN [ parameters ] RPAREN block")
-    def function(self, p):
-        return FuncDeclaration(p.IDENT, p.parameters, p.block)
-
-    @_("IDENT { COMMA IDENT }")
-    def parameters(self, p):
-        return [ p.IDENT0 ] + p.IDENT1
-
-    @_("expression { COMMA expression }")
-    def arguments(self, p):
-        return [ p. expression0 ] + p.expression1
-
-    def error(self, p):
-        if p:
-            print("Error de sintaxis en token", p.type, "due to: ", p)
-            # Just discard the token and tell the parser it's okay.
-            self.errok()
-        else:
-            print("Error de sintaxis en EOF")
-
-if __name__ == '__main__':
-    import sys
-
-    if len(sys.argv) != 2:
-        print('Usage: python cparse.py filename')
-        exit(0)
-
-    l = Lexer()     # Analizador Lexico
-    p = Parser()    # Analizador Sintactico
-
-    #we'll start to build our AST
-    ast = p.parse(
-        l.tokenize(open(sys.argv[1], encoding='utf-8').read())
-    )
-    print(ast)
-    dot = DotRender.render(ast)
-    print(dot)
+    def visit(self, node: Super, env: Symtab):
+        '''
+        1. Buscar nombre en la tabla de simbolos (contexto actual)
+        Debe de estar en el contexto de una clase
+        '''
+        pass
