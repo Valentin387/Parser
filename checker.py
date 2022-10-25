@@ -61,7 +61,8 @@ class Symtab:
             return self.entries[name]
         elif self.parent:
             return self.parent.get(name)
-        return None
+        else:
+            return None
 
 
 
@@ -82,7 +83,7 @@ class Checker(Visitor):
             self.error(f"Simbol '{node.name}' esta definido.")
 
     def error(self, txt):
-        pass
+        raise Exception(txt)
 
     @classmethod
     def check(cls, model):
