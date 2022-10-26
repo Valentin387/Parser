@@ -14,12 +14,72 @@ from typing import Any, List
 
 @dataclass
 class Visitor(metaclass=multimeta):
-    '''
-    Implementa el patrón Visitor
-    '''
-    pass
+
+    def visit(self, node : ClassDeclaration):
+        pass
+
+    def visit(self, node : FuncDeclaration):
+        pass
+
+    def visit(self, node : Print):
+        pass
+
+    def visit(self, node : IfStmt):
+        pass
+
+    def visit(self, node : WhileStmt):
+        pass
+
+    def visit(self, node : Return):
+        pass
+
+    def visit(self, node : ExprStmt):
+        pass
+
+    def visit(self, node : Block):
+        pass
+
+    def visit(self, node : Literal):
+        pass
+
+    def visit(self, node : Binary):
+        pass
+
+    def visit(self, node : Logical):
+        pass
+
+    def visit(self, node : Unary):
+        pass
+
+    def visit(self, node : Grouping):
+        pass
+
+    def visit(self, node : Variable):
+        pass
+
+    def visit(self, node : Assign):
+        pass
+
+    def visit(self, node : Call):
+        pass
+
+    def visit(self, node : Get):
+        pass
+
+    def visit(self, node : Set):
+        pass
+
+    def visit(self, node : This):
+        pass
+
+    def visit(self, node : Super):
+        pass
+
+    def visit(self, node : List):
+        pass
 
 
+#################################################
 @dataclass
 class Node:
     def accept(self, vis: Visitor, *args, **kwargs): #no son punteros como en C
