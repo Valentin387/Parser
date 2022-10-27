@@ -3,6 +3,9 @@ from cast import *
 # ---------------------------------------------------------------------
 #  Tabla de Simbolos
 # ---------------------------------------------------------------------
+"""
+Valentín Valencia Valencia
+"""
 
 class Symtab:
     '''
@@ -70,6 +73,7 @@ class Checker(Visitor):
     '''
     Visitante que crea y enlaza tablas de simbolos al AST
     '''
+
     def _add_symbol(self, node, env: Symtab):
         '''
         Intenta agregar un símbolo para el nodo dado a
@@ -88,9 +92,16 @@ class Checker(Visitor):
     @classmethod
     def check(cls, model):
         checker = cls()
-        model.accept(checker, Symtab())
+        model.accept(checker)
         return checker
 
+    ###################
+    #this is the gateway
+    def visit(self, node: Node):
+        s1=Symtab()
+        self.visit(node, s1)
+
+    ###################
     # nodos de Declaration
 
     def visit(self, node: ClassDeclaration, env: Symtab):
@@ -108,7 +119,7 @@ class Checker(Visitor):
                 self.error(f"No se encontró la clase: '{node.sclass}'")
         env = Symtab(env)
         for meth in node.methods:
-            meth.accept(self, env)
+            self.visit(meth, env)
 
     def visit(self, node: FuncDeclaration, env: Symtab):
         '''
@@ -119,10 +130,10 @@ class Checker(Visitor):
         '''
         self._add_symbol(node, env)
         env = Symtab(env)
-        for param in node.params:
-            self._add_symbol(VarDeclaration(param), env)
+        for param in node.parameters:
+            self._add_symbol(Variable(param), env)
         for stmt in node.stmts:
-            stmt.accept(self, env)
+            self.visit(stmt, env)
 
     def visit(self, node: VarDeclaration, env: Symtab):
         '''
@@ -131,22 +142,30 @@ class Checker(Visitor):
         '''
         self._add_symbol(node, env)
         if node.expr:
-            node.expr.accept(self, env)
+            self.visit(node.expr, env)
 
     # Statement
+    def visit(self, node: Program, env: Symtab):
+        '''
+        1. Visitar decl
+        '''
+        #self._add_symbol(node, env)
+        for d in node.decl:
+            self.visit(d, env)
+
 
     def visit(self, node: Block, env: Symtab):
         '''
         1. Visitar cada una de las instrucciones
         '''
         for stmt in node.stmts:
-            stmt.accept(self, env)
+            self.visit(stmt, env)
 
     def visit(self, node: Print, env: Symtab):
         '''
         1. Visitar expresion
         '''
-        node.expr.accept(self, env)
+        self.visit(node.expr, env)
 
     def visit(self, node: IfStmt, env: Symtab):
         '''
@@ -154,10 +173,10 @@ class Checker(Visitor):
         2. Visitar las instrucciones del then
         3. Visitar las instrucciones del opt, si esta definido
         '''
-        node.cond.accept(self, env)
-        node.cons.accept(self, env)
+        self.visit(node.cond, env)
+        self.visit(node.cons, env)
         if node.altr:
-            node.altr.accept(self, env)
+            self.visit(node.altr, env)
 
     def visit(self, node: WhileStmt, env: Symtab):
         '''
@@ -165,22 +184,22 @@ class Checker(Visitor):
         2. Visitar las instrucciones del cuerpo
         Nota : ¿Generar un nuevo contexto?
         '''
-        node.cond.accept(self, env)
+        self.visit(node.cond, env)
         # env = Symtab(env) ?????
-        node.body.accept(self, env)
+        self.visit(node.body, env)
 
     def visit(self, node: Return, env: Symtab):
         '''
         1. Visitar expresion
         '''
         if node.expr:
-            node.expr.accept(self, env)
+            self.visit(node.expr, env)
 
     def visit(self, node: ExprStmt, env: Symtab):
         '''
         1. Visitar expresion
         '''
-        node.expr.accept(self, env)
+        self.visit(node.expr, env)
 
     # Expression
 
@@ -195,39 +214,48 @@ class Checker(Visitor):
         1. Visitar el hijo izquierdo
         2. Visitar el hijo derecho
         '''
-        pass
+        self.visit(node.left)
+        self.visit(node.right)
 
     def visit(self, node: Logical, env: Symtab):
         '''
         1. Visitar el hijo izquierdo
         2. Visitar el hijo derecho
         '''
-        pass
+        self.visit(node.left)
+        self.visit(node.right)
 
     def visit(self, node: Unary, env: Symtab):
         '''
         1. Visitar expresion
         '''
-        pass
+        self.visit(node.expr)
 
     def visit(self, node: Grouping, env: Symtab):
         '''
         1. Visita Expresion
         '''
-        pass
+        self.visit(node.expr)
 
     def visit(self, node: Variable, env: Symtab):
         '''
         1. Buscar nombre en la tabla de simbolos (contexto actual)
         '''
-        pass
+        result = env.get(node.name)
+        if result is None:
+            self.error(f"Simbolo '{node.name}' no esta definido")
 
     def visit(self, node: Assign, env: Symtab):
         '''
-        1. Visitar el hijo izquierdo (OJO)
-        2. Visitar el hijo derecho
-        '''
-        pass
+		1. Verificar "node.var" en la symtab actual
+			Ahora node.var se guarda como una variable, por lo que
+			si se visita node.var, cuando entre al nodo tipo variable
+			se determina si esta o no definido dicha variable
+		2. Visitar/Recorrer "node.expr"
+		'''
+        self.visit(node.name)
+        self.visit(node.expr)
+
 
     def visit(self, node: Call, env: Symtab):
         '''
@@ -235,14 +263,28 @@ class Checker(Visitor):
         2. Validar el numero de argumentos pasados
         3. Visitar las expr de los argumentos
         '''
-        pass
+        self.visit(node.func)
+        result = env.get(node.func.name)
+        if node.args is not None:
+            for arg in node.args:
+                self.visit(arg)
+
+        print("nodo: ", type(result))
+        if result is FuncDeclaration:
+            if result is not None:
+                if result.parameters is not None:
+                    if len(result.parameters)!=len(node.args):
+                        self.error("arguments given don't match expected arguments")
 
     def visit(self, node: Get, env: Symtab):
         '''
         1. Buscar objeto en la tabla de simbolos (contexto actual)
         2. Buscar nombre en la tabla de simbolos (contexto actual)
         '''
-        pass
+        self.visit(node.obj)
+        nam = self.env.get(node.name)
+        if nam is None:
+            self.error(f"Simbol '{node.name}' no esta definido")
 
     def visit(self, node: Set, env: Symtab):
         '''
@@ -250,7 +292,11 @@ class Checker(Visitor):
         2. Buscar nombre en la tabla de simbolos (contexto actual)
         3. Visitar expresion
         '''
-        pass
+        self.visit(node.obj)
+        nam= self.curr_symtab.get(node.name)
+
+        if nam is None:
+            self.error(f"Simbol '{node.name}' no esta definido")
 
     def visit(self, node: This, env: Symtab):
         '''

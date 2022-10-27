@@ -4,6 +4,7 @@ import sly
 from rich import print
 from cast import *
 from render import DotRender
+from checker import *
 
 
 class Parser(sly.Parser):
@@ -219,5 +220,7 @@ if __name__ == '__main__':
     )
     print(ast)
     dot = DotRender.render(ast)
-    #dot.visit(ast)
     print(dot)
+
+    ch1 = Checker()
+    ch1.check(ast)

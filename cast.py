@@ -20,10 +20,9 @@ class Visitor(metaclass=multimeta):
 
 #################################################
 @dataclass
-class Node:
+class Node():
     def accept(self, vis: Visitor): #no son punteros como en C
         return vis.visit(self)
-
 
 @dataclass
 class Statement(Node):
