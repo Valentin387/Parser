@@ -7,6 +7,7 @@ Valentín Valencia Valencia
 """
 
 class DotRender(Visitor):
+
     node_default = {
         'shape' : 'box',
         'color' : 'deepskyblue',
@@ -22,7 +23,7 @@ class DotRender(Visitor):
 
         self.dot.attr('node', **self.node_default)
         self.dot.attr('edge', **self.edge_defaults)
-        #self.program = False
+        self.program = False
         self.seq = 0
         self.cont=0
 
@@ -32,20 +33,26 @@ class DotRender(Visitor):
     def __str__(self):
         return self.dot.source
 
-    """
+
     @classmethod
     def render(cls, model):
         dot = cls()
         model.accept(dot)
         return dot.dot
-    """
+
 
     def name(self):
         self.seq +=1
-        print("I'am alive")
         return f'n{self.seq:02d}'
 
     # nodos de Declaration
+
+    def visit(self, node : ClassDeclaration):
+        name = self.name()
+        self.dot.node(name, label=f"ClassDeclaration\nname='{node.name}' - {node.sclass}")
+        for meth in node.methods:
+            self.dot.edge(name, self.visit(method))
+        return name
 
     def visit(self, node : ClassDeclaration):
         name = self.name()
@@ -73,6 +80,13 @@ class DotRender(Visitor):
 
     # Statement
 
+    def visit(self, node : Program):
+        name = self.name()
+        self.dot.node(name, label="Program", color=self.color)
+        for d in node.decl:
+            self.dot.edge(name, self.visit(d))
+        return name
+
     def visit(self, node : Print):
         name = self.name()
         self.dot.node(name,
@@ -87,8 +101,8 @@ class DotRender(Visitor):
             label='IfStmt',
             color=self.color)
         self.dot.edge(name, self.visit(node.cond), label='test')
-        for con in cons:
-            self.dot.edge(name, self.visit(node.con), label='then')
+        if node.cons:
+            self.dot.edge(name, self.visit(node.cons), label='then')
         if node.altr:
             self.dot.edge(name, self.visit(node.altr), label='else')
         return name
@@ -99,8 +113,7 @@ class DotRender(Visitor):
             label='WhileStmt',
             color=self.color)
         self.dot.edge(name, self.visit(node.cond), label='test')
-        for bod in body:
-            self.dot.edge(name, self.visit(node.bod), label='body')
+        self.dot.edge(name, self.visit(node.body), label='body')
         return name
 
     def visit(self, node : Return):
@@ -144,7 +157,7 @@ class DotRender(Visitor):
             value = "true"
         elif node.value is False:
             value = "false"
-        self.dot.node(name, label=f"Literal\nvalue={node.value}")
+        self.dot.node(name, label=f"Literal\nvalue={value}")
         return name
 
     def visit(self, node : Binary):

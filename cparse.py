@@ -218,6 +218,6 @@ if __name__ == '__main__':
         l.tokenize(open(sys.argv[1], encoding='utf-8').read())
     )
     print(ast)
-    dot = DotRender()
-    dot.visit(ast)
+    dot = DotRender.render(ast)
+    #dot.visit(ast)
     print(dot)

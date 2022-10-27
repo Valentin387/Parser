@@ -4,10 +4,10 @@ cast.py
 Estructura del árbol de síntaxis abstracto
 '''
 from ast import Str
-from dataclasses import dataclass, field
-from multimethod import multimeta
-from unicodedata import name
+from dataclasses import *
 from typing import Any, List
+from unicodedata import name
+from multimethod import multimeta
 
 #---------------------------------------------------------------
 #clases abstractas
@@ -68,6 +68,7 @@ class VarDeclaration(Declaration):
 
 @dataclass
 class Program(Statement):
+    name   : str
     decl   : List[Statement] = field(default_factory=list)
 
 @dataclass
@@ -162,6 +163,9 @@ class Get(Expression):
 class Super(Expression):
     name   : str
 
+@dataclass
+class List(Expression):
+    name   : str
 
 @dataclass
 class This(Expression):
