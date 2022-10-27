@@ -2,6 +2,9 @@
 from cast import *
 from graphviz import Digraph
 
+"""
+Valentín Valencia Valencia
+"""
 
 class DotRender(Visitor):
     node_default = {
@@ -16,10 +19,12 @@ class DotRender(Visitor):
 
     def __init__(self):
         self.dot = Digraph('AST')
+
         self.dot.attr('node', **self.node_default)
         self.dot.attr('edge', **self.edge_defaults)
-        self.program = False
+        #self.program = False
         self.seq = 0
+        self.cont=0
 
     def __repr__(self):
         return self.dot.source
@@ -27,14 +32,17 @@ class DotRender(Visitor):
     def __str__(self):
         return self.dot.source
 
+    """
     @classmethod
     def render(cls, model):
         dot = cls()
         model.accept(dot)
         return dot.dot
+    """
 
     def name(self):
         self.seq +=1
+        print("I'am alive")
         return f'n{self.seq:02d}'
 
     # nodos de Declaration
@@ -43,15 +51,15 @@ class DotRender(Visitor):
         name = self.name()
         self.dot.node(name, label=f"ClassDeclaration\nname='{node.name}' - {node.sclass}")
         for meth in node.methods:
-            self.dot.edge(name, meth.accept(self))
+            self.dot.edge(name, self.visit(method))
         return name
 
     def visit(self, node : FuncDeclaration):
         name = self.name()
         self.dot.node(name,
-            label=f"FuncDeclaration\nname:'{node.name}'\nparams: {node.params}",
+            label=f"FuncDeclaration\nname:'{node.name}'\nparams: {node.parameters}",
             color=self.color)
-        self.dot.edge(name, node.stmts.accept(self))
+        self.dot.edge(name, self.visit(node.stmts))
         return name
 
     def visit(self, node : VarDeclaration):
@@ -78,10 +86,11 @@ class DotRender(Visitor):
         self.dot.node(name,
             label='IfStmt',
             color=self.color)
-        self.dot.edge(name, node.test.accept(self), label='test')
-        self.dot.edge(name, node.cons.accept(self), label='then')
+        self.dot.edge(name, self.visit(node.cond), label='test')
+        for con in cons:
+            self.dot.edge(name, self.visit(node.con), label='then')
         if node.altr:
-            self.dot.edge(name, node.altr.accept(self), label='else')
+            self.dot.edge(name, self.visit(node.altr), label='else')
         return name
 
     def visit(self, node : WhileStmt):
@@ -89,8 +98,9 @@ class DotRender(Visitor):
         self.dot.node(name,
             label='WhileStmt',
             color=self.color)
-        self.dot.edge(name, self.visit(node.test), label='test')
-        self.dot.edge(name, self.visit(node.body), label='body')
+        self.dot.edge(name, self.visit(node.cond), label='test')
+        for bod in body:
+            self.dot.edge(name, self.visit(node.bod), label='body')
         return name
 
     def visit(self, node : Return):
@@ -134,7 +144,7 @@ class DotRender(Visitor):
             value = "true"
         elif node.value is False:
             value = "false"
-        self.dot.node(name, label=f"Literal\nvalue={value}")
+        self.dot.node(name, label=f"Literal\nvalue={node.value}")
         return name
 
     def visit(self, node : Binary):
