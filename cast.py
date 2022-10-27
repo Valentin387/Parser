@@ -3,9 +3,10 @@ cast.py
 
 Estructura del árbol de síntaxis abstracto
 '''
-
+from ast import Str
 from dataclasses import dataclass, field
 from multimethod import multimeta
+from unicodedata import name
 from typing import Any, List
 
 #---------------------------------------------------------------
