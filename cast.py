@@ -68,7 +68,6 @@ class VarDeclaration(Declaration):
 
 @dataclass
 class Program(Statement):
-    name   : str
     decl   : List[Statement] = field(default_factory=list)
 
 @dataclass
