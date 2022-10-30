@@ -54,13 +54,6 @@ class DotRender(Visitor):
             self.dot.edge(name, self.visit(method))
         return name
 
-    def visit(self, node : ClassDeclaration):
-        name = self.name()
-        self.dot.node(name, label=f"ClassDeclaration\nname='{node.name}' - {node.sclass}")
-        for meth in node.methods:
-            self.dot.edge(name, self.visit(method))
-        return name
-
     def visit(self, node : FuncDeclaration):
         name = self.name()
         self.dot.node(name,
