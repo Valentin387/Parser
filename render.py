@@ -131,7 +131,7 @@ class DotRender(Visitor):
         label = 'Block'
         if not self.program:
             self.program = True
-            label = 'Program'
+            label = 'Block'
         else:
             label = str("Block")
         self.dot.node(name,

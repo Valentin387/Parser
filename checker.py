@@ -93,8 +93,9 @@ class Checker(Visitor):
     @classmethod
     def check(cls, model):
         check = cls()
+        print("Starting cheking process")
         model.accept(check)
-        print("I finished")
+        print("Cheking process finished")
         return check
 
     ###################
@@ -158,7 +159,6 @@ class Checker(Visitor):
         #self._add_symbol(node, env)
         for d in node.decl:
             self.visit(d, env)
-
 
     def visit(self, node: Block, env: Symtab):
         '''
@@ -263,9 +263,21 @@ class Checker(Visitor):
 			se determina si esta o no definido dicha variable
 		2. Visitar/Recorrer "node.expr"
 		'''
-        self.visit(node.name, env)
+        ########################################
+        """
+        print("\n\n")
+        print(env.entries)
+        print("\n\n")
+        print("I'm going to explore Assign.name")
+        result = env.get(node.name)
+        if result is None:
+            print("NOT FOUND")
+        else:
+            print("FOUND")
+        """
+        #self.visit(node.name, env) #I just have to check if it's already defined before
+        #print("I explored Assign.name")
         self.visit(node.expr, env)
-
 
     def visit(self, node: Call, env: Symtab):
         '''
