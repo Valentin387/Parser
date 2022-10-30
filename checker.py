@@ -298,7 +298,7 @@ class Checker(Visitor):
             for arg in node.args:
                 self.visit(arg, env)
 
-        print("nodo: ", type(result))
+        #print("nodo: ", type(result))
         if result is FuncDeclaration:
             if result is not None:
                 if result.parameters is not None:
