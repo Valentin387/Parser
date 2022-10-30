@@ -14,7 +14,7 @@ fun fib(n){
   end_if
 }
 
-//main
+ //main
 for (var i = 1; i < 20; i = i + 1) {
   print(fin(m));
 }
