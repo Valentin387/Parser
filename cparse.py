@@ -1,11 +1,7 @@
 
 from clex import Lexer
 import sly
-from rich import print
 from cast import *
-from render import DotRender
-from checker import *
-
 
 class Parser(sly.Parser):
     debugfile="minic.txt"
@@ -119,6 +115,8 @@ class Parser(sly.Parser):
             return Assign(p.expression0.name, p.expression1)
         elif isinstance(p.expression0, Get):
             return Set(p.expression0.obj, p.expression0.name, p.expression1)
+        else:
+            raise SyntaxError(f"{p.lineno}: No se pudo asignar {p.expression0}")
 
     @_("expression OR  expression",
        "expression AND expression")
@@ -175,6 +173,10 @@ class Parser(sly.Parser):
     def factor(self, p):
         return Call(p.factor, p.arguments)
 
+    @_("factor LPAREN  RPAREN ")
+    def factor(self, p):
+        return Call(p.factor, None)
+
     @_(" LPAREN expression RPAREN ")
     def factor(self, p):
         return Grouping(p.expression)
@@ -187,6 +189,10 @@ class Parser(sly.Parser):
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
         return FuncDeclaration(p.IDENT, p.parameters, p.block)
+
+    @_("IDENT LPAREN  RPAREN block")
+    def function(self, p):
+        return FuncDeclaration(p.IDENT, None, p.block)
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):
@@ -203,23 +209,3 @@ class Parser(sly.Parser):
             self.errok()
         else:
             print("Error de sintaxis en EOF")
-
-if __name__ == '__main__':
-    import sys
-
-    if len(sys.argv) != 2:
-        print('Usage: python cparse.py filename')
-        exit(0)
-
-    l = Lexer()     # Analizador Lexico
-    p = Parser()    # Analizador Sintactico
-
-    #we'll start to build our AST
-    ast = p.parse(
-        l.tokenize(open(sys.argv[1], encoding='utf-8').read())
-    )
-    print(ast)
-    dot = DotRender.render(ast)
-    print(dot)
-
-    ch1 = Checker().check(ast)

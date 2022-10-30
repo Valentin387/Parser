@@ -84,7 +84,7 @@ class Checker(Visitor):
         try:
             env.add(node.name, node)
         except Symtab.SymbolDefinedError:
-            self.error(f"Simbolo '{node.name}' ya está definido.")
+            self.error(f"Símbolo '{node.name}' ya está definido.")
 
     def error(self, txt):
         #raise Exception(txt)
@@ -94,11 +94,12 @@ class Checker(Visitor):
     def check(cls, model):
         check = cls()
         model.accept(check)
+        print("I finished")
         return check
 
     ###################
     #this is the gateway
-    def visit(self, node: Node, env=None):
+    def visit(self, node: Node):
         s1=Symtab()
         self.visit(node, s1)
 
@@ -206,7 +207,10 @@ class Checker(Visitor):
         '''
         1. Visitar expresion
         '''
-        self.visit(node.expr, env)
+        print("hey")
+        if node.expr is not None:
+            self.visit(node.expr, env)
+        print("bye")
 
     # Expression
 
@@ -253,7 +257,7 @@ class Checker(Visitor):
 
         result = env.get(node.name)
         if result is None:
-            self.error(f"Simbole '{node.name}' no esta definido")
+            self.error(f"Simbole '{node.name}' no está definido")
 
     def visit(self, node: Assign, env: Symtab):
         '''
@@ -295,7 +299,7 @@ class Checker(Visitor):
         self.visit(node.obj, env)
         nam = self.env.get(node.name)
         if nam is None:
-            self.error(f"Simbol '{node.name}' no esta definido")
+            self.error(f"Simbol '{node.name}' no está definido")
 
     def visit(self, node: Set, env: Symtab):
         '''
@@ -307,7 +311,7 @@ class Checker(Visitor):
         nam= env.get(node.name)
 
         if nam is None:
-            self.error(f"Simbol '{node.name}' no esta definido")
+            self.error(f"Simbol '{node.name}' no está definido")
 
     def visit(self, node: This, env: Symtab):
         '''

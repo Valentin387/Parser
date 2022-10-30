@@ -165,18 +165,3 @@ class Lexer(sly.Lexer):
     def error(self, t):
         print("Illegal character '%s'" % t.value[0] + " at line: " + str(self.lineno))
         self.index += 1
-
-
-
-if __name__ == '__main__':
-    import sys
-
-    if len(sys.argv) != 2:
-        print('Usage: python clex.py filename')
-        exit(0)
-
-    lex = Lexer()
-    txt = open(sys.argv[1]).read()
-
-    for tok in lex.tokenize(txt):
-        print(tok)
