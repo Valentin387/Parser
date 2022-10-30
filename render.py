@@ -132,6 +132,8 @@ class DotRender(Visitor):
         if not self.program:
             self.program = True
             label = 'Program'
+        else:
+            label = str("Block")
         self.dot.node(name,
             label=label,
             color=self.color)
@@ -155,21 +157,21 @@ class DotRender(Visitor):
 
     def visit(self, node : Binary):
         name = self.name()
-        self.dot.node(name, label=f"'{node.op}'")
+        self.dot.node(name, label=f"Binary'{node.op}'")
         self.dot.edge(name, self.visit(node.left))
         self.dot.edge(name, self.visit(node.right))
         return name
 
     def visit(self, node : Logical):
         name = self.name()
-        self.dot.node(name, label=f"'{node.op}'")
+        self.dot.node(name, label=f"Logical'{node.op}'")
         self.dot.edge(name, self.visit(node.left))
         self.dot.edge(name, self.visit(node.right))
         return name
 
     def visit(self, node: Unary):
         name = self.name()
-        self.dot.node(name, label=f'{node.op}')
+        self.dot.node(name, label=f'Unary{node.op}')
         self.dot.edge(name, self.visit(node.expr))
         return name
 
@@ -181,7 +183,7 @@ class DotRender(Visitor):
 
     def visit(self, node : Variable):
         name = self.name()
-        self.dot.node(name, label=f"{node.name}")
+        self.dot.node(name, label=f"Variable{node.name}")
         return name
 
     def visit(self, node : Assign):

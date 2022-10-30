@@ -173,10 +173,6 @@ class Parser(sly.Parser):
     def factor(self, p):
         return Call(p.factor, p.arguments)
 
-    @_("factor LPAREN  RPAREN ")
-    def factor(self, p):
-        return Call(p.factor, None)
-
     @_(" LPAREN expression RPAREN ")
     def factor(self, p):
         return Grouping(p.expression)
@@ -189,10 +185,6 @@ class Parser(sly.Parser):
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):
         return FuncDeclaration(p.IDENT, p.parameters, p.block)
-
-    @_("IDENT LPAREN  RPAREN block")
-    def function(self, p):
-        return FuncDeclaration(p.IDENT, None, p.block)
 
     @_("IDENT { COMMA IDENT }")
     def parameters(self, p):

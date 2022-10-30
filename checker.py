@@ -207,10 +207,8 @@ class Checker(Visitor):
         '''
         1. Visitar expresion
         '''
-        print("hey")
         if node.expr is not None:
             self.visit(node.expr, env)
-        print("bye")
 
     # Expression
 
@@ -225,7 +223,6 @@ class Checker(Visitor):
         1. Visitar el hijo izquierdo
         2. Visitar el hijo derecho
         '''
-
         self.visit(node.left, env)
         self.visit(node.right, env)
 
@@ -254,7 +251,6 @@ class Checker(Visitor):
         '''
         1. Buscar nombre en la tabla de simbolos (contexto actual)
         '''
-
         result = env.get(node.name)
         if result is None:
             self.error(f"Simbole '{node.name}' no está definido")
