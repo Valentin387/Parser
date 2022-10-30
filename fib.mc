@@ -9,7 +9,7 @@ fun fib(n){
   if (n <= 1){
     return 1;
   }else{
-    return fib(ni-1) + fib(no-2);
+    return fib(n-1) + fib(j-2);
   }
   end_if
 }

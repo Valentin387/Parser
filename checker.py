@@ -84,20 +84,21 @@ class Checker(Visitor):
         try:
             env.add(node.name, node)
         except Symtab.SymbolDefinedError:
-            self.error(f"Simbolo '{node.name}' esta definido.")
+            self.error(f"Simbolo '{node.name}' ya está definido.")
 
     def error(self, txt):
-        raise Exception(txt)
+        #raise Exception(txt)
+        print(txt)
 
     @classmethod
     def check(cls, model):
-        checker = cls()
-        model.accept(checker)
-        return checker
+        check = cls()
+        model.accept(check)
+        return check
 
     ###################
     #this is the gateway
-    def visit(self, node: Node):
+    def visit(self, node: Node, env=None):
         s1=Symtab()
         self.visit(node, s1)
 
@@ -128,29 +129,14 @@ class Checker(Visitor):
         3. Agregamos los parametros a la nueva tabla de simbolos
         4. Visitar cada una de las instrucciones del cuerpo de la funcion
         '''
-        print("context 0")
-        print(env.entries)
-        print("\n\n")
 
         self._add_symbol(node, env)
-
-        print("context 0 after adding fib")
-        print(env.entries)
-        print("\n\n")
 
         env = Symtab(env)
         self._add_symbol(node, env)
 
-        print("new context withOUT parameters of fib")
-        print(env.entries)
-        print("\n\n")
-
         for param in node.parameters:
             self._add_symbol(Variable(param), env)
-
-        print("new context with parameters of fib")
-        print(env.entries)
-        print("\n\n")
 
         self.visit(node.stmts, env)
 
@@ -192,9 +178,6 @@ class Checker(Visitor):
         2. Visitar las instrucciones del then
         3. Visitar las instrucciones del opt, si esta definido
         '''
-        print("the context that arrives to the first IF")
-        print(env.entries)
-        print("\n\n")
 
         self.visit(node.cond, env)
         self.visit(node.cons, env)
@@ -207,8 +190,9 @@ class Checker(Visitor):
         2. Visitar las instrucciones del cuerpo
         Nota : ¿Generar un nuevo contexto?
         '''
+
         self.visit(node.cond, env)
-        env = Symtab(env) #?????
+        #env = Symtab(env) #?????
         self.visit(node.body, env)
 
     def visit(self, node: Return, env: Symtab):
@@ -237,9 +221,6 @@ class Checker(Visitor):
         1. Visitar el hijo izquierdo
         2. Visitar el hijo derecho
         '''
-        print("the context that arrives to BINARY")
-        print(env.entries)
-        print("\n\n")
 
         self.visit(node.left, env)
         self.visit(node.right, env)
@@ -292,7 +273,8 @@ class Checker(Visitor):
         2. Validar el numero de argumentos pasados
         3. Visitar las expr de los argumentos
         '''
-        self.visit(node.func)
+
+        self.visit(node.func, env)
         result = env.get(node.func.name)
         if node.args is not None:
             for arg in node.args:
@@ -310,7 +292,7 @@ class Checker(Visitor):
         1. Buscar objeto en la tabla de simbolos (contexto actual)
         2. Buscar nombre en la tabla de simbolos (contexto actual)
         '''
-        self.visit(node.obj)
+        self.visit(node.obj, env)
         nam = self.env.get(node.name)
         if nam is None:
             self.error(f"Simbol '{node.name}' no esta definido")
@@ -321,7 +303,7 @@ class Checker(Visitor):
         2. Buscar nombre en la tabla de simbolos (contexto actual)
         3. Visitar expresion
         '''
-        self.visit(node.obj)
+        self.visit(node.obj, env)
         nam= env.get(node.name)
 
         if nam is None:

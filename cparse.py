@@ -222,5 +222,4 @@ if __name__ == '__main__':
     dot = DotRender.render(ast)
     print(dot)
 
-    #ch1 = Checker()
-    Checker.check(ast)
+    ch1 = Checker().check(ast)
