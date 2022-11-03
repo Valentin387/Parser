@@ -31,8 +31,12 @@ if __name__ == '__main__':
     ast = p.parse(
         l.tokenize(open(sys.argv[1], encoding='utf-8').read())
     )
+    print("\n\n\t\t************ AST ************ \n\n")
     print(ast)
+    print("\n\n")
+
     dot = DotRender.render(ast) #render
     print(dot)
+    print("\n")
 
     Checker().check(ast) # Analizador semántico

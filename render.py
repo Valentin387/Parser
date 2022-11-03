@@ -131,9 +131,6 @@ class DotRender(Visitor):
         label = 'Block'
         if not self.program:
             self.program = True
-            label = 'Block'
-        else:
-            label = str("Block")
         self.dot.node(name,
             label=label,
             color=self.color)
@@ -152,26 +149,26 @@ class DotRender(Visitor):
             value = "true"
         elif node.value is False:
             value = "false"
-        self.dot.node(name, label=f"Literal\nvalue={value}")
+        self.dot.node(name, label=f"Literal\nvalue= {value}")
         return name
 
     def visit(self, node : Binary):
         name = self.name()
-        self.dot.node(name, label=f"Binary'{node.op}'")
+        self.dot.node(name, label=f"Binary '{node.op}'")
         self.dot.edge(name, self.visit(node.left))
         self.dot.edge(name, self.visit(node.right))
         return name
 
     def visit(self, node : Logical):
         name = self.name()
-        self.dot.node(name, label=f"Logical'{node.op}'")
+        self.dot.node(name, label=f"Logical '{node.op}'")
         self.dot.edge(name, self.visit(node.left))
         self.dot.edge(name, self.visit(node.right))
         return name
 
     def visit(self, node: Unary):
         name = self.name()
-        self.dot.node(name, label=f'Unary{node.op}')
+        self.dot.node(name, label=f'Unary {node.op}')
         self.dot.edge(name, self.visit(node.expr))
         return name
 
@@ -183,7 +180,7 @@ class DotRender(Visitor):
 
     def visit(self, node : Variable):
         name = self.name()
-        self.dot.node(name, label=f"Variable{node.name}")
+        self.dot.node(name, label=f"Variable {node.name}")
         return name
 
     def visit(self, node : Assign):
@@ -194,7 +191,7 @@ class DotRender(Visitor):
 
     def visit(self, node : Call):
         name = self.name()
-        self.dot.node(name, label=f"Call")
+        self.dot.node(name, label=f"Call ")
         self.dot.edge(name, self.visit(node.func))
         for arg in node.args:
             self.dot.edge(name, self.visit(arg))
@@ -215,7 +212,7 @@ class DotRender(Visitor):
 
     def visit(self, node : This):
         name = self.name()
-        self.dot.node(name, label='this')
+        self.dot.node(name, label='this ')
         return name
 
     def visit(self, node : Super):
@@ -225,5 +222,5 @@ class DotRender(Visitor):
 
     def visit(self, node : List):
         name = self.name()
-        self.dot.node(name, label=f'super {node.name}')
+        self.dot.node(name, label=f'list {node.name}')
         return name

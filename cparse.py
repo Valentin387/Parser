@@ -116,7 +116,7 @@ class Parser(sly.Parser):
         elif isinstance(p.expression0, Get):
             return Set(p.expression0.obj, p.expression0.name, p.expression1)
         else:
-            raise SyntaxError(f"{p.lineno}: No se pudo asignar {p.expression0}")
+            raise SyntaxError(f"{p.lineno}: Sorry, it was imporrsible to assign {p.expression0}")
 
     @_("expression OR  expression",
        "expression AND expression")
@@ -196,8 +196,8 @@ class Parser(sly.Parser):
 
     def error(self, p):
         if p:
-            print("Error de sintaxis en token", p.type, "due to: ", p)
+            print("PARSER ERROR, Syntax error in the Token", p.type, "due to: ", p)
             # Just discard the token and tell the parser it's okay.
             self.errok()
         else:
-            print("Error de sintaxis en EOF")
+            print("PARSER ERROR, Syntax Error in EOF")

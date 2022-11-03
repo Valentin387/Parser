@@ -84,7 +84,7 @@ class Checker(Visitor):
         try:
             env.add(node.name, node)
         except Symtab.SymbolDefinedError:
-            self.error(f"Símbolo '{node.name}' ya está definido.")
+            self.error(f"Checker error, this symbol '{node.name}' is already defined.")
 
     def error(self, txt):
         #raise Exception(txt)
@@ -93,9 +93,9 @@ class Checker(Visitor):
     @classmethod
     def check(cls, model):
         check = cls()
-        print("Starting cheking process \n")
+        print("***********Starting cheking process*********** \n")
         model.accept(check)
-        print("\nCheking process finished")
+        print("\n***********Cheking process finished***********")
         return check
 
     ###################
@@ -119,7 +119,7 @@ class Checker(Visitor):
         if node.sclass:
             value = env.get(node.sclass)
             if value is None:
-                self.error(f"No se encontró la clase padre: '{node.sclass}'")
+                self.error(f"Checker error, parent class not found: '{node.sclass}'")
         env = Symtab(env)
         for meth in node.methods:
             self.visit(meth, env)
@@ -135,6 +135,8 @@ class Checker(Visitor):
         self._add_symbol(node, env)
 
         env = Symtab(env)
+        #the inner environment must know about the function itself
+        #to allow recursivity
         self._add_symbol(node, env)
 
         for param in node.parameters:
@@ -253,7 +255,7 @@ class Checker(Visitor):
         '''
         result = env.get(node.name)
         if result is None:
-            self.error(f"Simbole '{node.name}' no está definido")
+            self.error(f"Checker error, the variable '{node.name}' is not defined")
 
     def visit(self, node: Assign, env: Symtab):
         '''
@@ -263,19 +265,13 @@ class Checker(Visitor):
 			se determina si esta o no definido dicha variable
 		2. Visitar/Recorrer "node.expr"
 		'''
-        ########################################
-        """
-        print("\n\n")
-        print(env.entries)
-        print("\n\n")
-        print("I'm going to explore Assign.name")
-        """
+
+        #I just have to check if it's already defined before
         result = env.get(node.name)
         if result is None:
-            self.error(f"Simbole '{node.name}' no está definido")
+            self.error(f"Checker error. Assign left symbol '{node.name}' is not defined")
 
-        #self.visit(node.name, env) #I just have to check if it's already defined before
-        #print("I explored Assign.name")
+        #DON'T DO: self.visit(node.name, env)
         self.visit(node.expr, env)
 
     def visit(self, node: Call, env: Symtab):
@@ -291,12 +287,11 @@ class Checker(Visitor):
             for arg in node.args:
                 self.visit(arg, env)
 
-        #print("nodo: ", type(result))
         if result is FuncDeclaration:
             if result is not None:
                 if result.parameters is not None:
                     if len(result.parameters)!=len(node.args):
-                        self.error("arguments given don't match expected arguments")
+                        self.error("Checker error, given arguments don't match expected arguments in Call")
 
     def visit(self, node: Get, env: Symtab):
         '''
@@ -304,9 +299,9 @@ class Checker(Visitor):
         2. Buscar nombre en la tabla de simbolos (contexto actual)
         '''
         self.visit(node.obj, env)
-        nam = self.env.get(node.name)
+        nam = env.get(node.name)
         if nam is None:
-            self.error(f"Simbol '{node.name}' no está definido")
+            self.error(f"Checker error. Get symbol '{node.name}' is not defined")
 
     def visit(self, node: Set, env: Symtab):
         '''
@@ -318,7 +313,7 @@ class Checker(Visitor):
         nam= env.get(node.name)
 
         if nam is None:
-            self.error(f"Simbol '{node.name}' no está definido")
+            self.error(f"Checker Error. Set symbol '{node.name}' is not defined")
 
     def visit(self, node: This, env: Symtab):
         '''

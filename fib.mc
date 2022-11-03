@@ -9,12 +9,14 @@ fun fib(n){
   if (n <= 1){
     return 1;
   }else{
-    return fib(n-1) + fib(j-2);
+    return fib(n-1) + fib(n-2);
   }
   end_if
 }
 
  //main
-for (var i = 1; i < 20; t = i + 1) {
-  print(fin(i));
+for (var i = 1; i < 20; i = i + 1) {
+  print(fib(i));
 }
+
+i=1;
