@@ -143,7 +143,11 @@ class Checker(Visitor):
             for param in node.parameters:
                 self._add_symbol(Variable(param), env)
 
-        self.visit(node.stmts, env)
+        result = self.visit(node.stmts, env)
+
+        if result != 1:
+            self.error(f"Checker error, no Return Stmt in function '{node.name}'")
+
 
     def visit(self, node: VarDeclaration, env: Symtab):
         '''
@@ -169,6 +173,10 @@ class Checker(Visitor):
         '''
         for stmt in node.stmts:
             self.visit(stmt, env)
+        if isinstance(node.stmts[-1], Return):
+            return 1
+        else:
+            return 0
 
     def visit(self, node: Print, env: Symtab):
         '''
@@ -199,6 +207,14 @@ class Checker(Visitor):
         self.visit(node.cond, env)
         env = Symtab(env) #?????
         self.visit(node.body, env)
+
+    def visit(self, node: ForStmt, env: Symtab):
+
+        env = Symtab(env) #?????
+        self.visit(node.for_init, env)
+        self.visit(node.for_cond, env)
+        self.visit(node.for_increment, env)
+        self.visit(node.for_body, env)
 
     def visit(self, node: Return, env: Symtab):
         '''

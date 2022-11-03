@@ -109,6 +109,19 @@ class DotRender(Visitor):
         self.dot.edge(name, self.visit(node.body), label='body')
         return name
 
+    ###
+    def visit(self, node : ForStmt):
+        name = self.name()
+        self.dot.node(name,
+            label='ForStmt',
+            color=self.color)
+        self.dot.edge(name, self.visit(node.for_init), label='init')
+        self.dot.edge(name, self.visit(node.for_cond), label='cond')
+        self.dot.edge(name, self.visit(node.for_increment), label='increment')
+        self.dot.edge(name, self.visit(node.for_body), label='body')
+        return name
+    ###
+
     def visit(self, node : Return):
         name = self.name()
         self.dot.node(name,

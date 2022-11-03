@@ -18,5 +18,3 @@ fun fib(n){
 for (var i = 1; i < 20; i = i + 1) {
   print(fib(i));
 }
-
-i=1;

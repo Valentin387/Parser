@@ -85,6 +85,13 @@ class WhileStmt(Statement):
     body  : List[Statement]=field(default_factory=list)
 
 @dataclass
+class ForStmt(Statement):
+    for_init : Expression
+    for_cond : Expression
+    for_increment : Expression
+    for_body : List[Statement]=field(default_factory=list)
+
+@dataclass
 class Return(Statement):
     expr  : Expression
 

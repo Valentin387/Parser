@@ -61,27 +61,11 @@ class Parser(sly.Parser):
 
     @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        body = p.statement
-        if p.expression1:
-            if not isinstance(body, Block):
-                body = Block([ body ])
-
-            body.stmts.append(ExprStmt(p.expression1))
-        body = WhileStmt(p.expression0 or Literal(True), body)
-        body = Block([p.for_initialize, body])
-        return body
-
+        return ForStmt(p.for_initialize,p.expression0,p.expression1,p.statement)
 
     @_("FOR LPAREN SEMI [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
-        body = p.statement
-        if p.expression1:
-            if not isinstance(body, Block):
-                body = Block([ body ])
-
-            body.stmts.append(ExprStmt(p.expression1))
-        body = WhileStmt(p.expression0 or Literal(True), body)
-        return body
+        return ForStmt(None,p.expression0,p.expression1,p.statement)
 
     @_("var_declaration",
         "expr_stmt")
