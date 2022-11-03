@@ -139,8 +139,9 @@ class Checker(Visitor):
         #to allow recursivity
         self._add_symbol(node, env)
 
-        for param in node.parameters:
-            self._add_symbol(Variable(param), env)
+        if node.parameters:
+            for param in node.parameters:
+                self._add_symbol(Variable(param), env)
 
         self.visit(node.stmts, env)
 
@@ -183,6 +184,7 @@ class Checker(Visitor):
         '''
 
         self.visit(node.cond, env)
+        env = Symtab(env)
         self.visit(node.cons, env)
         if node.altr:
             self.visit(node.altr, env)

@@ -116,7 +116,7 @@ class Parser(sly.Parser):
         elif isinstance(p.expression0, Get):
             return Set(p.expression0.obj, p.expression0.name, p.expression1)
         else:
-            raise SyntaxError(f"{p.lineno}: Sorry, it was imporrsible to assign {p.expression0}")
+            raise SyntaxError(f"{p.lineno}: PARSER ERROR, it was impossible to assign {p.expression0}")
 
     @_("expression OR  expression",
        "expression AND expression")
