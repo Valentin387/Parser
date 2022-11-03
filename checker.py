@@ -93,9 +93,9 @@ class Checker(Visitor):
     @classmethod
     def check(cls, model):
         check = cls()
-        print("Starting cheking process")
+        print("Starting cheking process \n")
         model.accept(check)
-        print("Cheking process finished")
+        print("\nCheking process finished")
         return check
 
     ###################
@@ -193,7 +193,7 @@ class Checker(Visitor):
         '''
 
         self.visit(node.cond, env)
-        #env = Symtab(env) #?????
+        env = Symtab(env) #?????
         self.visit(node.body, env)
 
     def visit(self, node: Return, env: Symtab):
@@ -269,12 +269,11 @@ class Checker(Visitor):
         print(env.entries)
         print("\n\n")
         print("I'm going to explore Assign.name")
+        """
         result = env.get(node.name)
         if result is None:
-            print("NOT FOUND")
-        else:
-            print("FOUND")
-        """
+            self.error(f"Simbole '{node.name}' no está definido")
+
         #self.visit(node.name, env) #I just have to check if it's already defined before
         #print("I explored Assign.name")
         self.visit(node.expr, env)

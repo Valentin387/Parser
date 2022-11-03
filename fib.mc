@@ -15,6 +15,6 @@ fun fib(n){
 }
 
  //main
-for (var i = 1; i < 20; i = i + 1) {
-  print(fin(m));
+for (var i = 1; i < 20; t = i + 1) {
+  print(fin(i));
 }
