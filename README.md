@@ -55,4 +55,13 @@ The first light at the end of the tunnel
 *laptop_Oct_26
 
 I started to parse XD the Camila's version
+
+This branch has the first fully functional lexer, parser, ast, render & checker
 ______________
+
+* (FinalProject_v1)
+
+I start to work in final delivery of the compiler
+
+
+
