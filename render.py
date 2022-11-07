@@ -49,7 +49,7 @@ class DotRender(Visitor):
 
     def visit(self, node : ClassDeclaration):
         name = self.name()
-        self.dot.node(name, label=f"ClassDeclaration\nname='{node.name}' - {node.sclass}")
+        self.dot.node(name, label=fr"ClassDeclaration\nname='{node.name}' - {node.sclass}")
         for meth in node.methods:
             self.dot.edge(name, self.visit(method))
         return name
@@ -57,7 +57,7 @@ class DotRender(Visitor):
     def visit(self, node : FuncDeclaration):
         name = self.name()
         self.dot.node(name,
-            label=f"FuncDeclaration\nname:'{node.name}'\nparams: {node.parameters}",
+            label=fr"FuncDeclaration\nname:'{node.name}'\nparams: {node.parameters}",
             color=self.color)
         self.dot.edge(name, self.visit(node.stmts))
         return name
@@ -65,7 +65,7 @@ class DotRender(Visitor):
     def visit(self, node : VarDeclaration):
         name = self.name()
         self.dot.node(name,
-            label=f"VarDeclaration\nname={node.name}",
+            label=fr"VarDeclaration\nname={node.name}",
             color=self.color)
         if node.expr:
             self.dot.edge(name, self.visit(node.expr), label='init')
@@ -162,7 +162,7 @@ class DotRender(Visitor):
             value = "true"
         elif node.value is False:
             value = "false"
-        self.dot.node(name, label=f"Literal\nvalue= {value}")
+        self.dot.node(name, label=fr"Literal\nvalue= {value}")
         return name
 
     def visit(self, node : Binary):
@@ -198,7 +198,7 @@ class DotRender(Visitor):
 
     def visit(self, node : Assign):
         name = self.name()
-        self.dot.node(name, label=f"Assign\nname: '{node.name}'")
+        self.dot.node(name, label=fr"Assign\nname: '{node.name}'")
         self.dot.edge(name, self.visit(node.expr))
         return name
 
