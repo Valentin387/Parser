@@ -20,11 +20,12 @@ optional arguments:
   -S, --asm          Store the generated assembly file
   -R, --exec         Execute the generated program
 '''
-import docopt
+#import docopt
 
-from argparse import ArgumentParser
+#from argparse import ArgumentParser
 from context2 import Context
 from rich import print
+from render import DotRender
 
 
 def main(argv):
@@ -32,14 +33,14 @@ def main(argv):
         raise SystemExit(f'usage: mc.py filename')
 
     ctxt = Context()
-    if len(sys.argv) == 2:
-        with open(argv[1], enconding='utf-8') as file:
+    if len(argv) == 2:
+        with open(argv[1]) as file:
             source = file.read()
         ctxt.parse(source)
         print("\n\n\t\t********** AST ********** \n\n")
-        print(ctxt.parser.ast)
+        print(ctxt.ast)
         print("\n\n")
-        dot = DotRender.render(ast) #render
+        dot = DotRender.render(ctxt.ast) #render
         print(dot)
         print("\n")
 

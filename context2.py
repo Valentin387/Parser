@@ -15,8 +15,8 @@ import cast
 class Context:
 
 	def __init__(self):
-		self.lexer  = Lexer(self)
-		self.parser = Parser(self)
+		self.lexer  = Lexer()
+		self.parser = Parser()
 		self.interp = Interpreter(self)
 		self.source = ''
 		self.ast    = None

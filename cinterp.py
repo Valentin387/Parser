@@ -128,18 +128,28 @@ class Interpreter(Visitor): #This is a visitor
 	# Punto de entrada alto-nivel
 	def interpret(self, node):
 		try:
-			Checker.check(node, self.check_env, self) #First, you must call the Checker
+			Checker.check(node) #First, you must call the Checker
 			if not self.ctxt.have_errors:
+				print("first")
 				self.visit(node)
+				print("last")
 		except MiniCExit as e:
 			print("The interpreter could not start because the Checker returned errors")
 
 	def visit(self, node: Block):
+		print("Block")
 		self.env = self.env.new_child() #think about it as a typewriter, it advances one row
 										#and then you have to reset the pointer
 		for stmt in node.stmts:
 			self.visit(stmt)
 		self.env = self.env.parents		#you "reset" the pointer
+
+	def visit(self, node: Program):
+		print("program")
+		self.env = self.env.new_child()
+		for d in node.decl:
+			self.visit(d)
+		self.env = self.env.parents
 
 	def visit(self, node: ClassDeclaration):
 		if node.sclass:
@@ -156,8 +166,14 @@ class Interpreter(Visitor): #This is a visitor
 		self.env[node.name] = cls
 
 	def visit(self, node: FuncDeclaration):
+		print("FuncDeclaration")
 		func = Function(node, self.env)
 		self.env[node.name] = func
+
+		if node.stmts:
+			self.visit(node.stmts)
+
+		#self.env[node.name] = func
 
 	def visit(self, node: VarDeclaration):
 		if node.expr:
@@ -179,30 +195,37 @@ class Interpreter(Visitor): #This is a visitor
 			self.visit(node.for_increment)
 
 	def visit(self, node: IfStmt):
-		test = self.visit(node.test)
+		print("IfStmt")
+		test = self.visit(node.cond)
 		if _is_truthy(test):
 			self.visit(node.cons)
 		elif node.altr:
 			self.visit(node.altr)
 
 	def visit(self, node: Return):
+		print("Return")
 		# Ojo: node.expr es opcional
 		if node.expr:
 			expr = self.visit(node.expr)
 		else:
 			expr = None
-		self.env[node.name] = expr
+		self.env["Return"] = expr
 		raise ReturnException(self.visit(node.expr))
+		#self.visit(node.expr)
 
 	def visit(self, node: ExprStmt):
 		self.visit(node.expr)
 
 	def visit(self, node: Literal):
+		print("literal")
 		return node.value
 
 	def visit(self, node: Binary):
+		print("Binary")
 		left  = self.visit(node.left)
+		print("left visited")
 		right = self.visit(node.right)
+		print("right visited")
 		if node.op == '+':
 			(isinstance(left, str) and isinstance(right, str)) or self._check_numeric_operands(node, left, right)
 			return left + right
@@ -274,7 +297,8 @@ class Interpreter(Visitor): #This is a visitor
 			self.error(node.func, str(err))
 
 	def visit(self, node: Variable):
-		return self.env.maps[self.localmap[id(node)]][node.name] #.maps reads ChainMap as a list
+		print("variable")
+		return self.env.maps[self.localmap[id(node)]][node.name] #maps reads ChainMap as a list
 
 	def visit(self, node: Set):
 		obj = self.visit(node.object)
