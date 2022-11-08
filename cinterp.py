@@ -11,16 +11,16 @@ import math
 
 # Veracidad en MiniC
 def _is_truthy(value):
-	if isinstance(value, bool):
+	if isinstance(value, bool): #If the object is already a boolean
 		return value
-	elif value is None:
+	elif value is None: # if the object is empty
 		return False
 	else:
-		return True
+		return True #if the object is not empty
 
 class ReturnException(Exception):
 	def __init__(self, value):
-		self.value = value
+		self.value = value	#it sets the value for exception
 
 class MiniCExit(BaseException):
 	pass
@@ -32,18 +32,18 @@ class AttributeError(Exception):
 	pass
 
 class Function:
-	def __init__(self, node, env):
+	def __init__(self, node, env): #it receives the node and a context
 		self.node = node
 		self.env = env
 
-	def __call__(self, interp, *args):
-		if len(args) != len(self.node.params):
-			raise CallError(f"Experado {len(self.node.params)} argumentos")
-		newenv = self.env.new_child()
-		for name, arg in zip(self.node.params, args):
+	def __call__(self, interp, *args): #it receives de interpreter and a tuple
+		if len(args) != len(self.node.parameters):
+			raise CallError(f"Interp Error. Expected {len(self.node.params)} arguments")
+		newenv = self.env.new_child() #we create a new environment
+		for name, arg in zip(self.node.parameters, args):
 			newenv[name] = arg
 
-		oldenv = interp.env
+		oldenv = interp.env #we update the interpreter's environment
 		interp.env = newenv
 		try:
 			interp.visit(self.node.stmts)
@@ -51,29 +51,29 @@ class Function:
 		except ReturnException as e:
 			result = e.value
 		finally:
-			interp.env = oldenv
-		return result
+			interp.env = oldenv #we reset the last fully functional environment
+		return result #returns Function exceptions
 
-	def bind(self, instance):
-		env = self.env.new_child()
-		env['this'] = instance
+	def bind(self, instance): #I receive something called instance
+		env = self.env.new_child() #I create a new environment
+		env['this'] = instance #we add a new value for key 'this'
 		return Function(self.node, env)
 
 
 class Class:
-	def __init__(self, name, sclass, methods):
+	def __init__(self, name, sclass, methods): #this is a Class framework for any class
 		self.name = name
 		self.sclass = sclass
 		self.methods = methods
 
-	def __str__(self):
+	def __str__(self): #returns the string representation of the object
 		return self.name
 
-	def __call__(self, *args):
+	def __call__(self, *args): #this class and can be called like a function.  Class()
 		this = Instance(self)
 		init = self.find_method('init')
 		if init:
-			init.bind(this)(*args)
+			init.bind(this)(*args) #I re define the use for 'This'
 		return this
 
 	def find_method(self, name):
@@ -95,31 +95,31 @@ class Instance:
 			return self.data[name]
 		method = self.klass.find_method(name)
 		if not method:
-			raise AttributeError(f'Propiedad indefinida {name}')
+			raise AttributeError(f'interp Error, Not defined property {name}')
 		return method.bind(self)
 
 	def set(self, name, value):
 		self.data[name] = value
 
 
-class Interpreter(Visitor):
+class Interpreter(Visitor): #This is a visitor
 	def __init__(self, ctxt):
-		self.ctxt = ctxt
-		self.env  = ChainMap()
-		self.check_env = ChainMap()
-		self.localmap  = { }
+		self.ctxt = ctxt 				#receives a context
+		self.env  = ChainMap()			#generates ChainMap
+		self.check_env = ChainMap()		#generates a ChainMap for interpreter
+		self.localmap  = { }			#The local map is a dictionary
 
 	def _check_numeric_operands(self, node, left, right):
 		if isinstance(left, (int, float)) and isinstance(right, (int, float)):
 			return True
 		else:
-			self.error(node, f"En '{node.op}' los operandos deben ser numeros")
+			self.error(node, f"Interp Error. In '{node.op}' the operands must be numerical type")
 
 	def _check_numeric_operand(self, node, value):
 		if isinstance(value, (int, float)):
 			return True
 		else:
-			self.error(node, f"En '{node.op}' el operando debe ser un numero")
+			self.error(node, f"Interp Error. In '{node.op}' the operand must be numerical type")
 
 	def error(self, position, message):
 		self.ctxt.error(position, message)
@@ -128,23 +128,24 @@ class Interpreter(Visitor):
 	# Punto de entrada alto-nivel
 	def interpret(self, node):
 		try:
-			Checker.check(node, self.check_env, self)
+			Checker.check(node, self.check_env, self) #First, you must call the Checker
 			if not self.ctxt.have_errors:
 				self.visit(node)
 		except MiniCExit as e:
-			pass
+			print("The interpreter could not start because the Checker returned errors")
 
 	def visit(self, node: Block):
-		self.env = self.env.new_child()
+		self.env = self.env.new_child() #think about it as a typewriter, it advances one row
+										#and then you have to reset the pointer
 		for stmt in node.stmts:
 			self.visit(stmt)
-		self.env = self.env.parents
+		self.env = self.env.parents		#you "reset" the pointer
 
 	def visit(self, node: ClassDeclaration):
 		if node.sclass:
 			sclass = self.visit(node.sclass)
 			env = self.env.new_child()
-			env['super'] = sclass
+			env['super'] = sclass			#we accommodate this framework for any User-made class
 		else:
 			sclass = None
 			env = self.env
@@ -172,6 +173,11 @@ class Interpreter(Visitor):
 		while _is_truthy(self.visit(node.test)):
 			self.visit(node.body)
 
+	def visit(self, node: ForStmt):
+		while _is_truthy(self.visit(node.for_cond)):
+			self.visit(node.for_body)
+			self.visit(node.for_increment)
+
 	def visit(self, node: IfStmt):
 		test = self.visit(node.test)
 		if _is_truthy(test):
@@ -181,6 +187,11 @@ class Interpreter(Visitor):
 
 	def visit(self, node: Return):
 		# Ojo: node.expr es opcional
+		if node.expr:
+			expr = self.visit(node.expr)
+		else:
+			expr = None
+		self.env[node.name] = expr
 		raise ReturnException(self.visit(node.expr))
 
 	def visit(self, node: ExprStmt):
@@ -224,7 +235,7 @@ class Interpreter(Visitor):
 			self._check_numeric_operands(node, left, right)
 			return left >= right
 		else:
-			raise NotImplementedError(f"Mal operador {node.op}")
+			raise NotImplementedError(f"Interp Error. Wrong Operator {node.op}")
 
 	def visit(self, node: Logical):
 		left = self.visit(node.left)
@@ -232,7 +243,7 @@ class Interpreter(Visitor):
 			return left if _is_truthy(left) else self.visit(node.right)
 		if node.op == '&&':
 			return self.visit(node.right) if _is_truthy(left) else left
-		raise NotImplementedError(f"Mal operador {node.op}")
+		raise NotImplementedError(f"Interp Error. Wrong Operator {node.op}")
 
 	def visit(self, node: Unary):
 		expr = self.visit(node.expr)
@@ -242,7 +253,7 @@ class Interpreter(Visitor):
 		elif node.op == "!":
 			return not _is_truthy(expr)
 		else:
-			raise NotImplementedError(f"Mal operador {node.op}")
+			raise NotImplementedError(f"Interp Error. Wrong Operator {node.op}")
 
 	def visit(self, node: Grouping):
 		return self.visit(node.expr)
@@ -254,7 +265,7 @@ class Interpreter(Visitor):
 	def visit(self, node: Call):
 		callee = self.visit(node.func)
 		if not callable(callee):
-			self.error(node.func, f'{self.ctxt.find_source(node.func)!r} no es invocable')
+			self.error(node.func, f'Interp Error {self.ctxt.find_source(node.func)!r} is not callable')
 
 		args = [ self.visit(arg) for arg in node.args ]
 		try:
@@ -263,7 +274,7 @@ class Interpreter(Visitor):
 			self.error(node.func, str(err))
 
 	def visit(self, node: Variable):
-		return self.env.maps[self.localmap[id(node)]][node.name]
+		return self.env.maps[self.localmap[id(node)]][node.name] #.maps reads ChainMap as a list
 
 	def visit(self, node: Set):
 		obj = self.visit(node.object)
@@ -272,7 +283,7 @@ class Interpreter(Visitor):
 			obj.set(node.name, val)
 			return val
 		else:
-			self.error(node.object, f'{self.ctxt.find_source(node.object)!r} no es una instancia')
+			self.error(node.object, f'Interp Error{self.ctxt.find_source(node.object)!r} is not an instance')
 
 	def visit(self, node: Get):
 		obj = self.visit(node.object)
@@ -282,7 +293,7 @@ class Interpreter(Visitor):
 			except AttributeError as err:
 				self.error(node.object, str(err))
 		else:
-			self.error(node.object, f'{self.ctxt.find_source(node.object)!r} no es una instancia')
+			self.error(node.object, f'Interp Error{self.ctxt.find_source(node.object)!r}  is not an instance')
 
 	def visit(self, node: This):
 		return self.env.maps[self.localmap[id(node)]]['this']
@@ -293,5 +304,5 @@ class Interpreter(Visitor):
 		this = self.env.maps[distance-1]['this']
 		method = sclass.find_method(node.name)
 		if not method:
-			self.error(node.object, f'Propiedad indefinida {node.name!r}')
+			self.error(node.object, f'Interp Error. Not defined property {node.name!r}')
 		return method.bind(this)

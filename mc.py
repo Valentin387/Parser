@@ -23,30 +23,42 @@ optional arguments:
 import docopt
 
 from argparse import ArgumentParser
-#from context import Context
+from context2 import Context
 from rich import print
 
 
-def main(args):
-	if len(argv) > 2:
-		raise SystemExit(f'usage: mc.py filename')
+def main(argv):
+    if len(argv) > 2:
+        raise SystemExit(f'usage: mc.py filename')
 
-	ctxt = Context()
-	if len(sys.argv) == 2:
-		with open(argv[1], encoding='utf-8') as file:
-			source = file.read()
-		ctxt.parse(source)
-		ctxt.run()
+    ctxt = Context()
+    if len(sys.argv) == 2:
+        with open(argv[1], enconding='utf-8') as file:
+            source = file.read()
+        ctxt.parse(source)
+        print("\n\n\t\t********** AST ********** \n\n")
+        print(ctxt.parser.ast)
+        print("\n\n")
+        dot = DotRender.render(ast) #render
+        print(dot)
+        print("\n")
 
-	else:
-		try:
-			while True:
-				source = input("mc > ")
-				ctxt.parse(source)
-				if ctxt.have_errors: continue
-				for stmt in ctxt.ast.stmts:
-					ctxt.ast = stmt
-					ctxt.run()
+        ctxt.run()
 
-		except EOFError:
-			pass
+    else:
+        try:
+            while True:
+                source = input("mc > ")
+                ctxt.parse(source)
+                if ctxt.have_errors: continue
+                for stmt in ctxt.ast.stmts:
+                    ctxt.ast = stmt
+                    ctxt.run()
+
+        except EOFError:
+            pass
+
+if __name__ == "__main__":
+    from sys import argv
+
+    main(argv)

@@ -22,21 +22,21 @@ class Context:
 		self.ast    = None
 		self.have_errors = False
 
-	def parse(self, source):
+	def parse(self, source): #makes work the Parser
 		self.have_errors = False
 		self.source = source
 		self.ast = self.parser.parse(self.lexer.tokenize(self.source))
 
-	def run(self):
+	def run(self): #makes work the interpreter
 		if not self.have_errors:
 			return self.interp.interpret(self.ast)
 
-	def find_source(self, node):
+	def find_source(self, node): #it searches the line
 		indices = self.parser.index_position(node)
 		if indices:
 			return self.source[indices[0]:indices[1]]
 		else:
-			return f'{type(node).__name__} (fuente no disponible)'
+			return f'{type(node).__name__} (Sorry, source not available)'
 
 	def error(self, position, message):
 		if isinstance(position, cast.Node):
