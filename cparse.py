@@ -8,6 +8,9 @@ class Parser(sly.Parser):
     # La lista de tokens se copia desde Lexer
     tokens = Lexer.tokens
 
+    def __init__(self, ctxt):
+        self.ctxt=ctxt
+
     # preceencia de operadores
     precedence = (
         ('right', ASSIGN),     # menor precedencia
@@ -180,8 +183,7 @@ class Parser(sly.Parser):
 
     def error(self, p):
         if p:
-            print("PARSER ERROR, Syntax error in the Token", p.type, "due to: ", p)
+            self.ctxt.error(p, f"PARSER ERROR, Syntax error in the Token {p.type} due to: {p}")
             # Just discard the token and tell the parser it's okay.
-            self.errok()
         else:
-            print("PARSER ERROR, Syntax Error in EOF")
+            self.ctxt.error(p, f"PARSER ERROR, Syntax Error in EOF")

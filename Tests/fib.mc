@@ -5,6 +5,7 @@ calcula el n-esimo número de la secuencia de Fibonacci
 
 */
 
+
 fun fib(n){
   if (n <= 1){
     return 1;
@@ -12,6 +13,7 @@ fun fib(n){
     return fib(n-1) + fib(n-2);
   }
   end_if
+  //return 0;
 }
 
  //main

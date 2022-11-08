@@ -67,6 +67,9 @@ import sly
 
 # Definición Analizador Léxico
 class Lexer(sly.Lexer):
+    def __init__(self, ctxt):
+        self.ctxt=ctxt
+
     # Definición de Símbolos
     tokens = {
         # Palabras reservadas
@@ -163,5 +166,5 @@ class Lexer(sly.Lexer):
         return t
 
     def error(self, t):
-        print("LEX ERROR. Illegal character '%s'" % t.value[0] + " at line: " + str(self.lineno))
+        self.ctxt.error(t, f"LEX ERROR. Illegal character {str(t.value[0])} + at line: {self.lineno}")
         self.index += 1

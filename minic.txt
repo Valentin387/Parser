@@ -1,28 +1,28 @@
 Grammar:
 
 Rule 0     S' -> program
-Rule 1     program -> _1_repeat
-Rule 2     _1_repeat -> _1_items
-Rule 3     _1_repeat -> <empty>
-Rule 4     _1_items -> _1_items _1_item
-Rule 5     _1_items -> _1_item
-Rule 6     _1_item -> declaration
+Rule 1     program -> _1_declaration_repeat
+Rule 2     _1_declaration_repeat -> _1_declaration_items
+Rule 3     _1_declaration_repeat -> <empty>
+Rule 4     _1_declaration_items -> _1_declaration_items _1_declaration_item
+Rule 5     _1_declaration_items -> _1_declaration_item
+Rule 6     _1_declaration_item -> declaration
 Rule 7     declaration -> statement
 Rule 8     declaration -> var_declaration
 Rule 9     declaration -> func_declaration
 Rule 10    declaration -> class_declaration
-Rule 11    class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE
-Rule 12    _2_optional -> LPAREN LT IDENT RPAREN
-Rule 13    _2_optional -> <empty>
-Rule 14    _3_repeat -> _3_items
-Rule 15    _3_repeat -> <empty>
-Rule 16    _3_items -> _3_items _3_item
-Rule 17    _3_items -> _3_item
-Rule 18    _3_item -> function
+Rule 11    class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+Rule 12    _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT RPAREN
+Rule 13    _2_LPAREN_LT_IDENT_RPAREN_optional -> <empty>
+Rule 14    _3_function_repeat -> _3_function_items
+Rule 15    _3_function_repeat -> <empty>
+Rule 16    _3_function_items -> _3_function_items _3_function_item
+Rule 17    _3_function_items -> _3_function_item
+Rule 18    _3_function_item -> function
 Rule 19    func_declaration -> FUN function
-Rule 20    var_declaration -> VAR IDENT _4_optional SEMI
-Rule 21    _4_optional -> ASSIGN expression  [precedence=right, level=1]
-Rule 22    _4_optional -> <empty>
+Rule 20    var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI
+Rule 21    _4_ASSIGN_expression_optional -> ASSIGN expression  [precedence=right, level=1]
+Rule 22    _4_ASSIGN_expression_optional -> <empty>
 Rule 23    statement -> block
 Rule 24    statement -> while_stmt
 Rule 25    statement -> return_stmt
@@ -31,34 +31,34 @@ Rule 27    statement -> if_stmt
 Rule 28    statement -> for_stmt
 Rule 29    statement -> expr_stmt
 Rule 30    expr_stmt -> expression SEMI
-Rule 31    for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-Rule 32    _5_optional -> expression
-Rule 33    _5_optional -> <empty>
-Rule 34    _6_optional -> expression
-Rule 35    _6_optional -> <empty>
-Rule 36    for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
-Rule 37    _7_optional -> expression
-Rule 38    _7_optional -> <empty>
-Rule 39    _8_optional -> expression
-Rule 40    _8_optional -> <empty>
+Rule 31    for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+Rule 32    _5_expression_optional -> expression
+Rule 33    _5_expression_optional -> <empty>
+Rule 34    _6_expression_optional -> expression
+Rule 35    _6_expression_optional -> <empty>
+Rule 36    for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
+Rule 37    _7_expression_optional -> expression
+Rule 38    _7_expression_optional -> <empty>
+Rule 39    _8_expression_optional -> expression
+Rule 40    _8_expression_optional -> <empty>
 Rule 41    for_initialize -> expr_stmt
 Rule 42    for_initialize -> var_declaration
-Rule 43    if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-Rule 44    _9_optional -> expression
-Rule 45    _9_optional -> <empty>
-Rule 46    _10_optional -> ELSE statement
-Rule 47    _10_optional -> <empty>
+Rule 43    if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+Rule 44    _9_expression_optional -> expression
+Rule 45    _9_expression_optional -> <empty>
+Rule 46    _10_ELSE_statement_optional -> ELSE statement
+Rule 47    _10_ELSE_statement_optional -> <empty>
 Rule 48    print_stmt -> PRINT LPAREN expression RPAREN SEMI
-Rule 49    return_stmt -> RETURN _11_optional SEMI
-Rule 50    _11_optional -> expression
-Rule 51    _11_optional -> <empty>
+Rule 49    return_stmt -> RETURN _11_expression_optional SEMI
+Rule 50    _11_expression_optional -> expression
+Rule 51    _11_expression_optional -> <empty>
 Rule 52    while_stmt -> WHILE LPAREN expression RPAREN statement
-Rule 53    block -> LBRACE _12_repeat RBRACE
-Rule 54    _12_repeat -> _12_items
-Rule 55    _12_repeat -> <empty>
-Rule 56    _12_items -> _12_items _12_item
-Rule 57    _12_items -> _12_item
-Rule 58    _12_item -> declaration
+Rule 53    block -> LBRACE _12_declaration_repeat RBRACE
+Rule 54    _12_declaration_repeat -> _12_declaration_items
+Rule 55    _12_declaration_repeat -> <empty>
+Rule 56    _12_declaration_items -> _12_declaration_items _12_declaration_item
+Rule 57    _12_declaration_items -> _12_declaration_item
+Rule 58    _12_declaration_item -> declaration
 Rule 59    expression -> factor
 Rule 60    expression -> expression NE expression  [precedence=left, level=4]
 Rule 61    expression -> expression EQ expression  [precedence=left, level=4]
@@ -77,9 +77,9 @@ Rule 73    expression -> expression ASSIGN expression  [precedence=right, level=
 Rule 74    factor -> NOT factor  [precedence=right, level=8]
 Rule 75    factor -> MINUS factor  [precedence=right, level=8]
 Rule 76    factor -> LPAREN expression RPAREN
-Rule 77    factor -> factor LPAREN _13_optional RPAREN
-Rule 78    _13_optional -> arguments
-Rule 79    _13_optional -> <empty>
+Rule 77    factor -> factor LPAREN _13_arguments_optional RPAREN
+Rule 78    _13_arguments_optional -> arguments
+Rule 79    _13_arguments_optional -> <empty>
 Rule 80    factor -> factor POINT IDENT
 Rule 81    factor -> SUPER POINT IDENT
 Rule 82    factor -> IDENT
@@ -90,21 +90,21 @@ Rule 86    factor -> TRUE
 Rule 87    factor -> STRING
 Rule 88    factor -> NUM
 Rule 89    factor -> REAL
-Rule 90    function -> IDENT LPAREN _14_optional RPAREN block
-Rule 91    _14_optional -> parameters
-Rule 92    _14_optional -> <empty>
-Rule 93    parameters -> IDENT _15_repeat
-Rule 94    _15_repeat -> _15_items
-Rule 95    _15_repeat -> <empty>
-Rule 96    _15_items -> _15_items _15_item
-Rule 97    _15_items -> _15_item
-Rule 98    _15_item -> COMMA IDENT
-Rule 99    arguments -> expression _16_repeat
-Rule 100   _16_repeat -> _16_items
-Rule 101   _16_repeat -> <empty>
-Rule 102   _16_items -> _16_items _16_item
-Rule 103   _16_items -> _16_item
-Rule 104   _16_item -> COMMA expression
+Rule 90    function -> IDENT LPAREN _14_parameters_optional RPAREN block
+Rule 91    _14_parameters_optional -> parameters
+Rule 92    _14_parameters_optional -> <empty>
+Rule 93    parameters -> IDENT _15_COMMA_IDENT_repeat
+Rule 94    _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items
+Rule 95    _15_COMMA_IDENT_repeat -> <empty>
+Rule 96    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item
+Rule 97    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item
+Rule 98    _15_COMMA_IDENT_item -> COMMA IDENT
+Rule 99    arguments -> expression _16_COMMA_expression_repeat
+Rule 100   _16_COMMA_expression_repeat -> _16_COMMA_expression_items
+Rule 101   _16_COMMA_expression_repeat -> <empty>
+Rule 102   _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item
+Rule 103   _16_COMMA_expression_items -> _16_COMMA_expression_item
+Rule 104   _16_COMMA_expression_item -> COMMA expression
 
 Terminals, with rules where they appear:
 
@@ -153,32 +153,32 @@ error                :
 
 Nonterminals, with rules where they appear:
 
-_10_optional         : 43
-_11_optional         : 49
-_12_item             : 56 57
-_12_items            : 54 56
-_12_repeat           : 53
-_13_optional         : 77
-_14_optional         : 90
-_15_item             : 96 97
-_15_items            : 94 96
-_15_repeat           : 93
-_16_item             : 102 103
-_16_items            : 100 102
-_16_repeat           : 99
-_1_item              : 4 5
-_1_items             : 2 4
-_1_repeat            : 1
-_2_optional          : 11
-_3_item              : 16 17
-_3_items             : 14 16
-_3_repeat            : 11
-_4_optional          : 20
-_5_optional          : 31
-_6_optional          : 31
-_7_optional          : 36
-_8_optional          : 36
-_9_optional          : 43
+_10_ELSE_statement_optional : 43
+_11_expression_optional : 49
+_12_declaration_item : 56 57
+_12_declaration_items : 54 56
+_12_declaration_repeat : 53
+_13_arguments_optional : 77
+_14_parameters_optional : 90
+_15_COMMA_IDENT_item : 96 97
+_15_COMMA_IDENT_items : 94 96
+_15_COMMA_IDENT_repeat : 93
+_16_COMMA_expression_item : 102 103
+_16_COMMA_expression_items : 100 102
+_16_COMMA_expression_repeat : 99
+_1_declaration_item  : 4 5
+_1_declaration_items : 2 4
+_1_declaration_repeat : 1
+_2_LPAREN_LT_IDENT_RPAREN_optional : 11
+_3_function_item     : 16 17
+_3_function_items    : 14 16
+_3_function_repeat   : 11
+_4_ASSIGN_expression_optional : 20
+_5_expression_optional : 31
+_6_expression_optional : 31
+_7_expression_optional : 36
+_8_expression_optional : 36
+_9_expression_optional : 43
 arguments            : 78
 block                : 23 90
 class_declaration    : 10
@@ -203,12 +203,12 @@ while_stmt           : 24
 state 0
 
     (0) S' -> . program
-    (1) program -> . _1_repeat
-    (2) _1_repeat -> . _1_items
-    (3) _1_repeat -> .
-    (4) _1_items -> . _1_items _1_item
-    (5) _1_items -> . _1_item
-    (6) _1_item -> . declaration
+    (1) program -> . _1_declaration_repeat
+    (2) _1_declaration_repeat -> . _1_declaration_items
+    (3) _1_declaration_repeat -> .
+    (4) _1_declaration_items -> . _1_declaration_items _1_declaration_item
+    (5) _1_declaration_items -> . _1_declaration_item
+    (6) _1_declaration_item -> . declaration
     (7) declaration -> . statement
     (8) declaration -> . var_declaration
     (9) declaration -> . func_declaration
@@ -220,16 +220,16 @@ state 0
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (20) var_declaration -> . VAR IDENT _4_optional SEMI
+    (20) var_declaration -> . VAR IDENT _4_ASSIGN_expression_optional SEMI
     (19) func_declaration -> . FUN function
-    (11) class_declaration -> . CLASS IDENT _2_optional LBRACE _3_repeat RBRACE
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (11) class_declaration -> . CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -249,7 +249,7 @@ state 0
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -260,7 +260,7 @@ state 0
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    $end            reduce using rule 3 (_1_repeat -> .)
+    $end            reduce using rule 3 (_1_declaration_repeat -> .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
     CLASS           shift and go to state 20
@@ -284,9 +284,9 @@ state 0
     REAL            shift and go to state 39
 
     program                        shift and go to state 1
-    _1_repeat                      shift and go to state 2
-    _1_items                       shift and go to state 3
-    _1_item                        shift and go to state 4
+    _1_declaration_repeat          shift and go to state 2
+    _1_declaration_items           shift and go to state 3
+    _1_declaration_item            shift and go to state 4
     declaration                    shift and go to state 5
     statement                      shift and go to state 6
     var_declaration                shift and go to state 7
@@ -309,15 +309,15 @@ state 1
 
 state 2
 
-    (1) program -> _1_repeat .
-    $end            reduce using rule 1 (program -> _1_repeat .)
+    (1) program -> _1_declaration_repeat .
+    $end            reduce using rule 1 (program -> _1_declaration_repeat .)
 
 
 state 3
 
-    (2) _1_repeat -> _1_items .
-    (4) _1_items -> _1_items . _1_item
-    (6) _1_item -> . declaration
+    (2) _1_declaration_repeat -> _1_declaration_items .
+    (4) _1_declaration_items -> _1_declaration_items . _1_declaration_item
+    (6) _1_declaration_item -> . declaration
     (7) declaration -> . statement
     (8) declaration -> . var_declaration
     (9) declaration -> . func_declaration
@@ -329,16 +329,16 @@ state 3
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (20) var_declaration -> . VAR IDENT _4_optional SEMI
+    (20) var_declaration -> . VAR IDENT _4_ASSIGN_expression_optional SEMI
     (19) func_declaration -> . FUN function
-    (11) class_declaration -> . CLASS IDENT _2_optional LBRACE _3_repeat RBRACE
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (11) class_declaration -> . CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -358,7 +358,7 @@ state 3
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -369,7 +369,7 @@ state 3
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    $end            reduce using rule 2 (_1_repeat -> _1_items .)
+    $end            reduce using rule 2 (_1_declaration_repeat -> _1_declaration_items .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
     CLASS           shift and go to state 20
@@ -392,7 +392,7 @@ state 3
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _1_item                        shift and go to state 40
+    _1_declaration_item            shift and go to state 40
     declaration                    shift and go to state 5
     statement                      shift and go to state 6
     var_declaration                shift and go to state 7
@@ -410,56 +410,56 @@ state 3
 
 state 4
 
-    (5) _1_items -> _1_item .
-    VAR             reduce using rule 5 (_1_items -> _1_item .)
-    FUN             reduce using rule 5 (_1_items -> _1_item .)
-    CLASS           reduce using rule 5 (_1_items -> _1_item .)
-    LBRACE          reduce using rule 5 (_1_items -> _1_item .)
-    WHILE           reduce using rule 5 (_1_items -> _1_item .)
-    RETURN          reduce using rule 5 (_1_items -> _1_item .)
-    PRINT           reduce using rule 5 (_1_items -> _1_item .)
-    IF              reduce using rule 5 (_1_items -> _1_item .)
-    FOR             reduce using rule 5 (_1_items -> _1_item .)
-    NOT             reduce using rule 5 (_1_items -> _1_item .)
-    MINUS           reduce using rule 5 (_1_items -> _1_item .)
-    LPAREN          reduce using rule 5 (_1_items -> _1_item .)
-    SUPER           reduce using rule 5 (_1_items -> _1_item .)
-    IDENT           reduce using rule 5 (_1_items -> _1_item .)
-    THIS            reduce using rule 5 (_1_items -> _1_item .)
-    NIL             reduce using rule 5 (_1_items -> _1_item .)
-    FALSE           reduce using rule 5 (_1_items -> _1_item .)
-    TRUE            reduce using rule 5 (_1_items -> _1_item .)
-    STRING          reduce using rule 5 (_1_items -> _1_item .)
-    NUM             reduce using rule 5 (_1_items -> _1_item .)
-    REAL            reduce using rule 5 (_1_items -> _1_item .)
-    $end            reduce using rule 5 (_1_items -> _1_item .)
+    (5) _1_declaration_items -> _1_declaration_item .
+    VAR             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    FUN             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    CLASS           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    LBRACE          reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    WHILE           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    RETURN          reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    PRINT           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    IF              reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    FOR             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    NOT             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    MINUS           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    LPAREN          reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    SUPER           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    IDENT           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    THIS            reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    NIL             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    FALSE           reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    TRUE            reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    STRING          reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    NUM             reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    REAL            reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
+    $end            reduce using rule 5 (_1_declaration_items -> _1_declaration_item .)
 
 
 state 5
 
-    (6) _1_item -> declaration .
-    VAR             reduce using rule 6 (_1_item -> declaration .)
-    FUN             reduce using rule 6 (_1_item -> declaration .)
-    CLASS           reduce using rule 6 (_1_item -> declaration .)
-    LBRACE          reduce using rule 6 (_1_item -> declaration .)
-    WHILE           reduce using rule 6 (_1_item -> declaration .)
-    RETURN          reduce using rule 6 (_1_item -> declaration .)
-    PRINT           reduce using rule 6 (_1_item -> declaration .)
-    IF              reduce using rule 6 (_1_item -> declaration .)
-    FOR             reduce using rule 6 (_1_item -> declaration .)
-    NOT             reduce using rule 6 (_1_item -> declaration .)
-    MINUS           reduce using rule 6 (_1_item -> declaration .)
-    LPAREN          reduce using rule 6 (_1_item -> declaration .)
-    SUPER           reduce using rule 6 (_1_item -> declaration .)
-    IDENT           reduce using rule 6 (_1_item -> declaration .)
-    THIS            reduce using rule 6 (_1_item -> declaration .)
-    NIL             reduce using rule 6 (_1_item -> declaration .)
-    FALSE           reduce using rule 6 (_1_item -> declaration .)
-    TRUE            reduce using rule 6 (_1_item -> declaration .)
-    STRING          reduce using rule 6 (_1_item -> declaration .)
-    NUM             reduce using rule 6 (_1_item -> declaration .)
-    REAL            reduce using rule 6 (_1_item -> declaration .)
-    $end            reduce using rule 6 (_1_item -> declaration .)
+    (6) _1_declaration_item -> declaration .
+    VAR             reduce using rule 6 (_1_declaration_item -> declaration .)
+    FUN             reduce using rule 6 (_1_declaration_item -> declaration .)
+    CLASS           reduce using rule 6 (_1_declaration_item -> declaration .)
+    LBRACE          reduce using rule 6 (_1_declaration_item -> declaration .)
+    WHILE           reduce using rule 6 (_1_declaration_item -> declaration .)
+    RETURN          reduce using rule 6 (_1_declaration_item -> declaration .)
+    PRINT           reduce using rule 6 (_1_declaration_item -> declaration .)
+    IF              reduce using rule 6 (_1_declaration_item -> declaration .)
+    FOR             reduce using rule 6 (_1_declaration_item -> declaration .)
+    NOT             reduce using rule 6 (_1_declaration_item -> declaration .)
+    MINUS           reduce using rule 6 (_1_declaration_item -> declaration .)
+    LPAREN          reduce using rule 6 (_1_declaration_item -> declaration .)
+    SUPER           reduce using rule 6 (_1_declaration_item -> declaration .)
+    IDENT           reduce using rule 6 (_1_declaration_item -> declaration .)
+    THIS            reduce using rule 6 (_1_declaration_item -> declaration .)
+    NIL             reduce using rule 6 (_1_declaration_item -> declaration .)
+    FALSE           reduce using rule 6 (_1_declaration_item -> declaration .)
+    TRUE            reduce using rule 6 (_1_declaration_item -> declaration .)
+    STRING          reduce using rule 6 (_1_declaration_item -> declaration .)
+    NUM             reduce using rule 6 (_1_declaration_item -> declaration .)
+    REAL            reduce using rule 6 (_1_declaration_item -> declaration .)
+    $end            reduce using rule 6 (_1_declaration_item -> declaration .)
 
 
 state 6
@@ -786,7 +786,7 @@ state 16
 
 state 17
 
-    (20) var_declaration -> VAR . IDENT _4_optional SEMI
+    (20) var_declaration -> VAR . IDENT _4_ASSIGN_expression_optional SEMI
     IDENT           shift and go to state 41
 
 
@@ -817,25 +817,25 @@ state 18
 state 19
 
     (19) func_declaration -> FUN . function
-    (90) function -> . IDENT LPAREN _14_optional RPAREN block
+    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
     IDENT           shift and go to state 43
 
     function                       shift and go to state 42
 
 state 20
 
-    (11) class_declaration -> CLASS . IDENT _2_optional LBRACE _3_repeat RBRACE
+    (11) class_declaration -> CLASS . IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
     IDENT           shift and go to state 44
 
 
 state 21
 
-    (53) block -> LBRACE . _12_repeat RBRACE
-    (54) _12_repeat -> . _12_items
-    (55) _12_repeat -> .
-    (56) _12_items -> . _12_items _12_item
-    (57) _12_items -> . _12_item
-    (58) _12_item -> . declaration
+    (53) block -> LBRACE . _12_declaration_repeat RBRACE
+    (54) _12_declaration_repeat -> . _12_declaration_items
+    (55) _12_declaration_repeat -> .
+    (56) _12_declaration_items -> . _12_declaration_items _12_declaration_item
+    (57) _12_declaration_items -> . _12_declaration_item
+    (58) _12_declaration_item -> . declaration
     (7) declaration -> . statement
     (8) declaration -> . var_declaration
     (9) declaration -> . func_declaration
@@ -847,16 +847,16 @@ state 21
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (20) var_declaration -> . VAR IDENT _4_optional SEMI
+    (20) var_declaration -> . VAR IDENT _4_ASSIGN_expression_optional SEMI
     (19) func_declaration -> . FUN function
-    (11) class_declaration -> . CLASS IDENT _2_optional LBRACE _3_repeat RBRACE
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (11) class_declaration -> . CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -876,7 +876,7 @@ state 21
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -887,7 +887,7 @@ state 21
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RBRACE          reduce using rule 55 (_12_repeat -> .)
+    RBRACE          reduce using rule 55 (_12_declaration_repeat -> .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
     CLASS           shift and go to state 20
@@ -910,9 +910,9 @@ state 21
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _12_repeat                     shift and go to state 45
-    _12_items                      shift and go to state 46
-    _12_item                       shift and go to state 47
+    _12_declaration_repeat         shift and go to state 45
+    _12_declaration_items          shift and go to state 46
+    _12_declaration_item           shift and go to state 47
     declaration                    shift and go to state 48
     statement                      shift and go to state 6
     var_declaration                shift and go to state 7
@@ -955,7 +955,7 @@ state 23
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1018,9 +1018,9 @@ state 24
 
 state 25
 
-    (49) return_stmt -> RETURN . _11_optional SEMI
-    (50) _11_optional -> . expression
-    (51) _11_optional -> .
+    (49) return_stmt -> RETURN . _11_expression_optional SEMI
+    (50) _11_expression_optional -> . expression
+    (51) _11_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -1039,7 +1039,7 @@ state 25
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1050,7 +1050,7 @@ state 25
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    SEMI            reduce using rule 51 (_11_optional -> .)
+    SEMI            reduce using rule 51 (_11_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1064,7 +1064,7 @@ state 25
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _11_optional                   shift and go to state 66
+    _11_expression_optional        shift and go to state 66
     expression                     shift and go to state 67
     factor                         shift and go to state 29
 
@@ -1076,21 +1076,21 @@ state 26
 
 state 27
 
-    (43) if_stmt -> IF . LPAREN _9_optional RPAREN statement _10_optional END_IF
+    (43) if_stmt -> IF . LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
     LPAREN          shift and go to state 69
 
 
 state 28
 
-    (31) for_stmt -> FOR . LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> FOR . LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (31) for_stmt -> FOR . LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> FOR . LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     LPAREN          shift and go to state 70
 
 
 state 29
 
     (59) expression -> factor .
-    (77) factor -> factor . LPAREN _13_optional RPAREN
+    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (80) factor -> factor . POINT IDENT
     SEMI            reduce using rule 59 (expression -> factor .)
     NE              reduce using rule 59 (expression -> factor .)
@@ -1119,7 +1119,7 @@ state 30
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1151,7 +1151,7 @@ state 31
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1353,40 +1353,40 @@ state 39
 
 state 40
 
-    (4) _1_items -> _1_items _1_item .
-    VAR             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    FUN             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    CLASS           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    LBRACE          reduce using rule 4 (_1_items -> _1_items _1_item .)
-    WHILE           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    RETURN          reduce using rule 4 (_1_items -> _1_items _1_item .)
-    PRINT           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    IF              reduce using rule 4 (_1_items -> _1_items _1_item .)
-    FOR             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    NOT             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    MINUS           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    LPAREN          reduce using rule 4 (_1_items -> _1_items _1_item .)
-    SUPER           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    IDENT           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    THIS            reduce using rule 4 (_1_items -> _1_items _1_item .)
-    NIL             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    FALSE           reduce using rule 4 (_1_items -> _1_items _1_item .)
-    TRUE            reduce using rule 4 (_1_items -> _1_items _1_item .)
-    STRING          reduce using rule 4 (_1_items -> _1_items _1_item .)
-    NUM             reduce using rule 4 (_1_items -> _1_items _1_item .)
-    REAL            reduce using rule 4 (_1_items -> _1_items _1_item .)
-    $end            reduce using rule 4 (_1_items -> _1_items _1_item .)
+    (4) _1_declaration_items -> _1_declaration_items _1_declaration_item .
+    VAR             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    FUN             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    CLASS           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    LBRACE          reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    WHILE           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    RETURN          reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    PRINT           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    IF              reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    FOR             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    NOT             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    MINUS           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    LPAREN          reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    SUPER           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    IDENT           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    THIS            reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    NIL             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    FALSE           reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    TRUE            reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    STRING          reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    NUM             reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    REAL            reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
+    $end            reduce using rule 4 (_1_declaration_items -> _1_declaration_items _1_declaration_item .)
 
 
 state 41
 
-    (20) var_declaration -> VAR IDENT . _4_optional SEMI
-    (21) _4_optional -> . ASSIGN expression
-    (22) _4_optional -> .
+    (20) var_declaration -> VAR IDENT . _4_ASSIGN_expression_optional SEMI
+    (21) _4_ASSIGN_expression_optional -> . ASSIGN expression
+    (22) _4_ASSIGN_expression_optional -> .
     ASSIGN          shift and go to state 77
-    SEMI            reduce using rule 22 (_4_optional -> .)
+    SEMI            reduce using rule 22 (_4_ASSIGN_expression_optional -> .)
 
-    _4_optional                    shift and go to state 76
+    _4_ASSIGN_expression_optional  shift and go to state 76
 
 state 42
 
@@ -1418,31 +1418,31 @@ state 42
 
 state 43
 
-    (90) function -> IDENT . LPAREN _14_optional RPAREN block
+    (90) function -> IDENT . LPAREN _14_parameters_optional RPAREN block
     LPAREN          shift and go to state 78
 
 
 state 44
 
-    (11) class_declaration -> CLASS IDENT . _2_optional LBRACE _3_repeat RBRACE
-    (12) _2_optional -> . LPAREN LT IDENT RPAREN
-    (13) _2_optional -> .
+    (11) class_declaration -> CLASS IDENT . _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> . LPAREN LT IDENT RPAREN
+    (13) _2_LPAREN_LT_IDENT_RPAREN_optional -> .
     LPAREN          shift and go to state 80
-    LBRACE          reduce using rule 13 (_2_optional -> .)
+    LBRACE          reduce using rule 13 (_2_LPAREN_LT_IDENT_RPAREN_optional -> .)
 
-    _2_optional                    shift and go to state 79
+    _2_LPAREN_LT_IDENT_RPAREN_optional shift and go to state 79
 
 state 45
 
-    (53) block -> LBRACE _12_repeat . RBRACE
+    (53) block -> LBRACE _12_declaration_repeat . RBRACE
     RBRACE          shift and go to state 81
 
 
 state 46
 
-    (54) _12_repeat -> _12_items .
-    (56) _12_items -> _12_items . _12_item
-    (58) _12_item -> . declaration
+    (54) _12_declaration_repeat -> _12_declaration_items .
+    (56) _12_declaration_items -> _12_declaration_items . _12_declaration_item
+    (58) _12_declaration_item -> . declaration
     (7) declaration -> . statement
     (8) declaration -> . var_declaration
     (9) declaration -> . func_declaration
@@ -1454,16 +1454,16 @@ state 46
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (20) var_declaration -> . VAR IDENT _4_optional SEMI
+    (20) var_declaration -> . VAR IDENT _4_ASSIGN_expression_optional SEMI
     (19) func_declaration -> . FUN function
-    (11) class_declaration -> . CLASS IDENT _2_optional LBRACE _3_repeat RBRACE
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (11) class_declaration -> . CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -1483,7 +1483,7 @@ state 46
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1494,7 +1494,7 @@ state 46
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RBRACE          reduce using rule 54 (_12_repeat -> _12_items .)
+    RBRACE          reduce using rule 54 (_12_declaration_repeat -> _12_declaration_items .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
     CLASS           shift and go to state 20
@@ -1517,7 +1517,7 @@ state 46
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _12_item                       shift and go to state 82
+    _12_declaration_item           shift and go to state 82
     declaration                    shift and go to state 48
     statement                      shift and go to state 6
     var_declaration                shift and go to state 7
@@ -1535,56 +1535,56 @@ state 46
 
 state 47
 
-    (57) _12_items -> _12_item .
-    VAR             reduce using rule 57 (_12_items -> _12_item .)
-    FUN             reduce using rule 57 (_12_items -> _12_item .)
-    CLASS           reduce using rule 57 (_12_items -> _12_item .)
-    LBRACE          reduce using rule 57 (_12_items -> _12_item .)
-    WHILE           reduce using rule 57 (_12_items -> _12_item .)
-    RETURN          reduce using rule 57 (_12_items -> _12_item .)
-    PRINT           reduce using rule 57 (_12_items -> _12_item .)
-    IF              reduce using rule 57 (_12_items -> _12_item .)
-    FOR             reduce using rule 57 (_12_items -> _12_item .)
-    NOT             reduce using rule 57 (_12_items -> _12_item .)
-    MINUS           reduce using rule 57 (_12_items -> _12_item .)
-    LPAREN          reduce using rule 57 (_12_items -> _12_item .)
-    SUPER           reduce using rule 57 (_12_items -> _12_item .)
-    IDENT           reduce using rule 57 (_12_items -> _12_item .)
-    THIS            reduce using rule 57 (_12_items -> _12_item .)
-    NIL             reduce using rule 57 (_12_items -> _12_item .)
-    FALSE           reduce using rule 57 (_12_items -> _12_item .)
-    TRUE            reduce using rule 57 (_12_items -> _12_item .)
-    STRING          reduce using rule 57 (_12_items -> _12_item .)
-    NUM             reduce using rule 57 (_12_items -> _12_item .)
-    REAL            reduce using rule 57 (_12_items -> _12_item .)
-    RBRACE          reduce using rule 57 (_12_items -> _12_item .)
+    (57) _12_declaration_items -> _12_declaration_item .
+    VAR             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    FUN             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    CLASS           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    LBRACE          reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    WHILE           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    RETURN          reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    PRINT           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    IF              reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    FOR             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    NOT             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    MINUS           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    LPAREN          reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    SUPER           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    IDENT           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    THIS            reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    NIL             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    FALSE           reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    TRUE            reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    STRING          reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    NUM             reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    REAL            reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
+    RBRACE          reduce using rule 57 (_12_declaration_items -> _12_declaration_item .)
 
 
 state 48
 
-    (58) _12_item -> declaration .
-    VAR             reduce using rule 58 (_12_item -> declaration .)
-    FUN             reduce using rule 58 (_12_item -> declaration .)
-    CLASS           reduce using rule 58 (_12_item -> declaration .)
-    LBRACE          reduce using rule 58 (_12_item -> declaration .)
-    WHILE           reduce using rule 58 (_12_item -> declaration .)
-    RETURN          reduce using rule 58 (_12_item -> declaration .)
-    PRINT           reduce using rule 58 (_12_item -> declaration .)
-    IF              reduce using rule 58 (_12_item -> declaration .)
-    FOR             reduce using rule 58 (_12_item -> declaration .)
-    NOT             reduce using rule 58 (_12_item -> declaration .)
-    MINUS           reduce using rule 58 (_12_item -> declaration .)
-    LPAREN          reduce using rule 58 (_12_item -> declaration .)
-    SUPER           reduce using rule 58 (_12_item -> declaration .)
-    IDENT           reduce using rule 58 (_12_item -> declaration .)
-    THIS            reduce using rule 58 (_12_item -> declaration .)
-    NIL             reduce using rule 58 (_12_item -> declaration .)
-    FALSE           reduce using rule 58 (_12_item -> declaration .)
-    TRUE            reduce using rule 58 (_12_item -> declaration .)
-    STRING          reduce using rule 58 (_12_item -> declaration .)
-    NUM             reduce using rule 58 (_12_item -> declaration .)
-    REAL            reduce using rule 58 (_12_item -> declaration .)
-    RBRACE          reduce using rule 58 (_12_item -> declaration .)
+    (58) _12_declaration_item -> declaration .
+    VAR             reduce using rule 58 (_12_declaration_item -> declaration .)
+    FUN             reduce using rule 58 (_12_declaration_item -> declaration .)
+    CLASS           reduce using rule 58 (_12_declaration_item -> declaration .)
+    LBRACE          reduce using rule 58 (_12_declaration_item -> declaration .)
+    WHILE           reduce using rule 58 (_12_declaration_item -> declaration .)
+    RETURN          reduce using rule 58 (_12_declaration_item -> declaration .)
+    PRINT           reduce using rule 58 (_12_declaration_item -> declaration .)
+    IF              reduce using rule 58 (_12_declaration_item -> declaration .)
+    FOR             reduce using rule 58 (_12_declaration_item -> declaration .)
+    NOT             reduce using rule 58 (_12_declaration_item -> declaration .)
+    MINUS           reduce using rule 58 (_12_declaration_item -> declaration .)
+    LPAREN          reduce using rule 58 (_12_declaration_item -> declaration .)
+    SUPER           reduce using rule 58 (_12_declaration_item -> declaration .)
+    IDENT           reduce using rule 58 (_12_declaration_item -> declaration .)
+    THIS            reduce using rule 58 (_12_declaration_item -> declaration .)
+    NIL             reduce using rule 58 (_12_declaration_item -> declaration .)
+    FALSE           reduce using rule 58 (_12_declaration_item -> declaration .)
+    TRUE            reduce using rule 58 (_12_declaration_item -> declaration .)
+    STRING          reduce using rule 58 (_12_declaration_item -> declaration .)
+    NUM             reduce using rule 58 (_12_declaration_item -> declaration .)
+    REAL            reduce using rule 58 (_12_declaration_item -> declaration .)
+    RBRACE          reduce using rule 58 (_12_declaration_item -> declaration .)
 
 
 state 49
@@ -1608,7 +1608,7 @@ state 49
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1721,7 +1721,7 @@ state 52
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1769,7 +1769,7 @@ state 53
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1817,7 +1817,7 @@ state 54
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1865,7 +1865,7 @@ state 55
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1913,7 +1913,7 @@ state 56
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -1961,7 +1961,7 @@ state 57
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2009,7 +2009,7 @@ state 58
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2057,7 +2057,7 @@ state 59
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2105,7 +2105,7 @@ state 60
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2153,7 +2153,7 @@ state 61
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2201,7 +2201,7 @@ state 62
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2249,7 +2249,7 @@ state 63
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2297,7 +2297,7 @@ state 64
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2345,7 +2345,7 @@ state 65
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2374,13 +2374,13 @@ state 65
 
 state 66
 
-    (49) return_stmt -> RETURN _11_optional . SEMI
+    (49) return_stmt -> RETURN _11_expression_optional . SEMI
     SEMI            shift and go to state 99
 
 
 state 67
 
-    (50) _11_optional -> expression .
+    (50) _11_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -2395,7 +2395,7 @@ state 67
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 50 (_11_optional -> expression .)
+    SEMI            reduce using rule 50 (_11_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -2433,7 +2433,7 @@ state 68
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2462,9 +2462,9 @@ state 68
 
 state 69
 
-    (43) if_stmt -> IF LPAREN . _9_optional RPAREN statement _10_optional END_IF
-    (44) _9_optional -> . expression
-    (45) _9_optional -> .
+    (43) if_stmt -> IF LPAREN . _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (44) _9_expression_optional -> . expression
+    (45) _9_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2483,7 +2483,7 @@ state 69
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2494,7 +2494,7 @@ state 69
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RPAREN          reduce using rule 45 (_9_optional -> .)
+    RPAREN          reduce using rule 45 (_9_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2508,18 +2508,18 @@ state 69
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _9_optional                    shift and go to state 101
+    _9_expression_optional         shift and go to state 101
     expression                     shift and go to state 102
     factor                         shift and go to state 29
 
 state 70
 
-    (31) for_stmt -> FOR LPAREN . SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> FOR LPAREN . for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (31) for_stmt -> FOR LPAREN . SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> FOR LPAREN . for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (41) for_initialize -> . expr_stmt
     (42) for_initialize -> . var_declaration
     (30) expr_stmt -> . expression SEMI
-    (20) var_declaration -> . VAR IDENT _4_optional SEMI
+    (20) var_declaration -> . VAR IDENT _4_ASSIGN_expression_optional SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2538,7 +2538,7 @@ state 70
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2572,10 +2572,10 @@ state 70
 
 state 71
 
-    (77) factor -> factor LPAREN . _13_optional RPAREN
-    (78) _13_optional -> . arguments
-    (79) _13_optional -> .
-    (99) arguments -> . expression _16_repeat
+    (77) factor -> factor LPAREN . _13_arguments_optional RPAREN
+    (78) _13_arguments_optional -> . arguments
+    (79) _13_arguments_optional -> .
+    (99) arguments -> . expression _16_COMMA_expression_repeat
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2594,7 +2594,7 @@ state 71
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2605,7 +2605,7 @@ state 71
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RPAREN          reduce using rule 79 (_13_optional -> .)
+    RPAREN          reduce using rule 79 (_13_arguments_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2620,7 +2620,7 @@ state 71
     REAL            shift and go to state 39
 
     factor                         shift and go to state 29
-    _13_optional                   shift and go to state 107
+    _13_arguments_optional         shift and go to state 107
     arguments                      shift and go to state 108
     expression                     shift and go to state 109
 
@@ -2633,7 +2633,7 @@ state 72
 state 73
 
     (75) factor -> MINUS factor .
-    (77) factor -> factor . LPAREN _13_optional RPAREN
+    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (80) factor -> factor . POINT IDENT
     LPAREN          reduce using rule 75 (factor -> MINUS factor .)
     POINT           reduce using rule 75 (factor -> MINUS factor .)
@@ -2659,7 +2659,7 @@ state 73
 state 74
 
     (74) factor -> NOT factor .
-    (77) factor -> factor . LPAREN _13_optional RPAREN
+    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (80) factor -> factor . POINT IDENT
     LPAREN          reduce using rule 74 (factor -> NOT factor .)
     POINT           reduce using rule 74 (factor -> NOT factor .)
@@ -2690,13 +2690,13 @@ state 75
 
 state 76
 
-    (20) var_declaration -> VAR IDENT _4_optional . SEMI
+    (20) var_declaration -> VAR IDENT _4_ASSIGN_expression_optional . SEMI
     SEMI            shift and go to state 112
 
 
 state 77
 
-    (21) _4_optional -> ASSIGN . expression
+    (21) _4_ASSIGN_expression_optional -> ASSIGN . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2715,7 +2715,7 @@ state 77
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -2744,83 +2744,83 @@ state 77
 
 state 78
 
-    (90) function -> IDENT LPAREN . _14_optional RPAREN block
-    (91) _14_optional -> . parameters
-    (92) _14_optional -> .
-    (93) parameters -> . IDENT _15_repeat
-    RPAREN          reduce using rule 92 (_14_optional -> .)
+    (90) function -> IDENT LPAREN . _14_parameters_optional RPAREN block
+    (91) _14_parameters_optional -> . parameters
+    (92) _14_parameters_optional -> .
+    (93) parameters -> . IDENT _15_COMMA_IDENT_repeat
+    RPAREN          reduce using rule 92 (_14_parameters_optional -> .)
     IDENT           shift and go to state 114
 
-    _14_optional                   shift and go to state 115
+    _14_parameters_optional        shift and go to state 115
     parameters                     shift and go to state 116
 
 state 79
 
-    (11) class_declaration -> CLASS IDENT _2_optional . LBRACE _3_repeat RBRACE
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional . LBRACE _3_function_repeat RBRACE
     LBRACE          shift and go to state 117
 
 
 state 80
 
-    (12) _2_optional -> LPAREN . LT IDENT RPAREN
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN . LT IDENT RPAREN
     LT              shift and go to state 118
 
 
 state 81
 
-    (53) block -> LBRACE _12_repeat RBRACE .
-    VAR             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    FUN             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    CLASS           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    LBRACE          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    WHILE           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    RETURN          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    PRINT           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    IF              reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    FOR             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    NOT             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    MINUS           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    LPAREN          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    SUPER           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    IDENT           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    THIS            reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    NIL             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    FALSE           reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    TRUE            reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    STRING          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    NUM             reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    REAL            reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    $end            reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    RBRACE          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    ELSE            reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
-    END_IF          reduce using rule 53 (block -> LBRACE _12_repeat RBRACE .)
+    (53) block -> LBRACE _12_declaration_repeat RBRACE .
+    VAR             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    FUN             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    CLASS           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    LBRACE          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    WHILE           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    RETURN          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    PRINT           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    IF              reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    FOR             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    NOT             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    MINUS           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    LPAREN          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    SUPER           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    IDENT           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    THIS            reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    NIL             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    FALSE           reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    TRUE            reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    STRING          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    NUM             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    REAL            reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    $end            reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    RBRACE          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    ELSE            reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
+    END_IF          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
 
 
 state 82
 
-    (56) _12_items -> _12_items _12_item .
-    VAR             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    FUN             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    CLASS           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    LBRACE          reduce using rule 56 (_12_items -> _12_items _12_item .)
-    WHILE           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    RETURN          reduce using rule 56 (_12_items -> _12_items _12_item .)
-    PRINT           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    IF              reduce using rule 56 (_12_items -> _12_items _12_item .)
-    FOR             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    NOT             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    MINUS           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    LPAREN          reduce using rule 56 (_12_items -> _12_items _12_item .)
-    SUPER           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    IDENT           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    THIS            reduce using rule 56 (_12_items -> _12_items _12_item .)
-    NIL             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    FALSE           reduce using rule 56 (_12_items -> _12_items _12_item .)
-    TRUE            reduce using rule 56 (_12_items -> _12_items _12_item .)
-    STRING          reduce using rule 56 (_12_items -> _12_items _12_item .)
-    NUM             reduce using rule 56 (_12_items -> _12_items _12_item .)
-    REAL            reduce using rule 56 (_12_items -> _12_items _12_item .)
-    RBRACE          reduce using rule 56 (_12_items -> _12_items _12_item .)
+    (56) _12_declaration_items -> _12_declaration_items _12_declaration_item .
+    VAR             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    FUN             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    CLASS           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    LBRACE          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    WHILE           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    RETURN          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    PRINT           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    IF              reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    FOR             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    NOT             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    MINUS           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    LPAREN          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    SUPER           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    IDENT           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    THIS            reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    NIL             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    FALSE           reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    TRUE            reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    STRING          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    NUM             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    REAL            reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
+    RBRACE          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
 
 
 state 83
@@ -3387,32 +3387,32 @@ state 98
 
 state 99
 
-    (49) return_stmt -> RETURN _11_optional SEMI .
-    VAR             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    FUN             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    CLASS           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    LBRACE          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    WHILE           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    RETURN          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    PRINT           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    IF              reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    FOR             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    NOT             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    MINUS           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    LPAREN          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    SUPER           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    IDENT           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    THIS            reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    NIL             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    FALSE           reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    TRUE            reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    STRING          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    NUM             reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    REAL            reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    $end            reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    RBRACE          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    ELSE            reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
-    END_IF          reduce using rule 49 (return_stmt -> RETURN _11_optional SEMI .)
+    (49) return_stmt -> RETURN _11_expression_optional SEMI .
+    VAR             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    FUN             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    CLASS           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    LBRACE          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    WHILE           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    RETURN          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    PRINT           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    IF              reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    FOR             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    NOT             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    MINUS           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    LPAREN          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    SUPER           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    IDENT           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    THIS            reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    NIL             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    FALSE           reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    TRUE            reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    STRING          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    NUM             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    REAL            reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    $end            reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    RBRACE          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    ELSE            reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
+    END_IF          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
 
 
 state 100
@@ -3451,13 +3451,13 @@ state 100
 
 state 101
 
-    (43) if_stmt -> IF LPAREN _9_optional . RPAREN statement _10_optional END_IF
+    (43) if_stmt -> IF LPAREN _9_expression_optional . RPAREN statement _10_ELSE_statement_optional END_IF
     RPAREN          shift and go to state 121
 
 
 state 102
 
-    (44) _9_optional -> expression .
+    (44) _9_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -3472,7 +3472,7 @@ state 102
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    RPAREN          reduce using rule 44 (_9_optional -> expression .)
+    RPAREN          reduce using rule 44 (_9_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3491,9 +3491,9 @@ state 102
 
 state 103
 
-    (31) for_stmt -> FOR LPAREN SEMI . _5_optional SEMI _6_optional RPAREN statement
-    (32) _5_optional -> . expression
-    (33) _5_optional -> .
+    (31) for_stmt -> FOR LPAREN SEMI . _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (32) _5_expression_optional -> . expression
+    (33) _5_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -3512,7 +3512,7 @@ state 103
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -3523,7 +3523,7 @@ state 103
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    SEMI            reduce using rule 33 (_5_optional -> .)
+    SEMI            reduce using rule 33 (_5_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -3537,15 +3537,15 @@ state 103
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _5_optional                    shift and go to state 122
+    _5_expression_optional         shift and go to state 122
     expression                     shift and go to state 123
     factor                         shift and go to state 29
 
 state 104
 
-    (36) for_stmt -> FOR LPAREN for_initialize . _7_optional SEMI _8_optional RPAREN statement
-    (37) _7_optional -> . expression
-    (38) _7_optional -> .
+    (36) for_stmt -> FOR LPAREN for_initialize . _7_expression_optional SEMI _8_expression_optional RPAREN statement
+    (37) _7_expression_optional -> . expression
+    (38) _7_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -3564,7 +3564,7 @@ state 104
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -3575,7 +3575,7 @@ state 104
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    SEMI            reduce using rule 38 (_7_optional -> .)
+    SEMI            reduce using rule 38 (_7_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -3589,7 +3589,7 @@ state 104
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _7_optional                    shift and go to state 124
+    _7_expression_optional         shift and go to state 124
     expression                     shift and go to state 125
     factor                         shift and go to state 29
 
@@ -3631,19 +3631,19 @@ state 106
 
 state 107
 
-    (77) factor -> factor LPAREN _13_optional . RPAREN
+    (77) factor -> factor LPAREN _13_arguments_optional . RPAREN
     RPAREN          shift and go to state 126
 
 
 state 108
 
-    (78) _13_optional -> arguments .
-    RPAREN          reduce using rule 78 (_13_optional -> arguments .)
+    (78) _13_arguments_optional -> arguments .
+    RPAREN          reduce using rule 78 (_13_arguments_optional -> arguments .)
 
 
 state 109
 
-    (99) arguments -> expression . _16_repeat
+    (99) arguments -> expression . _16_COMMA_expression_repeat
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -3658,11 +3658,11 @@ state 109
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    (100) _16_repeat -> . _16_items
-    (101) _16_repeat -> .
-    (102) _16_items -> . _16_items _16_item
-    (103) _16_items -> . _16_item
-    (104) _16_item -> . COMMA expression
+    (100) _16_COMMA_expression_repeat -> . _16_COMMA_expression_items
+    (101) _16_COMMA_expression_repeat -> .
+    (102) _16_COMMA_expression_items -> . _16_COMMA_expression_items _16_COMMA_expression_item
+    (103) _16_COMMA_expression_items -> . _16_COMMA_expression_item
+    (104) _16_COMMA_expression_item -> . COMMA expression
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3677,12 +3677,12 @@ state 109
     AND             shift and go to state 63
     OR              shift and go to state 64
     ASSIGN          shift and go to state 65
-    RPAREN          reduce using rule 101 (_16_repeat -> .)
+    RPAREN          reduce using rule 101 (_16_COMMA_expression_repeat -> .)
     COMMA           shift and go to state 130
 
-    _16_repeat                     shift and go to state 127
-    _16_items                      shift and go to state 128
-    _16_item                       shift and go to state 129
+    _16_COMMA_expression_repeat    shift and go to state 127
+    _16_COMMA_expression_items     shift and go to state 128
+    _16_COMMA_expression_item      shift and go to state 129
 
 state 110
 
@@ -3734,36 +3734,36 @@ state 111
 
 state 112
 
-    (20) var_declaration -> VAR IDENT _4_optional SEMI .
-    VAR             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    FUN             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    CLASS           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    LBRACE          reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    WHILE           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    RETURN          reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    PRINT           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    IF              reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    FOR             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    NOT             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    MINUS           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    LPAREN          reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    SUPER           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    IDENT           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    THIS            reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    NIL             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    FALSE           reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    TRUE            reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    STRING          reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    NUM             reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    REAL            reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    $end            reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    RBRACE          reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
-    SEMI            reduce using rule 20 (var_declaration -> VAR IDENT _4_optional SEMI .)
+    (20) var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .
+    VAR             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    FUN             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    CLASS           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    LBRACE          reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    WHILE           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    RETURN          reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    PRINT           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    IF              reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    FOR             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    NOT             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    MINUS           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    LPAREN          reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    SUPER           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    IDENT           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    THIS            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    NIL             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    FALSE           reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    TRUE            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    STRING          reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    NUM             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    REAL            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    $end            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    RBRACE          reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
+    SEMI            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
 
 
 state 113
 
-    (21) _4_optional -> ASSIGN expression .
+    (21) _4_ASSIGN_expression_optional -> ASSIGN expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -3778,7 +3778,7 @@ state 113
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 21 (_4_optional -> ASSIGN expression .)
+    SEMI            reduce using rule 21 (_4_ASSIGN_expression_optional -> ASSIGN expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3797,51 +3797,51 @@ state 113
 
 state 114
 
-    (93) parameters -> IDENT . _15_repeat
-    (94) _15_repeat -> . _15_items
-    (95) _15_repeat -> .
-    (96) _15_items -> . _15_items _15_item
-    (97) _15_items -> . _15_item
-    (98) _15_item -> . COMMA IDENT
-    RPAREN          reduce using rule 95 (_15_repeat -> .)
+    (93) parameters -> IDENT . _15_COMMA_IDENT_repeat
+    (94) _15_COMMA_IDENT_repeat -> . _15_COMMA_IDENT_items
+    (95) _15_COMMA_IDENT_repeat -> .
+    (96) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_items _15_COMMA_IDENT_item
+    (97) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_item
+    (98) _15_COMMA_IDENT_item -> . COMMA IDENT
+    RPAREN          reduce using rule 95 (_15_COMMA_IDENT_repeat -> .)
     COMMA           shift and go to state 134
 
-    _15_repeat                     shift and go to state 131
-    _15_items                      shift and go to state 132
-    _15_item                       shift and go to state 133
+    _15_COMMA_IDENT_repeat         shift and go to state 131
+    _15_COMMA_IDENT_items          shift and go to state 132
+    _15_COMMA_IDENT_item           shift and go to state 133
 
 state 115
 
-    (90) function -> IDENT LPAREN _14_optional . RPAREN block
+    (90) function -> IDENT LPAREN _14_parameters_optional . RPAREN block
     RPAREN          shift and go to state 135
 
 
 state 116
 
-    (91) _14_optional -> parameters .
-    RPAREN          reduce using rule 91 (_14_optional -> parameters .)
+    (91) _14_parameters_optional -> parameters .
+    RPAREN          reduce using rule 91 (_14_parameters_optional -> parameters .)
 
 
 state 117
 
-    (11) class_declaration -> CLASS IDENT _2_optional LBRACE . _3_repeat RBRACE
-    (14) _3_repeat -> . _3_items
-    (15) _3_repeat -> .
-    (16) _3_items -> . _3_items _3_item
-    (17) _3_items -> . _3_item
-    (18) _3_item -> . function
-    (90) function -> . IDENT LPAREN _14_optional RPAREN block
-    RBRACE          reduce using rule 15 (_3_repeat -> .)
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE . _3_function_repeat RBRACE
+    (14) _3_function_repeat -> . _3_function_items
+    (15) _3_function_repeat -> .
+    (16) _3_function_items -> . _3_function_items _3_function_item
+    (17) _3_function_items -> . _3_function_item
+    (18) _3_function_item -> . function
+    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
+    RBRACE          reduce using rule 15 (_3_function_repeat -> .)
     IDENT           shift and go to state 43
 
-    _3_repeat                      shift and go to state 136
-    _3_items                       shift and go to state 137
-    _3_item                        shift and go to state 138
+    _3_function_repeat             shift and go to state 136
+    _3_function_items              shift and go to state 137
+    _3_function_item               shift and go to state 138
     function                       shift and go to state 139
 
 state 118
 
-    (12) _2_optional -> LPAREN LT . IDENT RPAREN
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT . IDENT RPAREN
     IDENT           shift and go to state 140
 
 
@@ -3855,13 +3855,13 @@ state 119
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -3881,7 +3881,7 @@ state 119
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -3930,7 +3930,7 @@ state 120
 
 state 121
 
-    (43) if_stmt -> IF LPAREN _9_optional RPAREN . statement _10_optional END_IF
+    (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN . statement _10_ELSE_statement_optional END_IF
     (23) statement -> . block
     (24) statement -> . while_stmt
     (25) statement -> . return_stmt
@@ -3938,13 +3938,13 @@ state 121
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -3964,7 +3964,7 @@ state 121
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4007,13 +4007,13 @@ state 121
 
 state 122
 
-    (31) for_stmt -> FOR LPAREN SEMI _5_optional . SEMI _6_optional RPAREN statement
+    (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional . SEMI _6_expression_optional RPAREN statement
     SEMI            shift and go to state 144
 
 
 state 123
 
-    (32) _5_optional -> expression .
+    (32) _5_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4028,7 +4028,7 @@ state 123
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 32 (_5_optional -> expression .)
+    SEMI            reduce using rule 32 (_5_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4047,13 +4047,13 @@ state 123
 
 state 124
 
-    (36) for_stmt -> FOR LPAREN for_initialize _7_optional . SEMI _8_optional RPAREN statement
+    (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional . SEMI _8_expression_optional RPAREN statement
     SEMI            shift and go to state 145
 
 
 state 125
 
-    (37) _7_optional -> expression .
+    (37) _7_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4068,7 +4068,7 @@ state 125
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 37 (_7_optional -> expression .)
+    SEMI            reduce using rule 37 (_7_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4087,54 +4087,54 @@ state 125
 
 state 126
 
-    (77) factor -> factor LPAREN _13_optional RPAREN .
-    LPAREN          reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    POINT           reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    SEMI            reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    NE              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    EQ              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    GE              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    GT              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    LE              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    LT              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    MODULE          reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    DIVIDE          reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    TIMES           reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    MINUS           reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    PLUS            reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    AND             reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    OR              reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    ASSIGN          reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    RPAREN          reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
-    COMMA           reduce using rule 77 (factor -> factor LPAREN _13_optional RPAREN .)
+    (77) factor -> factor LPAREN _13_arguments_optional RPAREN .
+    LPAREN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    POINT           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    SEMI            reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    NE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    EQ              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    GE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    GT              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    LE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    LT              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    MODULE          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    DIVIDE          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    TIMES           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    MINUS           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    PLUS            reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    AND             reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    OR              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    ASSIGN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    RPAREN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    COMMA           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
 
 
 state 127
 
-    (99) arguments -> expression _16_repeat .
-    RPAREN          reduce using rule 99 (arguments -> expression _16_repeat .)
+    (99) arguments -> expression _16_COMMA_expression_repeat .
+    RPAREN          reduce using rule 99 (arguments -> expression _16_COMMA_expression_repeat .)
 
 
 state 128
 
-    (100) _16_repeat -> _16_items .
-    (102) _16_items -> _16_items . _16_item
-    (104) _16_item -> . COMMA expression
-    RPAREN          reduce using rule 100 (_16_repeat -> _16_items .)
+    (100) _16_COMMA_expression_repeat -> _16_COMMA_expression_items .
+    (102) _16_COMMA_expression_items -> _16_COMMA_expression_items . _16_COMMA_expression_item
+    (104) _16_COMMA_expression_item -> . COMMA expression
+    RPAREN          reduce using rule 100 (_16_COMMA_expression_repeat -> _16_COMMA_expression_items .)
     COMMA           shift and go to state 130
 
-    _16_item                       shift and go to state 146
+    _16_COMMA_expression_item      shift and go to state 146
 
 state 129
 
-    (103) _16_items -> _16_item .
-    COMMA           reduce using rule 103 (_16_items -> _16_item .)
-    RPAREN          reduce using rule 103 (_16_items -> _16_item .)
+    (103) _16_COMMA_expression_items -> _16_COMMA_expression_item .
+    COMMA           reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
+    RPAREN          reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
 
 
 state 130
 
-    (104) _16_item -> COMMA . expression
+    (104) _16_COMMA_expression_item -> COMMA . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -4153,7 +4153,7 @@ state 130
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4182,76 +4182,76 @@ state 130
 
 state 131
 
-    (93) parameters -> IDENT _15_repeat .
-    RPAREN          reduce using rule 93 (parameters -> IDENT _15_repeat .)
+    (93) parameters -> IDENT _15_COMMA_IDENT_repeat .
+    RPAREN          reduce using rule 93 (parameters -> IDENT _15_COMMA_IDENT_repeat .)
 
 
 state 132
 
-    (94) _15_repeat -> _15_items .
-    (96) _15_items -> _15_items . _15_item
-    (98) _15_item -> . COMMA IDENT
-    RPAREN          reduce using rule 94 (_15_repeat -> _15_items .)
+    (94) _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .
+    (96) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items . _15_COMMA_IDENT_item
+    (98) _15_COMMA_IDENT_item -> . COMMA IDENT
+    RPAREN          reduce using rule 94 (_15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .)
     COMMA           shift and go to state 134
 
-    _15_item                       shift and go to state 148
+    _15_COMMA_IDENT_item           shift and go to state 148
 
 state 133
 
-    (97) _15_items -> _15_item .
-    COMMA           reduce using rule 97 (_15_items -> _15_item .)
-    RPAREN          reduce using rule 97 (_15_items -> _15_item .)
+    (97) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .
+    COMMA           reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
+    RPAREN          reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
 
 
 state 134
 
-    (98) _15_item -> COMMA . IDENT
+    (98) _15_COMMA_IDENT_item -> COMMA . IDENT
     IDENT           shift and go to state 149
 
 
 state 135
 
-    (90) function -> IDENT LPAREN _14_optional RPAREN . block
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (90) function -> IDENT LPAREN _14_parameters_optional RPAREN . block
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     LBRACE          shift and go to state 21
 
     block                          shift and go to state 150
 
 state 136
 
-    (11) class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat . RBRACE
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat . RBRACE
     RBRACE          shift and go to state 151
 
 
 state 137
 
-    (14) _3_repeat -> _3_items .
-    (16) _3_items -> _3_items . _3_item
-    (18) _3_item -> . function
-    (90) function -> . IDENT LPAREN _14_optional RPAREN block
-    RBRACE          reduce using rule 14 (_3_repeat -> _3_items .)
+    (14) _3_function_repeat -> _3_function_items .
+    (16) _3_function_items -> _3_function_items . _3_function_item
+    (18) _3_function_item -> . function
+    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
+    RBRACE          reduce using rule 14 (_3_function_repeat -> _3_function_items .)
     IDENT           shift and go to state 43
 
-    _3_item                        shift and go to state 152
+    _3_function_item               shift and go to state 152
     function                       shift and go to state 139
 
 state 138
 
-    (17) _3_items -> _3_item .
-    IDENT           reduce using rule 17 (_3_items -> _3_item .)
-    RBRACE          reduce using rule 17 (_3_items -> _3_item .)
+    (17) _3_function_items -> _3_function_item .
+    IDENT           reduce using rule 17 (_3_function_items -> _3_function_item .)
+    RBRACE          reduce using rule 17 (_3_function_items -> _3_function_item .)
 
 
 state 139
 
-    (18) _3_item -> function .
-    IDENT           reduce using rule 18 (_3_item -> function .)
-    RBRACE          reduce using rule 18 (_3_item -> function .)
+    (18) _3_function_item -> function .
+    IDENT           reduce using rule 18 (_3_function_item -> function .)
+    RBRACE          reduce using rule 18 (_3_function_item -> function .)
 
 
 state 140
 
-    (12) _2_optional -> LPAREN LT IDENT . RPAREN
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT . RPAREN
     RPAREN          shift and go to state 153
 
 
@@ -4317,19 +4317,19 @@ state 142
 
 state 143
 
-    (43) if_stmt -> IF LPAREN _9_optional RPAREN statement . _10_optional END_IF
-    (46) _10_optional -> . ELSE statement
-    (47) _10_optional -> .
+    (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement . _10_ELSE_statement_optional END_IF
+    (46) _10_ELSE_statement_optional -> . ELSE statement
+    (47) _10_ELSE_statement_optional -> .
     ELSE            shift and go to state 155
-    END_IF          reduce using rule 47 (_10_optional -> .)
+    END_IF          reduce using rule 47 (_10_ELSE_statement_optional -> .)
 
-    _10_optional                   shift and go to state 154
+    _10_ELSE_statement_optional    shift and go to state 154
 
 state 144
 
-    (31) for_stmt -> FOR LPAREN SEMI _5_optional SEMI . _6_optional RPAREN statement
-    (34) _6_optional -> . expression
-    (35) _6_optional -> .
+    (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI . _6_expression_optional RPAREN statement
+    (34) _6_expression_optional -> . expression
+    (35) _6_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -4348,7 +4348,7 @@ state 144
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4359,7 +4359,7 @@ state 144
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RPAREN          reduce using rule 35 (_6_optional -> .)
+    RPAREN          reduce using rule 35 (_6_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -4373,15 +4373,15 @@ state 144
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _6_optional                    shift and go to state 156
+    _6_expression_optional         shift and go to state 156
     expression                     shift and go to state 157
     factor                         shift and go to state 29
 
 state 145
 
-    (36) for_stmt -> FOR LPAREN for_initialize _7_optional SEMI . _8_optional RPAREN statement
-    (39) _8_optional -> . expression
-    (40) _8_optional -> .
+    (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI . _8_expression_optional RPAREN statement
+    (39) _8_expression_optional -> . expression
+    (40) _8_expression_optional -> .
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -4400,7 +4400,7 @@ state 145
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4411,7 +4411,7 @@ state 145
     (87) factor -> . STRING
     (88) factor -> . NUM
     (89) factor -> . REAL
-    RPAREN          reduce using rule 40 (_8_optional -> .)
+    RPAREN          reduce using rule 40 (_8_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -4425,20 +4425,20 @@ state 145
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _8_optional                    shift and go to state 158
+    _8_expression_optional         shift and go to state 158
     expression                     shift and go to state 159
     factor                         shift and go to state 29
 
 state 146
 
-    (102) _16_items -> _16_items _16_item .
-    COMMA           reduce using rule 102 (_16_items -> _16_items _16_item .)
-    RPAREN          reduce using rule 102 (_16_items -> _16_items _16_item .)
+    (102) _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .
+    COMMA           reduce using rule 102 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
+    RPAREN          reduce using rule 102 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
 
 
 state 147
 
-    (104) _16_item -> COMMA expression .
+    (104) _16_COMMA_expression_item -> COMMA expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4453,8 +4453,8 @@ state 147
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    COMMA           reduce using rule 104 (_16_item -> COMMA expression .)
-    RPAREN          reduce using rule 104 (_16_item -> COMMA expression .)
+    COMMA           reduce using rule 104 (_16_COMMA_expression_item -> COMMA expression .)
+    RPAREN          reduce using rule 104 (_16_COMMA_expression_item -> COMMA expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4473,96 +4473,96 @@ state 147
 
 state 148
 
-    (96) _15_items -> _15_items _15_item .
-    COMMA           reduce using rule 96 (_15_items -> _15_items _15_item .)
-    RPAREN          reduce using rule 96 (_15_items -> _15_items _15_item .)
+    (96) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .
+    COMMA           reduce using rule 96 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
+    RPAREN          reduce using rule 96 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
 
 
 state 149
 
-    (98) _15_item -> COMMA IDENT .
-    COMMA           reduce using rule 98 (_15_item -> COMMA IDENT .)
-    RPAREN          reduce using rule 98 (_15_item -> COMMA IDENT .)
+    (98) _15_COMMA_IDENT_item -> COMMA IDENT .
+    COMMA           reduce using rule 98 (_15_COMMA_IDENT_item -> COMMA IDENT .)
+    RPAREN          reduce using rule 98 (_15_COMMA_IDENT_item -> COMMA IDENT .)
 
 
 state 150
 
-    (90) function -> IDENT LPAREN _14_optional RPAREN block .
-    VAR             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    FUN             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    CLASS           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    LBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    WHILE           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    RETURN          reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    PRINT           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    IF              reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    FOR             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    NOT             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    MINUS           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    LPAREN          reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    SUPER           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    IDENT           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    THIS            reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    NIL             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    FALSE           reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    TRUE            reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    STRING          reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    NUM             reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    REAL            reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    $end            reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
-    RBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_optional RPAREN block .)
+    (90) function -> IDENT LPAREN _14_parameters_optional RPAREN block .
+    VAR             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FUN             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    CLASS           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    LBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    WHILE           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    RETURN          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    PRINT           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    IF              reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FOR             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NOT             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    MINUS           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    LPAREN          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    SUPER           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    IDENT           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    THIS            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NIL             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FALSE           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    TRUE            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    STRING          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NUM             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    REAL            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    $end            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    RBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
 
 
 state 151
 
-    (11) class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .
-    VAR             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    FUN             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    CLASS           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    LBRACE          reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    WHILE           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    RETURN          reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    PRINT           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    IF              reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    FOR             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    NOT             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    MINUS           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    LPAREN          reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    SUPER           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    IDENT           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    THIS            reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    NIL             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    FALSE           reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    TRUE            reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    STRING          reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    NUM             reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    REAL            reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    $end            reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
-    RBRACE          reduce using rule 11 (class_declaration -> CLASS IDENT _2_optional LBRACE _3_repeat RBRACE .)
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .
+    VAR             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    FUN             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    CLASS           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    LBRACE          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    WHILE           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    RETURN          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    PRINT           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    IF              reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    FOR             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    NOT             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    MINUS           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    LPAREN          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    SUPER           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    IDENT           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    THIS            reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    NIL             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    FALSE           reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    TRUE            reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    STRING          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    NUM             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    REAL            reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    $end            reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
+    RBRACE          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
 
 
 state 152
 
-    (16) _3_items -> _3_items _3_item .
-    IDENT           reduce using rule 16 (_3_items -> _3_items _3_item .)
-    RBRACE          reduce using rule 16 (_3_items -> _3_items _3_item .)
+    (16) _3_function_items -> _3_function_items _3_function_item .
+    IDENT           reduce using rule 16 (_3_function_items -> _3_function_items _3_function_item .)
+    RBRACE          reduce using rule 16 (_3_function_items -> _3_function_items _3_function_item .)
 
 
 state 153
 
-    (12) _2_optional -> LPAREN LT IDENT RPAREN .
-    LBRACE          reduce using rule 12 (_2_optional -> LPAREN LT IDENT RPAREN .)
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT RPAREN .
+    LBRACE          reduce using rule 12 (_2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT RPAREN .)
 
 
 state 154
 
-    (43) if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional . END_IF
+    (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional . END_IF
     END_IF          shift and go to state 160
 
 
 state 155
 
-    (46) _10_optional -> ELSE . statement
+    (46) _10_ELSE_statement_optional -> ELSE . statement
     (23) statement -> . block
     (24) statement -> . while_stmt
     (25) statement -> . return_stmt
@@ -4570,13 +4570,13 @@ state 155
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -4596,7 +4596,7 @@ state 155
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4639,13 +4639,13 @@ state 155
 
 state 156
 
-    (31) for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional . RPAREN statement
+    (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional . RPAREN statement
     RPAREN          shift and go to state 162
 
 
 state 157
 
-    (34) _6_optional -> expression .
+    (34) _6_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4660,7 +4660,7 @@ state 157
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    RPAREN          reduce using rule 34 (_6_optional -> expression .)
+    RPAREN          reduce using rule 34 (_6_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4679,13 +4679,13 @@ state 157
 
 state 158
 
-    (36) for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional . RPAREN statement
+    (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional . RPAREN statement
     RPAREN          shift and go to state 163
 
 
 state 159
 
-    (39) _8_optional -> expression .
+    (39) _8_expression_optional -> expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4700,7 +4700,7 @@ state 159
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
     (73) expression -> expression . ASSIGN expression
-    RPAREN          reduce using rule 39 (_8_optional -> expression .)
+    RPAREN          reduce using rule 39 (_8_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4719,43 +4719,43 @@ state 159
 
 state 160
 
-    (43) if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .
-    VAR             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    FUN             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    CLASS           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    LBRACE          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    WHILE           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    RETURN          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    PRINT           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    IF              reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    FOR             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    NOT             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    MINUS           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    LPAREN          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    SUPER           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    IDENT           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    THIS            reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    NIL             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    FALSE           reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    TRUE            reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    STRING          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    NUM             reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    REAL            reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    $end            reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    RBRACE          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    ELSE            reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
-    END_IF          reduce using rule 43 (if_stmt -> IF LPAREN _9_optional RPAREN statement _10_optional END_IF .)
+    (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .
+    VAR             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    FUN             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    CLASS           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    LBRACE          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    WHILE           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    RETURN          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    PRINT           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    IF              reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    FOR             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    NOT             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    MINUS           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    LPAREN          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    SUPER           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    IDENT           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    THIS            reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    NIL             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    FALSE           reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    TRUE            reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    STRING          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    NUM             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    REAL            reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    $end            reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    RBRACE          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    ELSE            reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
+    END_IF          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
 
 
 state 161
 
-    (46) _10_optional -> ELSE statement .
-    END_IF          reduce using rule 46 (_10_optional -> ELSE statement .)
+    (46) _10_ELSE_statement_optional -> ELSE statement .
+    END_IF          reduce using rule 46 (_10_ELSE_statement_optional -> ELSE statement .)
 
 
 state 162
 
-    (31) for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN . statement
+    (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN . statement
     (23) statement -> . block
     (24) statement -> . while_stmt
     (25) statement -> . return_stmt
@@ -4763,13 +4763,13 @@ state 162
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -4789,7 +4789,7 @@ state 162
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4832,7 +4832,7 @@ state 162
 
 state 163
 
-    (36) for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN . statement
+    (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN . statement
     (23) statement -> . block
     (24) statement -> . while_stmt
     (25) statement -> . return_stmt
@@ -4840,13 +4840,13 @@ state 163
     (27) statement -> . if_stmt
     (28) statement -> . for_stmt
     (29) statement -> . expr_stmt
-    (53) block -> . LBRACE _12_repeat RBRACE
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
     (52) while_stmt -> . WHILE LPAREN expression RPAREN statement
-    (49) return_stmt -> . RETURN _11_optional SEMI
+    (49) return_stmt -> . RETURN _11_expression_optional SEMI
     (48) print_stmt -> . PRINT LPAREN expression RPAREN SEMI
-    (43) if_stmt -> . IF LPAREN _9_optional RPAREN statement _10_optional END_IF
-    (31) for_stmt -> . FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement
-    (36) for_stmt -> . FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement
+    (43) if_stmt -> . IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
+    (31) for_stmt -> . FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
+    (36) for_stmt -> . FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (30) expr_stmt -> . expression SEMI
     (59) expression -> . factor
     (60) expression -> . expression NE expression
@@ -4866,7 +4866,7 @@ state 163
     (74) factor -> . NOT factor
     (75) factor -> . MINUS factor
     (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_optional RPAREN
+    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
     (80) factor -> . factor POINT IDENT
     (81) factor -> . SUPER POINT IDENT
     (82) factor -> . IDENT
@@ -4909,59 +4909,59 @@ state 163
 
 state 164
 
-    (31) for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .
-    VAR             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    FUN             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    CLASS           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    LBRACE          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    WHILE           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    RETURN          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    PRINT           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    IF              reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    FOR             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    NOT             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    MINUS           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    LPAREN          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    SUPER           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    IDENT           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    THIS            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    NIL             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    FALSE           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    TRUE            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    STRING          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    NUM             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    REAL            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    $end            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    RBRACE          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    ELSE            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
-    END_IF          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_optional SEMI _6_optional RPAREN statement .)
+    (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .
+    VAR             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    FUN             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    CLASS           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    LBRACE          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    WHILE           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    RETURN          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    PRINT           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    IF              reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    FOR             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    NOT             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    MINUS           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    LPAREN          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    SUPER           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    IDENT           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    THIS            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    NIL             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    FALSE           reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    TRUE            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    STRING          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    NUM             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    REAL            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    $end            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    RBRACE          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    ELSE            reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
+    END_IF          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
 
 
 state 165
 
-    (36) for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .
-    VAR             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    FUN             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    CLASS           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    LBRACE          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    WHILE           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    RETURN          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    PRINT           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    IF              reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    FOR             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    NOT             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    MINUS           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    LPAREN          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    SUPER           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    IDENT           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    THIS            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    NIL             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    FALSE           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    TRUE            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    STRING          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    NUM             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    REAL            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    $end            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    RBRACE          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    ELSE            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
-    END_IF          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_optional SEMI _8_optional RPAREN statement .)
+    (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .
+    VAR             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    FUN             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    CLASS           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    LBRACE          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    WHILE           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    RETURN          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    PRINT           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    IF              reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    FOR             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    NOT             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    MINUS           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    LPAREN          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    SUPER           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    IDENT           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    THIS            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    NIL             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    FALSE           reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    TRUE            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    STRING          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    NUM             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    REAL            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    $end            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    RBRACE          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    ELSE            reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)
+    END_IF          reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)

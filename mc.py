@@ -36,14 +36,16 @@ def main(argv):
     if len(argv) == 2:
         with open(argv[1]) as file:
             source = file.read()
+
+        print("\t\t\t\n ################################ Valentine's MiniC Compiler ################################  \n")
         ctxt.parse(source)
         print("\n\n\t\t********** AST ********** \n\n")
         print(ctxt.ast)
-        print("\n\n")
+        print("\n\n DOT LANGUAGE \n")
         dot = DotRender.render(ctxt.ast) #render
         print(dot)
-        print("\n")
 
+        print("\n CHECKER + INTERPRETER \n")
         ctxt.run()
 
     else:

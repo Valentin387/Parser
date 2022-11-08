@@ -84,14 +84,15 @@ class Checker(Visitor):
         try:
             env.add(node.name, node)
         except Symtab.SymbolDefinedError:
-            self.error(f"Checker error, this symbol '{node.name}' is already defined.")
+            self.error(node, f"Checker error, this symbol '{node.name}' is already defined.")
 
-    def error(self, txt):
-        #raise Exception(txt)
-        print(txt)
+    def error(cls, position, txt):
+        cls.ctxt.error(position, txt)
+        #print(txt)
 
     @classmethod
-    def check(cls, model):
+    def check(cls, model, ctxt):
+        cls.ctxt = ctxt
         check = cls()
         print("***********Starting cheking process*********** \n")
         model.accept(check)
@@ -119,7 +120,7 @@ class Checker(Visitor):
         if node.sclass:
             value = env.get(node.sclass)
             if value is None:
-                self.error(f"Checker error, parent class not found: '{node.sclass}'")
+                self.error(node, f"Checker error, parent class not found: '{node.sclass}'")
         env = Symtab(env)
         for meth in node.methods:
             self.visit(meth, env)
@@ -146,7 +147,7 @@ class Checker(Visitor):
         result = self.visit(node.stmts, env)
 
         if result != 1:
-            self.error(f"Checker error, no Return Stmt in function '{node.name}'")
+            self.error(node, f"Checker error, no Return Stmt in function '{node.name}'")
 
 
     def visit(self, node: VarDeclaration, env: Symtab):
@@ -287,7 +288,7 @@ class Checker(Visitor):
         #I just have to check if it's already defined before
         result = env.get(node.name)
         if result is None:
-            self.error(f"Checker error. Assign left symbol '{node.name}' is not defined")
+            self.error(node, f"Checker error. Assign left symbol '{node.name}' is not defined")
 
         #DON'T DO: self.visit(node.name, env)
         self.visit(node.expr, env)
@@ -309,7 +310,7 @@ class Checker(Visitor):
             if result is not None:
                 if result.parameters is not None:
                     if len(result.parameters)!=len(node.args):
-                        self.error("Checker error, given arguments don't match expected arguments in Call")
+                        self.error(node, "Checker error, given arguments don't match expected arguments in Call")
 
     def visit(self, node: Get, env: Symtab):
         '''
@@ -319,7 +320,7 @@ class Checker(Visitor):
         self.visit(node.obj, env)
         nam = env.get(node.name)
         if nam is None:
-            self.error(f"Checker error. Get symbol '{node.name}' is not defined")
+            self.error(node, f"Checker error. Get symbol '{node.name}' is not defined")
 
     def visit(self, node: Set, env: Symtab):
         '''
@@ -331,7 +332,7 @@ class Checker(Visitor):
         nam= env.get(node.name)
 
         if nam is None:
-            self.error(f"Checker Error. Set symbol '{node.name}' is not defined")
+            self.error(node, f"Checker Error. Set symbol '{node.name}' is not defined")
 
     def visit(self, node: This, env: Symtab):
         '''

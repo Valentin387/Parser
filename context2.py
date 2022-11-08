@@ -9,14 +9,15 @@ el código fuente, informe de errores, etc.
 from clex    import Lexer
 from cparse  import Parser
 from cinterp import Interpreter
+from rich import print
 
 import cast
 
 class Context:
 
 	def __init__(self):
-		self.lexer  = Lexer()
-		self.parser = Parser()
+		self.lexer  = Lexer(self)
+		self.parser = Parser(self)
 		self.interp = Interpreter(self)
 		self.source = ''
 		self.ast    = None
@@ -55,5 +56,6 @@ class Context:
 			print(f'{lineno}: {message}')
 
 		else:
-			print(f'{position}: {message}')
+			#print(f'{position} : {message}')
+			print(message)
 		self.have_errors = True

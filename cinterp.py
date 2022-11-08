@@ -104,7 +104,7 @@ class Instance:
 
 class Interpreter(Visitor): #This is a visitor
 	def __init__(self, ctxt):
-		self.ctxt = ctxt 				#receives a context
+		self.ctxt = ctxt 				#receives a Context (the project's manager)
 		self.env  = ChainMap()			#generates ChainMap
 		self.check_env = ChainMap()		#generates a ChainMap for interpreter
 		self.localmap  = { }			#The local map is a dictionary
@@ -123,18 +123,20 @@ class Interpreter(Visitor): #This is a visitor
 
 	def error(self, position, message):
 		self.ctxt.error(position, message)
-		raise MiniCExit()
+		#raise MiniCExit()
 
 	# Punto de entrada alto-nivel
 	def interpret(self, node):
 		try:
-			Checker.check(node) #First, you must call the Checker
+			Checker.check(node, self.ctxt) #First, you must call the Checker
 			if not self.ctxt.have_errors:
 				print("first")
 				self.visit(node)
 				print("last")
+			else:
+				print("\n The interpreter could not start because the Checker returned errors")
 		except MiniCExit as e:
-			print("The interpreter could not start because the Checker returned errors")
+			pass
 
 	def visit(self, node: Block):
 		print("Block")
