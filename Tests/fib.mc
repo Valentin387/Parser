@@ -3,6 +3,11 @@ fib.mc
 
 calcula el n-esimo número de la secuencia de Fibonacci
 
+main
+for (var i = 1; i < 20; i = i + 1) {
+  print(fib(i));
+}
+
 */
 
 fun fib(n){
@@ -15,12 +20,6 @@ fun fib(n){
   //return 0;
 }
 
-//main
-for (var i = 1; i < 20; i = i + 1) {
-  print(fib(i));
-}
 
 var i = 1;
-while(i < 20){
-  print(fib(i));
-}
+i=i+1;

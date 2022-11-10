@@ -73,7 +73,7 @@ class Class:
 		this = Instance(self)
 		init = self.find_method('init')
 		if init:
-			init.bind(this)(*args) #I re define the use for 'This'
+			init.bind(this)(*args) #I re-define the use for 'This'
 		return this
 
 	def find_method(self, name):
@@ -148,6 +148,7 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Program):
 		print("program")
+		print(self.env)
 		self.env = self.env.new_child()
 		for d in node.decl:
 			self.visit(d)
@@ -169,10 +170,13 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: FuncDeclaration):
 		print("FuncDeclaration")
+		print(self.env)
 		func = Function(node, self.env)
 		self.env[node.name] = func
 
 	def visit(self, node: VarDeclaration):
+		print("VarDeclaration")
+		print(self.env)
 		if node.expr:
 			expr = self.visit(node.expr)
 		else:
@@ -187,6 +191,7 @@ class Interpreter(Visitor): #This is a visitor
 			self.visit(node.body)
 
 	def visit(self, node: ForStmt):
+		self.visit(node.for_init)
 		while _is_truthy(self.visit(node.for_cond)):
 			self.visit(node.for_body)
 			self.visit(node.for_increment)
@@ -209,10 +214,12 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Literal):
 		print("literal")
+		print(self.env)
 		return node.value
 
 	def visit(self, node: Binary):
 		print("Binary")
+		print(self.env)
 		left  = self.visit(node.left)
 		print("left visited")
 		right = self.visit(node.right)
@@ -273,7 +280,11 @@ class Interpreter(Visitor): #This is a visitor
 		return self.visit(node.expr)
 
 	def visit(self, node: Assign):
+		print("Assign")
+		print(self.env)
 		expr = self.visit(node.expr)
+		print("Assign left visited")
+		print(id(node))
 		self.env.maps[self.localmap[id(node)]][node.name] = expr
 
 	def visit(self, node: Call):
@@ -289,6 +300,9 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Variable):
 		print("variable")
+		print(self.env)
+		print(id(node))
+		self.error(node, f'Interp Error{self.ctxt.find_source(node)!r} ')
 		return self.env.maps[self.localmap[id(node)]][node.name] #maps reads ChainMap as a list
 
 	def visit(self, node: Set):
