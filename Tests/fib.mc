@@ -5,7 +5,6 @@ calcula el n-esimo número de la secuencia de Fibonacci
 
 */
 
-
 fun fib(n){
   if (n <= 1){
     return 1;
@@ -16,7 +15,12 @@ fun fib(n){
   //return 0;
 }
 
- //main
+//main
 for (var i = 1; i < 20; i = i + 1) {
+  print(fib(i));
+}
+
+var i = 1;
+while(i < 20){
   print(fib(i));
 }

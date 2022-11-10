@@ -88,7 +88,6 @@ class Checker(Visitor):
 
     def error(cls, position, txt):
         cls.ctxt.error(position, txt)
-        #print(txt)
 
     @classmethod
     def check(cls, model, ctxt):
@@ -144,10 +143,10 @@ class Checker(Visitor):
             for param in node.parameters:
                 self._add_symbol(Variable(param), env)
 
-        result = self.visit(node.stmts, env)
-
-        if result != 1:
-            self.error(node, f"Checker error, no Return Stmt in function '{node.name}'")
+        #result = self.visit(node.stmts, env)
+        self.visit(node.stmts, env)
+        #if result != 1:
+            #self.error(node, f"Checker error, no Return Stmt in function '{node.name}'")
 
 
     def visit(self, node: VarDeclaration, env: Symtab):
@@ -174,10 +173,12 @@ class Checker(Visitor):
         '''
         for stmt in node.stmts:
             self.visit(stmt, env)
+        """
         if isinstance(node.stmts[-1], Return):
             return 1
         else:
             return 0
+        """
 
     def visit(self, node: Print, env: Symtab):
         '''
@@ -274,7 +275,7 @@ class Checker(Visitor):
         '''
         result = env.get(node.name)
         if result is None:
-            self.error(f"Checker error, the variable '{node.name}' is not defined")
+            self.error(node, f"Checker error, the variable '{node.name}' is not defined")
 
     def visit(self, node: Assign, env: Symtab):
         '''

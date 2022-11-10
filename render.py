@@ -16,7 +16,7 @@ class DotRender(Visitor):
     edge_defaults = {
         'arrowhead' : 'none',
     }
-    color = 'chartreuse'
+    color = 'gold2'
 
     def __init__(self):
         self.dot = Digraph('AST')

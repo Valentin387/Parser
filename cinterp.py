@@ -106,7 +106,7 @@ class Interpreter(Visitor): #This is a visitor
 	def __init__(self, ctxt):
 		self.ctxt = ctxt 				#receives a Context (the project's manager)
 		self.env  = ChainMap()			#generates ChainMap
-		self.check_env = ChainMap()		#generates a ChainMap for interpreter
+		self.check_env = ChainMap()		#generates a ChainMap for the Checker
 		self.localmap  = { }			#The local map is a dictionary
 
 	def _check_numeric_operands(self, node, left, right):
@@ -123,7 +123,7 @@ class Interpreter(Visitor): #This is a visitor
 
 	def error(self, position, message):
 		self.ctxt.error(position, message)
-		#raise MiniCExit()
+		raise MiniCExit()
 
 	# Punto de entrada alto-nivel
 	def interpret(self, node):
@@ -172,11 +172,6 @@ class Interpreter(Visitor): #This is a visitor
 		func = Function(node, self.env)
 		self.env[node.name] = func
 
-		if node.stmts:
-			self.visit(node.stmts)
-
-		#self.env[node.name] = func
-
 	def visit(self, node: VarDeclaration):
 		if node.expr:
 			expr = self.visit(node.expr)
@@ -188,7 +183,7 @@ class Interpreter(Visitor): #This is a visitor
 		print(self.visit(node.expr))
 
 	def visit(self, node: WhileStmt):
-		while _is_truthy(self.visit(node.test)):
+		while _is_truthy(self.visit(node.cond)):
 			self.visit(node.body)
 
 	def visit(self, node: ForStmt):
@@ -206,14 +201,8 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Return):
 		print("Return")
-		# Ojo: node.expr es opcional
-		if node.expr:
-			expr = self.visit(node.expr)
-		else:
-			expr = None
-		self.env["Return"] = expr
 		raise ReturnException(self.visit(node.expr))
-		#self.visit(node.expr)
+
 
 	def visit(self, node: ExprStmt):
 		self.visit(node.expr)
