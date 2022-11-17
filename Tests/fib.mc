@@ -20,9 +20,6 @@ fun fib(n){
   //return 0;
 }
 
-
-var i = 0;
-while(i < 21){
-  print(i);
-  i=i+1;
+for(var i = 0; i < 21; i=i+1){
+  print(fib(i));
 }
