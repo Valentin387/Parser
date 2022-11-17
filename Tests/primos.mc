@@ -12,7 +12,7 @@ fun isprime(n) {
       return true;
 }
 
-for (var n=2; n <= 10; n=n+1) {
+for (var n=2; n <= 1000; n=n+1) {
     if (isprime(n)) {
         print(n);
     }end_if

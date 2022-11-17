@@ -303,11 +303,11 @@ class Interpreter(Visitor): #This is a visitor
 			self.error(node.object, f'Interp Error{self.ctxt.find_source(node.object)!r}  is not an instance')
 
 	def visit(self, node: This):
-		return self.env.maps[self.localmap[id(node)]]['this']
+		return self.env['this']
 
 	def visit(self, node: Super):
 		distance = self.localmap[id(node)]
-		sclass = self.env.maps[distance]['super']
+		sclass = self.env.maps[distance]['super']  #????
 		this = self.env.maps[distance-1]['this']
 		method = sclass.find_method(node.name)
 		if not method:

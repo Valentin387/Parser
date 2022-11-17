@@ -37,7 +37,7 @@ def main(argv):
         with open(argv[1]) as file:
             source = file.read()
 
-        print("\t\t\t\n ################################ Valentine's MiniC Compiler ################################  \n")
+        print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
         ctxt.parse(source)
         print("\n\n\t\t********** AST ********** \n\n")
         print(ctxt.ast)
