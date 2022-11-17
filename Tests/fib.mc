@@ -21,5 +21,8 @@ fun fib(n){
 }
 
 
-var i = 1;
-i=i+1;
+var i = 0;
+while(i < 21){
+  print(i);
+  i=i+1;
+}
