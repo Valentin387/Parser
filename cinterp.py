@@ -36,9 +36,9 @@ class Function:
 		self.node = node
 		self.env = env
 
-	def __call__(self, interp, *args): #it receives de interpreter and a tuple
+	def __call__(self, interp, *args): #it receives the interpreter and a tuple
 		if len(args) != len(self.node.parameters):
-			raise CallError(f"Interp Error. Expected {len(self.node.params)} arguments")
+			raise CallError(f"Interp Error. Expected {len(self.node.parameters)} arguments")
 		newenv = self.env.new_child() #we create a new environment
 		for name, arg in zip(self.node.parameters, args):
 			newenv[name] = arg
@@ -198,7 +198,6 @@ class Interpreter(Visitor): #This is a visitor
 	def visit(self, node: Return):
 		raise ReturnException(self.visit(node.expr))
 
-
 	def visit(self, node: ExprStmt):
 		self.visit(node.expr)
 
@@ -279,8 +278,6 @@ class Interpreter(Visitor): #This is a visitor
 			self.error(node.func, str(err))
 
 	def visit(self, node: Variable):
-		#self.error(node, f'Interp Error{self.ctxt.find_source(node)!r} ')
-		#return self.env.maps[self.localmap[id(node)]][node.name] #maps reads ChainMap as a list
 		return self.env[node.name]
 
 	def visit(self, node: Set):
@@ -307,7 +304,7 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Super):
 		distance = self.localmap[id(node)]
-		sclass = self.env.maps[distance]['super']  #????
+		sclass = self.env.maps[distance]['super'] 
 		this = self.env.maps[distance-1]['this']
 		method = sclass.find_method(node.name)
 		if not method:

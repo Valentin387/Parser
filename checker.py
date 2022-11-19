@@ -120,7 +120,7 @@ class Checker(Visitor):
             value = env.get(node.sclass)
             if value is None:
                 self.error(node, f"Checker error, parent class not found: '{node.sclass}'")
-        env = Symtab(env)
+        #env = Symtab(env)
         for meth in node.methods:
             self.visit(meth, env)
 
@@ -134,20 +134,15 @@ class Checker(Visitor):
 
         self._add_symbol(node, env)
 
-        env = Symtab(env)
+        #env = Symtab(env)
         #the inner environment must know about the function itself
         #to allow recursivity
-        self._add_symbol(node, env)
+        #self._add_symbol(node, env)
 
         if node.parameters:
             for param in node.parameters:
                 self._add_symbol(Variable(param), env)
-
-        #result = self.visit(node.stmts, env)
         self.visit(node.stmts, env)
-        #if result != 1:
-            #self.error(node, f"Checker error, no Return Stmt in function '{node.name}'")
-
 
     def visit(self, node: VarDeclaration, env: Symtab):
         '''
@@ -171,14 +166,9 @@ class Checker(Visitor):
         '''
         1. Visitar cada una de las instrucciones
         '''
+        env = Symtab(env)
         for stmt in node.stmts:
             self.visit(stmt, env)
-        """
-        if isinstance(node.stmts[-1], Return):
-            return 1
-        else:
-            return 0
-        """
 
     def visit(self, node: Print, env: Symtab):
         '''
@@ -194,7 +184,7 @@ class Checker(Visitor):
         '''
 
         self.visit(node.cond, env)
-        env = Symtab(env)
+        #env = Symtab(env)
         self.visit(node.cons, env)
         if node.altr:
             self.visit(node.altr, env)
@@ -203,16 +193,15 @@ class Checker(Visitor):
         '''
         1. Visitar la condicion
         2. Visitar las instrucciones del cuerpo
-        Nota : ¿Generar un nuevo contexto?
         '''
 
         self.visit(node.cond, env)
-        env = Symtab(env) #?????
+        #env = Symtab(env)
         self.visit(node.body, env)
 
     def visit(self, node: ForStmt, env: Symtab):
 
-        env = Symtab(env) #?????
+        env = Symtab(env)
         self.visit(node.for_init, env)
         self.visit(node.for_cond, env)
         self.visit(node.for_increment, env)
@@ -285,13 +274,12 @@ class Checker(Visitor):
 			se determina si esta o no definido dicha variable
 		2. Visitar/Recorrer "node.expr"
 		'''
-
+        #DON'T DO: self.visit(node.name, env)
         #I just have to check if it's already defined before
         result = env.get(node.name)
         if result is None:
             self.error(node, f"Checker error. Assign left symbol '{node.name}' is not defined")
 
-        #DON'T DO: self.visit(node.name, env)
         self.visit(node.expr, env)
 
     def visit(self, node: Call, env: Symtab):

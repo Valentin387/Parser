@@ -39,14 +39,15 @@ def main(argv):
 
         print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
         ctxt.parse(source)
-        print("\n\n\t\t********** AST ********** \n\n")
-        print(ctxt.ast)
-        print("\n\n DOT LANGUAGE \n")
-        dot = DotRender.render(ctxt.ast) #render
-        print(dot)
+        if not ctxt.have_errors:
+            print("\n\n\t\t********** AST ********** \n\n")
+            print(ctxt.ast)
+            print("\n\n DOT LANGUAGE \n")
+            dot = DotRender.render(ctxt.ast) #render
+            print(dot)
 
-        print("\n CHECKER + INTERPRETER \n")
-        ctxt.run()
+            print("\n CHECKER + INTERPRETER \n")
+            ctxt.run()
 
     else:
         try:
