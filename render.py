@@ -57,7 +57,7 @@ class DotRender(Visitor):
     def visit(self, node : FuncDeclaration):
         name = self.name()
         self.dot.node(name,
-            label=fr"FuncDeclaration\nname:'{node.name}'\nparams: {node.parameters}",
+            label=fr"FuncDeclaration\nname:'{node.name}'\nparameters: {node.parameters}",
             color=self.color)
         self.dot.edge(name, self.visit(node.stmts))
         return name

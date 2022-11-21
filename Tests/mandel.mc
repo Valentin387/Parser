@@ -33,7 +33,7 @@ fun in_mandelbrot(x0, y0, n) {
 	return true;
 }
 
-fun mandel(n) {
+fun mandel() {
 	var dx = (xmax - xmin)/width;
 	var dy = (ymax - ymin)/height;
 
@@ -56,4 +56,4 @@ fun mandel(n) {
 	}
 }
 
-mandel(1);
+mandel();

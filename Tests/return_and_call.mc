@@ -1,7 +1,5 @@
-fun SwapTables (){
-  var c = 3;
-  return c;
+fun jump(){
+  print("hola");
 }
 
-var result = SwapTables();
-print(result);
+jump();

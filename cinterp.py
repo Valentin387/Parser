@@ -37,11 +37,13 @@ class Function:
 		self.env = env
 
 	def __call__(self, interp, *args): #it receives the interpreter and a tuple
-		if len(args) != len(self.node.parameters):
-			raise CallError(f"Interp Error. Expected {len(self.node.parameters)} arguments")
+		if self.node.parameters is not None:
+			if len(args) != len(self.node.parameters):
+				raise CallError(f"Interp Error. Expected {len(self.node.parameters)} arguments")
 		newenv = self.env.new_child() #we create a new environment
-		for name, arg in zip(self.node.parameters, args):
-			newenv[name] = arg
+		if self.node.parameters is not None:
+			for name, arg in zip(self.node.parameters, args):
+				newenv[name] = arg
 
 		oldenv = interp.env #we update the interpreter's environment
 		interp.env = newenv
@@ -271,7 +273,10 @@ class Interpreter(Visitor): #This is a visitor
 		if not callable(callee):
 			self.error(node.func, f'Interp Error {self.ctxt.find_source(node.func)!r} is not callable')
 
-		args = [ self.visit(arg) for arg in node.args ]
+		if node.args is not None:
+			args = [ self.visit(arg) for arg in node.args ]
+		else:
+			args = []
 		try:
 			return callee(self, *args)
 		except CallError as err:
