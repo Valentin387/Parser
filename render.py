@@ -10,13 +10,13 @@ class DotRender(Visitor):
 
     node_default = {
         'shape' : 'box',
-        'color' : 'deepskyblue',
+        'color' : 'skyblue1',
         'style' : 'filled',
     }
     edge_defaults = {
         'arrowhead' : 'none',
     }
-    color = 'gold2'
+    color = 'salmon'
 
     def __init__(self):
         self.dot = Digraph('AST')
