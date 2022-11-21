@@ -51,7 +51,7 @@ class DotRender(Visitor):
         name = self.name()
         self.dot.node(name, label=fr"ClassDeclaration\nname='{node.name}' - {node.sclass}")
         for meth in node.methods:
-            self.dot.edge(name, self.visit(method))
+            self.dot.edge(name, self.visit(meth))
         return name
 
     def visit(self, node : FuncDeclaration):
@@ -215,13 +215,13 @@ class DotRender(Visitor):
         name = self.name()
         self.dot.node(name, label='')
 
-        f'(get {self.visit(node.object)} {node.name})'
+        f'(get {self.visit(node.obj)} {node.name})'
         return name
 
     def visit(self, node : Set):
         name = self.name()
         self.dot.node(name, label='')
-        f'(set {self.visit(node.object)} {node.name} {self.visit(node.value)})'
+        f'(set {self.visit(node.obj)} {node.name} {self.visit(node.value)})'
         return name
 
     def visit(self, node : This):

@@ -288,23 +288,23 @@ class Interpreter(Visitor): #This is a visitor
 		return self.env[node.name]
 
 	def visit(self, node: Set):
-		obj = self.visit(node.object)
+		obj = self.visit(node.obj)
 		val = self.visit(node.value)
 		if isinstance(obj, Instance):
 			obj.set(node.name, val)
 			return val
 		else:
-			self.error(node.object, f'Interp Error{self.ctxt.find_source(node.object)!r} is not an instance')
+			self.error(node.obj, f'Interp Error{self.ctxt.find_source(node.obj)!r} is not an instance')
 
 	def visit(self, node: Get):
-		obj = self.visit(node.object)
+		obj = self.visit(node.obj)
 		if isinstance(obj, Instance):
 			try:
 				return obj.get(node.name)
 			except AttributeError as err:
-				self.error(node.object, str(err))
+				self.error(node.obj, str(err))
 		else:
-			self.error(node.object, f'Interp Error{self.ctxt.find_source(node.object)!r}  is not an instance')
+			self.error(node.obj, f'Interp Error{self.ctxt.find_source(node.obj)!r}  is not an instance')
 
 	def visit(self, node: This):
 		return self.env['this']
