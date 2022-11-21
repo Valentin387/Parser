@@ -134,7 +134,7 @@ class Checker(Visitor):
 
         self._add_symbol(node, env)
 
-        #env = Symtab(env)
+        env = Symtab(env)
         #the inner environment must know about the function itself
         #to allow recursivity
         #self._add_symbol(node, env)

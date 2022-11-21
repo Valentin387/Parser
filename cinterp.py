@@ -277,6 +277,8 @@ class Interpreter(Visitor): #This is a visitor
 		except CallError as err:
 			self.error(node.func, str(err))
 
+
+
 	def visit(self, node: Variable):
 		return self.env[node.name]
 
@@ -304,7 +306,7 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Super):
 		distance = self.localmap[id(node)]
-		sclass = self.env.maps[distance]['super'] 
+		sclass = self.env.maps[distance]['super']
 		this = self.env.maps[distance-1]['this']
 		method = sclass.find_method(node.name)
 		if not method:

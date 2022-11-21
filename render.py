@@ -206,8 +206,9 @@ class DotRender(Visitor):
         name = self.name()
         self.dot.node(name, label=f"Call ")
         self.dot.edge(name, self.visit(node.func))
-        for arg in node.args:
-            self.dot.edge(name, self.visit(arg))
+        if node.args is not None:
+            for arg in node.args:
+                self.dot.edge(name, self.visit(arg))
         return name
 
     def visit(self, node : Get):

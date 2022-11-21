@@ -34,14 +34,14 @@ class DLL {
     setValue(index, value) {
         if (index >= this.length || index < 0) {
             return false;
-        }
+        }end_if
         var i = 0;
         var currNode = this.head.next;
         while (currNode.next != nil) {
             if (i == index) {
                 currNode.value = value;
                 return;
-            }
+            }end_if
             currNode = currNode.next;
         }
     }
