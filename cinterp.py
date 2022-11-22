@@ -282,14 +282,12 @@ class Interpreter(Visitor): #This is a visitor
 		except CallError as err:
 			self.error(node.func, str(err))
 
-
-
 	def visit(self, node: Variable):
 		return self.env[node.name]
 
 	def visit(self, node: Set):
 		obj = self.visit(node.obj)
-		val = self.visit(node.value)
+		val = self.visit(node.expr)
 		if isinstance(obj, Instance):
 			obj.set(node.name, val)
 			return val

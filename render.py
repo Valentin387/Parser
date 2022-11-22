@@ -221,7 +221,7 @@ class DotRender(Visitor):
     def visit(self, node : Set):
         name = self.name()
         self.dot.node(name, label='')
-        f'(set {self.visit(node.obj)} {node.name} {self.visit(node.value)})'
+        f'(set {self.visit(node.obj)} {node.name} {self.visit(node.expr)})'
         return name
 
     def visit(self, node : This):
