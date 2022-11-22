@@ -85,7 +85,9 @@ class Lexer(sly.Lexer):
         # Otros tokens
         IDENT, NUM, REAL, STRING,
 
-        ADDEQ, MINEQ, TIMESEQ, DIVIDEEQ, MODULEEQ
+        ADDEQ, MINEQ, TIMESEQ, DIVIDEEQ, MODULEEQ,
+
+        PLUSPLUS, MINUSMINUS
     }
     literals = '+-*/%=(){}[];,'
 
@@ -108,8 +110,10 @@ class Lexer(sly.Lexer):
         self.lineno += 1
 
     # Definicion de Tokens a traves de regexp
+    PLUSPLUS = r'\+\+'
     ADDEQ = r'\+='
     PLUS = r'\+'
+    MINUSMINUS = r'--'
     MINEQ =  r'-='
     MINUS =r'-'
     TIMESEQ =  r'\*='

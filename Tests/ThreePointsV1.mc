@@ -1,11 +1,12 @@
-var a = 7;
+var a=12;
+var b=++a;
 print(a);
-a=a%3;
-print(a);
+print(b);
 
 print("");
+print("");
 
-var b = 7;
-print(b);
-b%=3;
+a=12;
+b= a++;
+print(a);
 print(b);

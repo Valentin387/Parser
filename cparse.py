@@ -13,6 +13,8 @@ class Parser(sly.Parser):
 
     # preceencia de operadores
     precedence = (
+        ('right', PLUSPLUS),
+        ('right', MINUSMINUS),
         ('right', ADDEQ),
         ('right', MINEQ),
         ('right', TIMESEQ),
@@ -115,6 +117,19 @@ class Parser(sly.Parser):
         else:
             raise SyntaxError(f"{p.lineno}: PARSER ERROR, it was impossible to assign {p.expression0}")
 
+##################################################################################################
+    @_("expression PLUSPLUS",
+       "expression MINUSMINUS")
+    def expression(self, p):
+        return Assign(p[1], p.expression.name, Literal(1))
+
+    @_("PLUSPLUS expression",
+       "MINUSMINUS expression")
+    def expression(self, p):
+        return Assign(p[0], p.expression.name, Literal(1))
+
+##################################################################################################
+
     @_("expression OR  expression",
        "expression AND expression")
     def expression(self, p):
@@ -130,7 +145,7 @@ class Parser(sly.Parser):
        "expression GT  expression" ,
        "expression GE  expression" ,
        "expression EQ  expression" ,
-       "expression NE  expression" )
+       "expression NE  expression")
     def expression(self, p):
         return Binary(p[1], p.expression0, p.expression1)
 
