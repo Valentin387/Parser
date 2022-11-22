@@ -142,6 +142,7 @@ class Variable(Expression):
 
 @dataclass
 class Assign(Expression):
+    op     : str
     name   : str
     expr   : Expression
 

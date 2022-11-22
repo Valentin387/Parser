@@ -21,7 +21,7 @@ Rule 17    _3_function_items -> _3_function_item
 Rule 18    _3_function_item -> function
 Rule 19    func_declaration -> FUN function
 Rule 20    var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI
-Rule 21    _4_ASSIGN_expression_optional -> ASSIGN expression  [precedence=right, level=1]
+Rule 21    _4_ASSIGN_expression_optional -> ASSIGN expression  [precedence=right, level=2]
 Rule 22    _4_ASSIGN_expression_optional -> <empty>
 Rule 23    statement -> block
 Rule 24    statement -> while_stmt
@@ -60,93 +60,95 @@ Rule 56    _12_declaration_items -> _12_declaration_items _12_declaration_item
 Rule 57    _12_declaration_items -> _12_declaration_item
 Rule 58    _12_declaration_item -> declaration
 Rule 59    expression -> factor
-Rule 60    expression -> expression NE expression  [precedence=left, level=4]
-Rule 61    expression -> expression EQ expression  [precedence=left, level=4]
-Rule 62    expression -> expression GE expression  [precedence=left, level=5]
-Rule 63    expression -> expression GT expression  [precedence=left, level=5]
-Rule 64    expression -> expression LE expression  [precedence=left, level=5]
-Rule 65    expression -> expression LT expression  [precedence=left, level=5]
-Rule 66    expression -> expression MODULE expression  [precedence=left, level=7]
-Rule 67    expression -> expression DIVIDE expression  [precedence=left, level=7]
-Rule 68    expression -> expression TIMES expression  [precedence=left, level=7]
-Rule 69    expression -> expression MINUS expression  [precedence=left, level=6]
-Rule 70    expression -> expression PLUS expression  [precedence=left, level=6]
-Rule 71    expression -> expression AND expression  [precedence=left, level=3]
-Rule 72    expression -> expression OR expression  [precedence=left, level=2]
-Rule 73    expression -> expression ASSIGN expression  [precedence=right, level=1]
-Rule 74    factor -> NOT factor  [precedence=right, level=8]
-Rule 75    factor -> MINUS factor  [precedence=right, level=8]
-Rule 76    factor -> LPAREN expression RPAREN
-Rule 77    factor -> factor LPAREN _13_arguments_optional RPAREN
-Rule 78    _13_arguments_optional -> arguments
-Rule 79    _13_arguments_optional -> <empty>
-Rule 80    factor -> factor POINT IDENT
-Rule 81    factor -> SUPER POINT IDENT
-Rule 82    factor -> IDENT
-Rule 83    factor -> THIS
-Rule 84    factor -> NIL
-Rule 85    factor -> FALSE
-Rule 86    factor -> TRUE
-Rule 87    factor -> STRING
-Rule 88    factor -> NUM
-Rule 89    factor -> REAL
-Rule 90    function -> IDENT LPAREN _14_parameters_optional RPAREN block
-Rule 91    _14_parameters_optional -> parameters
-Rule 92    _14_parameters_optional -> <empty>
-Rule 93    parameters -> IDENT _15_COMMA_IDENT_repeat
-Rule 94    _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items
-Rule 95    _15_COMMA_IDENT_repeat -> <empty>
-Rule 96    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item
-Rule 97    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item
-Rule 98    _15_COMMA_IDENT_item -> COMMA IDENT
-Rule 99    arguments -> expression _16_COMMA_expression_repeat
-Rule 100   _16_COMMA_expression_repeat -> _16_COMMA_expression_items
-Rule 101   _16_COMMA_expression_repeat -> <empty>
-Rule 102   _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item
-Rule 103   _16_COMMA_expression_items -> _16_COMMA_expression_item
-Rule 104   _16_COMMA_expression_item -> COMMA expression
+Rule 60    expression -> expression NE expression  [precedence=left, level=5]
+Rule 61    expression -> expression EQ expression  [precedence=left, level=5]
+Rule 62    expression -> expression GE expression  [precedence=left, level=6]
+Rule 63    expression -> expression GT expression  [precedence=left, level=6]
+Rule 64    expression -> expression LE expression  [precedence=left, level=6]
+Rule 65    expression -> expression LT expression  [precedence=left, level=6]
+Rule 66    expression -> expression MODULE expression  [precedence=left, level=8]
+Rule 67    expression -> expression DIVIDE expression  [precedence=left, level=8]
+Rule 68    expression -> expression TIMES expression  [precedence=left, level=8]
+Rule 69    expression -> expression MINUS expression  [precedence=left, level=7]
+Rule 70    expression -> expression PLUS expression  [precedence=left, level=7]
+Rule 71    expression -> expression AND expression  [precedence=left, level=4]
+Rule 72    expression -> expression OR expression  [precedence=left, level=3]
+Rule 73    expression -> expression ADDEQ expression  [precedence=right, level=1]
+Rule 74    expression -> expression ASSIGN expression  [precedence=right, level=2]
+Rule 75    factor -> NOT factor  [precedence=right, level=9]
+Rule 76    factor -> MINUS factor  [precedence=right, level=9]
+Rule 77    factor -> LPAREN expression RPAREN
+Rule 78    factor -> factor LPAREN _13_arguments_optional RPAREN
+Rule 79    _13_arguments_optional -> arguments
+Rule 80    _13_arguments_optional -> <empty>
+Rule 81    factor -> factor POINT IDENT
+Rule 82    factor -> SUPER POINT IDENT
+Rule 83    factor -> IDENT
+Rule 84    factor -> THIS
+Rule 85    factor -> NIL
+Rule 86    factor -> FALSE
+Rule 87    factor -> TRUE
+Rule 88    factor -> STRING
+Rule 89    factor -> NUM
+Rule 90    factor -> REAL
+Rule 91    function -> IDENT LPAREN _14_parameters_optional RPAREN block
+Rule 92    _14_parameters_optional -> parameters
+Rule 93    _14_parameters_optional -> <empty>
+Rule 94    parameters -> IDENT _15_COMMA_IDENT_repeat
+Rule 95    _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items
+Rule 96    _15_COMMA_IDENT_repeat -> <empty>
+Rule 97    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item
+Rule 98    _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item
+Rule 99    _15_COMMA_IDENT_item -> COMMA IDENT
+Rule 100   arguments -> expression _16_COMMA_expression_repeat
+Rule 101   _16_COMMA_expression_repeat -> _16_COMMA_expression_items
+Rule 102   _16_COMMA_expression_repeat -> <empty>
+Rule 103   _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item
+Rule 104   _16_COMMA_expression_items -> _16_COMMA_expression_item
+Rule 105   _16_COMMA_expression_item -> COMMA expression
 
 Terminals, with rules where they appear:
 
+ADDEQ                : 73
 AND                  : 71
-ASSIGN               : 21 73
+ASSIGN               : 21 74
 CLASS                : 11
-COMMA                : 98 104
+COMMA                : 99 105
 DIVIDE               : 67
 ELSE                 : 46
 END_IF               : 43
 EQ                   : 61
-FALSE                : 85
+FALSE                : 86
 FOR                  : 31 36
 FUN                  : 19
 GE                   : 62
 GT                   : 63
-IDENT                : 11 12 20 80 81 82 90 93 98
+IDENT                : 11 12 20 81 82 83 91 94 99
 IF                   : 43
 LBRACE               : 11 53
 LE                   : 64
-LPAREN               : 12 31 36 43 48 52 76 77 90
+LPAREN               : 12 31 36 43 48 52 77 78 91
 LT                   : 12 65
-MINUS                : 69 75
+MINUS                : 69 76
 MODULE               : 66
 NE                   : 60
-NIL                  : 84
-NOT                  : 74
-NUM                  : 88
+NIL                  : 85
+NOT                  : 75
+NUM                  : 89
 OR                   : 72
 PLUS                 : 70
-POINT                : 80 81
+POINT                : 81 82
 PRINT                : 48
 RBRACE               : 11 53
-REAL                 : 89
+REAL                 : 90
 RETURN               : 49
-RPAREN               : 12 31 36 43 48 52 76 77 90
+RPAREN               : 12 31 36 43 48 52 77 78 91
 SEMI                 : 20 30 31 31 36 48 49
-STRING               : 87
-SUPER                : 81
-THIS                 : 83
+STRING               : 88
+SUPER                : 82
+THIS                 : 84
 TIMES                : 68
-TRUE                 : 86
+TRUE                 : 87
 VAR                  : 20
 WHILE                : 52
 error                : 
@@ -158,14 +160,14 @@ _11_expression_optional : 49
 _12_declaration_item : 56 57
 _12_declaration_items : 54 56
 _12_declaration_repeat : 53
-_13_arguments_optional : 77
-_14_parameters_optional : 90
-_15_COMMA_IDENT_item : 96 97
-_15_COMMA_IDENT_items : 94 96
-_15_COMMA_IDENT_repeat : 93
-_16_COMMA_expression_item : 102 103
-_16_COMMA_expression_items : 100 102
-_16_COMMA_expression_repeat : 99
+_13_arguments_optional : 78
+_14_parameters_optional : 91
+_15_COMMA_IDENT_item : 97 98
+_15_COMMA_IDENT_items : 95 97
+_15_COMMA_IDENT_repeat : 94
+_16_COMMA_expression_item : 103 104
+_16_COMMA_expression_items : 101 103
+_16_COMMA_expression_repeat : 100
 _1_declaration_item  : 4 5
 _1_declaration_items : 2 4
 _1_declaration_repeat : 1
@@ -179,19 +181,19 @@ _6_expression_optional : 31
 _7_expression_optional : 36
 _8_expression_optional : 36
 _9_expression_optional : 43
-arguments            : 78
-block                : 23 90
+arguments            : 79
+block                : 23 91
 class_declaration    : 10
 declaration          : 6 58
 expr_stmt            : 29 41
-expression           : 21 30 32 34 37 39 44 48 50 52 60 60 61 61 62 62 63 63 64 64 65 65 66 66 67 67 68 68 69 69 70 70 71 71 72 72 73 73 76 99 104
-factor               : 59 74 75 77 80
+expression           : 21 30 32 34 37 39 44 48 50 52 60 60 61 61 62 62 63 63 64 64 65 65 66 66 67 67 68 68 69 69 70 70 71 71 72 72 73 73 74 74 77 100 105
+factor               : 59 75 76 78 81
 for_initialize       : 36
 for_stmt             : 28
 func_declaration     : 9
 function             : 18 19
 if_stmt              : 27
-parameters           : 91
+parameters           : 92
 print_stmt           : 26
 program              : 0
 return_stmt          : 25
@@ -245,21 +247,22 @@ state 0
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     $end            reduce using rule 3 (_1_declaration_repeat -> .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
@@ -354,21 +357,22 @@ state 3
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     $end            reduce using rule 2 (_1_declaration_repeat -> _1_declaration_items .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
@@ -792,32 +796,33 @@ state 17
 
 state 18
 
-    (82) factor -> IDENT .
-    LPAREN          reduce using rule 82 (factor -> IDENT .)
-    POINT           reduce using rule 82 (factor -> IDENT .)
-    SEMI            reduce using rule 82 (factor -> IDENT .)
-    NE              reduce using rule 82 (factor -> IDENT .)
-    EQ              reduce using rule 82 (factor -> IDENT .)
-    GE              reduce using rule 82 (factor -> IDENT .)
-    GT              reduce using rule 82 (factor -> IDENT .)
-    LE              reduce using rule 82 (factor -> IDENT .)
-    LT              reduce using rule 82 (factor -> IDENT .)
-    MODULE          reduce using rule 82 (factor -> IDENT .)
-    DIVIDE          reduce using rule 82 (factor -> IDENT .)
-    TIMES           reduce using rule 82 (factor -> IDENT .)
-    MINUS           reduce using rule 82 (factor -> IDENT .)
-    PLUS            reduce using rule 82 (factor -> IDENT .)
-    AND             reduce using rule 82 (factor -> IDENT .)
-    OR              reduce using rule 82 (factor -> IDENT .)
-    ASSIGN          reduce using rule 82 (factor -> IDENT .)
-    RPAREN          reduce using rule 82 (factor -> IDENT .)
-    COMMA           reduce using rule 82 (factor -> IDENT .)
+    (83) factor -> IDENT .
+    LPAREN          reduce using rule 83 (factor -> IDENT .)
+    POINT           reduce using rule 83 (factor -> IDENT .)
+    SEMI            reduce using rule 83 (factor -> IDENT .)
+    NE              reduce using rule 83 (factor -> IDENT .)
+    EQ              reduce using rule 83 (factor -> IDENT .)
+    GE              reduce using rule 83 (factor -> IDENT .)
+    GT              reduce using rule 83 (factor -> IDENT .)
+    LE              reduce using rule 83 (factor -> IDENT .)
+    LT              reduce using rule 83 (factor -> IDENT .)
+    MODULE          reduce using rule 83 (factor -> IDENT .)
+    DIVIDE          reduce using rule 83 (factor -> IDENT .)
+    TIMES           reduce using rule 83 (factor -> IDENT .)
+    MINUS           reduce using rule 83 (factor -> IDENT .)
+    PLUS            reduce using rule 83 (factor -> IDENT .)
+    AND             reduce using rule 83 (factor -> IDENT .)
+    OR              reduce using rule 83 (factor -> IDENT .)
+    ADDEQ           reduce using rule 83 (factor -> IDENT .)
+    ASSIGN          reduce using rule 83 (factor -> IDENT .)
+    RPAREN          reduce using rule 83 (factor -> IDENT .)
+    COMMA           reduce using rule 83 (factor -> IDENT .)
 
 
 state 19
 
     (19) func_declaration -> FUN . function
-    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
+    (91) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
     IDENT           shift and go to state 43
 
     function                       shift and go to state 42
@@ -872,21 +877,22 @@ state 21
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     RBRACE          reduce using rule 55 (_12_declaration_repeat -> .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
@@ -936,7 +942,7 @@ state 22
 
 state 23
 
-    (76) factor -> LPAREN . expression RPAREN
+    (77) factor -> LPAREN . expression RPAREN
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -951,21 +957,22 @@ state 23
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -998,7 +1005,8 @@ state 24
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            shift and go to state 51
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -1013,7 +1021,8 @@ state 24
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 25
@@ -1035,21 +1044,22 @@ state 25
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     SEMI            reduce using rule 51 (_11_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -1064,34 +1074,34 @@ state 25
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _11_expression_optional        shift and go to state 66
-    expression                     shift and go to state 67
+    _11_expression_optional        shift and go to state 67
+    expression                     shift and go to state 68
     factor                         shift and go to state 29
 
 state 26
 
     (48) print_stmt -> PRINT . LPAREN expression RPAREN SEMI
-    LPAREN          shift and go to state 68
+    LPAREN          shift and go to state 69
 
 
 state 27
 
     (43) if_stmt -> IF . LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
-    LPAREN          shift and go to state 69
+    LPAREN          shift and go to state 70
 
 
 state 28
 
     (31) for_stmt -> FOR . LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
     (36) for_stmt -> FOR . LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
-    LPAREN          shift and go to state 70
+    LPAREN          shift and go to state 71
 
 
 state 29
 
     (59) expression -> factor .
-    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
-    (80) factor -> factor . POINT IDENT
+    (78) factor -> factor . LPAREN _13_arguments_optional RPAREN
+    (81) factor -> factor . POINT IDENT
     SEMI            reduce using rule 59 (expression -> factor .)
     NE              reduce using rule 59 (expression -> factor .)
     EQ              reduce using rule 59 (expression -> factor .)
@@ -1106,62 +1116,31 @@ state 29
     PLUS            reduce using rule 59 (expression -> factor .)
     AND             reduce using rule 59 (expression -> factor .)
     OR              reduce using rule 59 (expression -> factor .)
+    ADDEQ           reduce using rule 59 (expression -> factor .)
     ASSIGN          reduce using rule 59 (expression -> factor .)
     RPAREN          reduce using rule 59 (expression -> factor .)
     COMMA           reduce using rule 59 (expression -> factor .)
-    LPAREN          shift and go to state 71
-    POINT           shift and go to state 72
+    LPAREN          shift and go to state 72
+    POINT           shift and go to state 73
 
 
 state 30
 
-    (75) factor -> MINUS . factor
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
-    NOT             shift and go to state 31
-    MINUS           shift and go to state 30
-    LPAREN          shift and go to state 23
-    SUPER           shift and go to state 32
-    IDENT           shift and go to state 18
-    THIS            shift and go to state 33
-    NIL             shift and go to state 34
-    FALSE           shift and go to state 35
-    TRUE            shift and go to state 36
-    STRING          shift and go to state 37
-    NUM             shift and go to state 38
-    REAL            shift and go to state 39
-
-    factor                         shift and go to state 73
-
-state 31
-
-    (74) factor -> NOT . factor
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (76) factor -> MINUS . factor
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1177,178 +1156,217 @@ state 31
 
     factor                         shift and go to state 74
 
+state 31
+
+    (75) factor -> NOT . factor
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
+    NOT             shift and go to state 31
+    MINUS           shift and go to state 30
+    LPAREN          shift and go to state 23
+    SUPER           shift and go to state 32
+    IDENT           shift and go to state 18
+    THIS            shift and go to state 33
+    NIL             shift and go to state 34
+    FALSE           shift and go to state 35
+    TRUE            shift and go to state 36
+    STRING          shift and go to state 37
+    NUM             shift and go to state 38
+    REAL            shift and go to state 39
+
+    factor                         shift and go to state 75
+
 state 32
 
-    (81) factor -> SUPER . POINT IDENT
-    POINT           shift and go to state 75
+    (82) factor -> SUPER . POINT IDENT
+    POINT           shift and go to state 76
 
 
 state 33
 
-    (83) factor -> THIS .
-    LPAREN          reduce using rule 83 (factor -> THIS .)
-    POINT           reduce using rule 83 (factor -> THIS .)
-    SEMI            reduce using rule 83 (factor -> THIS .)
-    NE              reduce using rule 83 (factor -> THIS .)
-    EQ              reduce using rule 83 (factor -> THIS .)
-    GE              reduce using rule 83 (factor -> THIS .)
-    GT              reduce using rule 83 (factor -> THIS .)
-    LE              reduce using rule 83 (factor -> THIS .)
-    LT              reduce using rule 83 (factor -> THIS .)
-    MODULE          reduce using rule 83 (factor -> THIS .)
-    DIVIDE          reduce using rule 83 (factor -> THIS .)
-    TIMES           reduce using rule 83 (factor -> THIS .)
-    MINUS           reduce using rule 83 (factor -> THIS .)
-    PLUS            reduce using rule 83 (factor -> THIS .)
-    AND             reduce using rule 83 (factor -> THIS .)
-    OR              reduce using rule 83 (factor -> THIS .)
-    ASSIGN          reduce using rule 83 (factor -> THIS .)
-    RPAREN          reduce using rule 83 (factor -> THIS .)
-    COMMA           reduce using rule 83 (factor -> THIS .)
+    (84) factor -> THIS .
+    LPAREN          reduce using rule 84 (factor -> THIS .)
+    POINT           reduce using rule 84 (factor -> THIS .)
+    SEMI            reduce using rule 84 (factor -> THIS .)
+    NE              reduce using rule 84 (factor -> THIS .)
+    EQ              reduce using rule 84 (factor -> THIS .)
+    GE              reduce using rule 84 (factor -> THIS .)
+    GT              reduce using rule 84 (factor -> THIS .)
+    LE              reduce using rule 84 (factor -> THIS .)
+    LT              reduce using rule 84 (factor -> THIS .)
+    MODULE          reduce using rule 84 (factor -> THIS .)
+    DIVIDE          reduce using rule 84 (factor -> THIS .)
+    TIMES           reduce using rule 84 (factor -> THIS .)
+    MINUS           reduce using rule 84 (factor -> THIS .)
+    PLUS            reduce using rule 84 (factor -> THIS .)
+    AND             reduce using rule 84 (factor -> THIS .)
+    OR              reduce using rule 84 (factor -> THIS .)
+    ADDEQ           reduce using rule 84 (factor -> THIS .)
+    ASSIGN          reduce using rule 84 (factor -> THIS .)
+    RPAREN          reduce using rule 84 (factor -> THIS .)
+    COMMA           reduce using rule 84 (factor -> THIS .)
 
 
 state 34
 
-    (84) factor -> NIL .
-    LPAREN          reduce using rule 84 (factor -> NIL .)
-    POINT           reduce using rule 84 (factor -> NIL .)
-    SEMI            reduce using rule 84 (factor -> NIL .)
-    NE              reduce using rule 84 (factor -> NIL .)
-    EQ              reduce using rule 84 (factor -> NIL .)
-    GE              reduce using rule 84 (factor -> NIL .)
-    GT              reduce using rule 84 (factor -> NIL .)
-    LE              reduce using rule 84 (factor -> NIL .)
-    LT              reduce using rule 84 (factor -> NIL .)
-    MODULE          reduce using rule 84 (factor -> NIL .)
-    DIVIDE          reduce using rule 84 (factor -> NIL .)
-    TIMES           reduce using rule 84 (factor -> NIL .)
-    MINUS           reduce using rule 84 (factor -> NIL .)
-    PLUS            reduce using rule 84 (factor -> NIL .)
-    AND             reduce using rule 84 (factor -> NIL .)
-    OR              reduce using rule 84 (factor -> NIL .)
-    ASSIGN          reduce using rule 84 (factor -> NIL .)
-    RPAREN          reduce using rule 84 (factor -> NIL .)
-    COMMA           reduce using rule 84 (factor -> NIL .)
+    (85) factor -> NIL .
+    LPAREN          reduce using rule 85 (factor -> NIL .)
+    POINT           reduce using rule 85 (factor -> NIL .)
+    SEMI            reduce using rule 85 (factor -> NIL .)
+    NE              reduce using rule 85 (factor -> NIL .)
+    EQ              reduce using rule 85 (factor -> NIL .)
+    GE              reduce using rule 85 (factor -> NIL .)
+    GT              reduce using rule 85 (factor -> NIL .)
+    LE              reduce using rule 85 (factor -> NIL .)
+    LT              reduce using rule 85 (factor -> NIL .)
+    MODULE          reduce using rule 85 (factor -> NIL .)
+    DIVIDE          reduce using rule 85 (factor -> NIL .)
+    TIMES           reduce using rule 85 (factor -> NIL .)
+    MINUS           reduce using rule 85 (factor -> NIL .)
+    PLUS            reduce using rule 85 (factor -> NIL .)
+    AND             reduce using rule 85 (factor -> NIL .)
+    OR              reduce using rule 85 (factor -> NIL .)
+    ADDEQ           reduce using rule 85 (factor -> NIL .)
+    ASSIGN          reduce using rule 85 (factor -> NIL .)
+    RPAREN          reduce using rule 85 (factor -> NIL .)
+    COMMA           reduce using rule 85 (factor -> NIL .)
 
 
 state 35
 
-    (85) factor -> FALSE .
-    LPAREN          reduce using rule 85 (factor -> FALSE .)
-    POINT           reduce using rule 85 (factor -> FALSE .)
-    SEMI            reduce using rule 85 (factor -> FALSE .)
-    NE              reduce using rule 85 (factor -> FALSE .)
-    EQ              reduce using rule 85 (factor -> FALSE .)
-    GE              reduce using rule 85 (factor -> FALSE .)
-    GT              reduce using rule 85 (factor -> FALSE .)
-    LE              reduce using rule 85 (factor -> FALSE .)
-    LT              reduce using rule 85 (factor -> FALSE .)
-    MODULE          reduce using rule 85 (factor -> FALSE .)
-    DIVIDE          reduce using rule 85 (factor -> FALSE .)
-    TIMES           reduce using rule 85 (factor -> FALSE .)
-    MINUS           reduce using rule 85 (factor -> FALSE .)
-    PLUS            reduce using rule 85 (factor -> FALSE .)
-    AND             reduce using rule 85 (factor -> FALSE .)
-    OR              reduce using rule 85 (factor -> FALSE .)
-    ASSIGN          reduce using rule 85 (factor -> FALSE .)
-    RPAREN          reduce using rule 85 (factor -> FALSE .)
-    COMMA           reduce using rule 85 (factor -> FALSE .)
+    (86) factor -> FALSE .
+    LPAREN          reduce using rule 86 (factor -> FALSE .)
+    POINT           reduce using rule 86 (factor -> FALSE .)
+    SEMI            reduce using rule 86 (factor -> FALSE .)
+    NE              reduce using rule 86 (factor -> FALSE .)
+    EQ              reduce using rule 86 (factor -> FALSE .)
+    GE              reduce using rule 86 (factor -> FALSE .)
+    GT              reduce using rule 86 (factor -> FALSE .)
+    LE              reduce using rule 86 (factor -> FALSE .)
+    LT              reduce using rule 86 (factor -> FALSE .)
+    MODULE          reduce using rule 86 (factor -> FALSE .)
+    DIVIDE          reduce using rule 86 (factor -> FALSE .)
+    TIMES           reduce using rule 86 (factor -> FALSE .)
+    MINUS           reduce using rule 86 (factor -> FALSE .)
+    PLUS            reduce using rule 86 (factor -> FALSE .)
+    AND             reduce using rule 86 (factor -> FALSE .)
+    OR              reduce using rule 86 (factor -> FALSE .)
+    ADDEQ           reduce using rule 86 (factor -> FALSE .)
+    ASSIGN          reduce using rule 86 (factor -> FALSE .)
+    RPAREN          reduce using rule 86 (factor -> FALSE .)
+    COMMA           reduce using rule 86 (factor -> FALSE .)
 
 
 state 36
 
-    (86) factor -> TRUE .
-    LPAREN          reduce using rule 86 (factor -> TRUE .)
-    POINT           reduce using rule 86 (factor -> TRUE .)
-    SEMI            reduce using rule 86 (factor -> TRUE .)
-    NE              reduce using rule 86 (factor -> TRUE .)
-    EQ              reduce using rule 86 (factor -> TRUE .)
-    GE              reduce using rule 86 (factor -> TRUE .)
-    GT              reduce using rule 86 (factor -> TRUE .)
-    LE              reduce using rule 86 (factor -> TRUE .)
-    LT              reduce using rule 86 (factor -> TRUE .)
-    MODULE          reduce using rule 86 (factor -> TRUE .)
-    DIVIDE          reduce using rule 86 (factor -> TRUE .)
-    TIMES           reduce using rule 86 (factor -> TRUE .)
-    MINUS           reduce using rule 86 (factor -> TRUE .)
-    PLUS            reduce using rule 86 (factor -> TRUE .)
-    AND             reduce using rule 86 (factor -> TRUE .)
-    OR              reduce using rule 86 (factor -> TRUE .)
-    ASSIGN          reduce using rule 86 (factor -> TRUE .)
-    RPAREN          reduce using rule 86 (factor -> TRUE .)
-    COMMA           reduce using rule 86 (factor -> TRUE .)
+    (87) factor -> TRUE .
+    LPAREN          reduce using rule 87 (factor -> TRUE .)
+    POINT           reduce using rule 87 (factor -> TRUE .)
+    SEMI            reduce using rule 87 (factor -> TRUE .)
+    NE              reduce using rule 87 (factor -> TRUE .)
+    EQ              reduce using rule 87 (factor -> TRUE .)
+    GE              reduce using rule 87 (factor -> TRUE .)
+    GT              reduce using rule 87 (factor -> TRUE .)
+    LE              reduce using rule 87 (factor -> TRUE .)
+    LT              reduce using rule 87 (factor -> TRUE .)
+    MODULE          reduce using rule 87 (factor -> TRUE .)
+    DIVIDE          reduce using rule 87 (factor -> TRUE .)
+    TIMES           reduce using rule 87 (factor -> TRUE .)
+    MINUS           reduce using rule 87 (factor -> TRUE .)
+    PLUS            reduce using rule 87 (factor -> TRUE .)
+    AND             reduce using rule 87 (factor -> TRUE .)
+    OR              reduce using rule 87 (factor -> TRUE .)
+    ADDEQ           reduce using rule 87 (factor -> TRUE .)
+    ASSIGN          reduce using rule 87 (factor -> TRUE .)
+    RPAREN          reduce using rule 87 (factor -> TRUE .)
+    COMMA           reduce using rule 87 (factor -> TRUE .)
 
 
 state 37
 
-    (87) factor -> STRING .
-    LPAREN          reduce using rule 87 (factor -> STRING .)
-    POINT           reduce using rule 87 (factor -> STRING .)
-    SEMI            reduce using rule 87 (factor -> STRING .)
-    NE              reduce using rule 87 (factor -> STRING .)
-    EQ              reduce using rule 87 (factor -> STRING .)
-    GE              reduce using rule 87 (factor -> STRING .)
-    GT              reduce using rule 87 (factor -> STRING .)
-    LE              reduce using rule 87 (factor -> STRING .)
-    LT              reduce using rule 87 (factor -> STRING .)
-    MODULE          reduce using rule 87 (factor -> STRING .)
-    DIVIDE          reduce using rule 87 (factor -> STRING .)
-    TIMES           reduce using rule 87 (factor -> STRING .)
-    MINUS           reduce using rule 87 (factor -> STRING .)
-    PLUS            reduce using rule 87 (factor -> STRING .)
-    AND             reduce using rule 87 (factor -> STRING .)
-    OR              reduce using rule 87 (factor -> STRING .)
-    ASSIGN          reduce using rule 87 (factor -> STRING .)
-    RPAREN          reduce using rule 87 (factor -> STRING .)
-    COMMA           reduce using rule 87 (factor -> STRING .)
+    (88) factor -> STRING .
+    LPAREN          reduce using rule 88 (factor -> STRING .)
+    POINT           reduce using rule 88 (factor -> STRING .)
+    SEMI            reduce using rule 88 (factor -> STRING .)
+    NE              reduce using rule 88 (factor -> STRING .)
+    EQ              reduce using rule 88 (factor -> STRING .)
+    GE              reduce using rule 88 (factor -> STRING .)
+    GT              reduce using rule 88 (factor -> STRING .)
+    LE              reduce using rule 88 (factor -> STRING .)
+    LT              reduce using rule 88 (factor -> STRING .)
+    MODULE          reduce using rule 88 (factor -> STRING .)
+    DIVIDE          reduce using rule 88 (factor -> STRING .)
+    TIMES           reduce using rule 88 (factor -> STRING .)
+    MINUS           reduce using rule 88 (factor -> STRING .)
+    PLUS            reduce using rule 88 (factor -> STRING .)
+    AND             reduce using rule 88 (factor -> STRING .)
+    OR              reduce using rule 88 (factor -> STRING .)
+    ADDEQ           reduce using rule 88 (factor -> STRING .)
+    ASSIGN          reduce using rule 88 (factor -> STRING .)
+    RPAREN          reduce using rule 88 (factor -> STRING .)
+    COMMA           reduce using rule 88 (factor -> STRING .)
 
 
 state 38
 
-    (88) factor -> NUM .
-    LPAREN          reduce using rule 88 (factor -> NUM .)
-    POINT           reduce using rule 88 (factor -> NUM .)
-    SEMI            reduce using rule 88 (factor -> NUM .)
-    NE              reduce using rule 88 (factor -> NUM .)
-    EQ              reduce using rule 88 (factor -> NUM .)
-    GE              reduce using rule 88 (factor -> NUM .)
-    GT              reduce using rule 88 (factor -> NUM .)
-    LE              reduce using rule 88 (factor -> NUM .)
-    LT              reduce using rule 88 (factor -> NUM .)
-    MODULE          reduce using rule 88 (factor -> NUM .)
-    DIVIDE          reduce using rule 88 (factor -> NUM .)
-    TIMES           reduce using rule 88 (factor -> NUM .)
-    MINUS           reduce using rule 88 (factor -> NUM .)
-    PLUS            reduce using rule 88 (factor -> NUM .)
-    AND             reduce using rule 88 (factor -> NUM .)
-    OR              reduce using rule 88 (factor -> NUM .)
-    ASSIGN          reduce using rule 88 (factor -> NUM .)
-    RPAREN          reduce using rule 88 (factor -> NUM .)
-    COMMA           reduce using rule 88 (factor -> NUM .)
+    (89) factor -> NUM .
+    LPAREN          reduce using rule 89 (factor -> NUM .)
+    POINT           reduce using rule 89 (factor -> NUM .)
+    SEMI            reduce using rule 89 (factor -> NUM .)
+    NE              reduce using rule 89 (factor -> NUM .)
+    EQ              reduce using rule 89 (factor -> NUM .)
+    GE              reduce using rule 89 (factor -> NUM .)
+    GT              reduce using rule 89 (factor -> NUM .)
+    LE              reduce using rule 89 (factor -> NUM .)
+    LT              reduce using rule 89 (factor -> NUM .)
+    MODULE          reduce using rule 89 (factor -> NUM .)
+    DIVIDE          reduce using rule 89 (factor -> NUM .)
+    TIMES           reduce using rule 89 (factor -> NUM .)
+    MINUS           reduce using rule 89 (factor -> NUM .)
+    PLUS            reduce using rule 89 (factor -> NUM .)
+    AND             reduce using rule 89 (factor -> NUM .)
+    OR              reduce using rule 89 (factor -> NUM .)
+    ADDEQ           reduce using rule 89 (factor -> NUM .)
+    ASSIGN          reduce using rule 89 (factor -> NUM .)
+    RPAREN          reduce using rule 89 (factor -> NUM .)
+    COMMA           reduce using rule 89 (factor -> NUM .)
 
 
 state 39
 
-    (89) factor -> REAL .
-    LPAREN          reduce using rule 89 (factor -> REAL .)
-    POINT           reduce using rule 89 (factor -> REAL .)
-    SEMI            reduce using rule 89 (factor -> REAL .)
-    NE              reduce using rule 89 (factor -> REAL .)
-    EQ              reduce using rule 89 (factor -> REAL .)
-    GE              reduce using rule 89 (factor -> REAL .)
-    GT              reduce using rule 89 (factor -> REAL .)
-    LE              reduce using rule 89 (factor -> REAL .)
-    LT              reduce using rule 89 (factor -> REAL .)
-    MODULE          reduce using rule 89 (factor -> REAL .)
-    DIVIDE          reduce using rule 89 (factor -> REAL .)
-    TIMES           reduce using rule 89 (factor -> REAL .)
-    MINUS           reduce using rule 89 (factor -> REAL .)
-    PLUS            reduce using rule 89 (factor -> REAL .)
-    AND             reduce using rule 89 (factor -> REAL .)
-    OR              reduce using rule 89 (factor -> REAL .)
-    ASSIGN          reduce using rule 89 (factor -> REAL .)
-    RPAREN          reduce using rule 89 (factor -> REAL .)
-    COMMA           reduce using rule 89 (factor -> REAL .)
+    (90) factor -> REAL .
+    LPAREN          reduce using rule 90 (factor -> REAL .)
+    POINT           reduce using rule 90 (factor -> REAL .)
+    SEMI            reduce using rule 90 (factor -> REAL .)
+    NE              reduce using rule 90 (factor -> REAL .)
+    EQ              reduce using rule 90 (factor -> REAL .)
+    GE              reduce using rule 90 (factor -> REAL .)
+    GT              reduce using rule 90 (factor -> REAL .)
+    LE              reduce using rule 90 (factor -> REAL .)
+    LT              reduce using rule 90 (factor -> REAL .)
+    MODULE          reduce using rule 90 (factor -> REAL .)
+    DIVIDE          reduce using rule 90 (factor -> REAL .)
+    TIMES           reduce using rule 90 (factor -> REAL .)
+    MINUS           reduce using rule 90 (factor -> REAL .)
+    PLUS            reduce using rule 90 (factor -> REAL .)
+    AND             reduce using rule 90 (factor -> REAL .)
+    OR              reduce using rule 90 (factor -> REAL .)
+    ADDEQ           reduce using rule 90 (factor -> REAL .)
+    ASSIGN          reduce using rule 90 (factor -> REAL .)
+    RPAREN          reduce using rule 90 (factor -> REAL .)
+    COMMA           reduce using rule 90 (factor -> REAL .)
 
 
 state 40
@@ -1383,10 +1401,10 @@ state 41
     (20) var_declaration -> VAR IDENT . _4_ASSIGN_expression_optional SEMI
     (21) _4_ASSIGN_expression_optional -> . ASSIGN expression
     (22) _4_ASSIGN_expression_optional -> .
-    ASSIGN          shift and go to state 77
+    ASSIGN          shift and go to state 78
     SEMI            reduce using rule 22 (_4_ASSIGN_expression_optional -> .)
 
-    _4_ASSIGN_expression_optional  shift and go to state 76
+    _4_ASSIGN_expression_optional  shift and go to state 77
 
 state 42
 
@@ -1418,8 +1436,8 @@ state 42
 
 state 43
 
-    (90) function -> IDENT . LPAREN _14_parameters_optional RPAREN block
-    LPAREN          shift and go to state 78
+    (91) function -> IDENT . LPAREN _14_parameters_optional RPAREN block
+    LPAREN          shift and go to state 79
 
 
 state 44
@@ -1427,15 +1445,15 @@ state 44
     (11) class_declaration -> CLASS IDENT . _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE
     (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> . LPAREN LT IDENT RPAREN
     (13) _2_LPAREN_LT_IDENT_RPAREN_optional -> .
-    LPAREN          shift and go to state 80
+    LPAREN          shift and go to state 81
     LBRACE          reduce using rule 13 (_2_LPAREN_LT_IDENT_RPAREN_optional -> .)
 
-    _2_LPAREN_LT_IDENT_RPAREN_optional shift and go to state 79
+    _2_LPAREN_LT_IDENT_RPAREN_optional shift and go to state 80
 
 state 45
 
     (53) block -> LBRACE _12_declaration_repeat . RBRACE
-    RBRACE          shift and go to state 81
+    RBRACE          shift and go to state 82
 
 
 state 46
@@ -1479,21 +1497,22 @@ state 46
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     RBRACE          reduce using rule 54 (_12_declaration_repeat -> _12_declaration_items .)
     VAR             shift and go to state 17
     FUN             shift and go to state 19
@@ -1517,7 +1536,7 @@ state 46
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _12_declaration_item           shift and go to state 82
+    _12_declaration_item           shift and go to state 83
     declaration                    shift and go to state 48
     statement                      shift and go to state 6
     var_declaration                shift and go to state 7
@@ -1604,21 +1623,22 @@ state 49
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1632,12 +1652,12 @@ state 49
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 83
+    expression                     shift and go to state 84
     factor                         shift and go to state 29
 
 state 50
 
-    (76) factor -> LPAREN expression . RPAREN
+    (77) factor -> LPAREN expression . RPAREN
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -1651,8 +1671,9 @@ state 50
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    RPAREN          shift and go to state 84
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    RPAREN          shift and go to state 85
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -1666,7 +1687,8 @@ state 50
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 51
@@ -1717,21 +1739,22 @@ state 52
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1745,7 +1768,7 @@ state 52
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 85
+    expression                     shift and go to state 86
     factor                         shift and go to state 29
 
 state 53
@@ -1765,21 +1788,22 @@ state 53
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1793,7 +1817,7 @@ state 53
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 86
+    expression                     shift and go to state 87
     factor                         shift and go to state 29
 
 state 54
@@ -1813,21 +1837,22 @@ state 54
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1841,7 +1866,7 @@ state 54
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 87
+    expression                     shift and go to state 88
     factor                         shift and go to state 29
 
 state 55
@@ -1861,21 +1886,22 @@ state 55
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1889,7 +1915,7 @@ state 55
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 88
+    expression                     shift and go to state 89
     factor                         shift and go to state 29
 
 state 56
@@ -1909,21 +1935,22 @@ state 56
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1937,7 +1964,7 @@ state 56
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 89
+    expression                     shift and go to state 90
     factor                         shift and go to state 29
 
 state 57
@@ -1957,21 +1984,22 @@ state 57
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1985,7 +2013,7 @@ state 57
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 90
+    expression                     shift and go to state 91
     factor                         shift and go to state 29
 
 state 58
@@ -2005,21 +2033,22 @@ state 58
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2033,7 +2062,7 @@ state 58
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 91
+    expression                     shift and go to state 92
     factor                         shift and go to state 29
 
 state 59
@@ -2053,21 +2082,22 @@ state 59
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2081,7 +2111,7 @@ state 59
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 92
+    expression                     shift and go to state 93
     factor                         shift and go to state 29
 
 state 60
@@ -2101,21 +2131,22 @@ state 60
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2129,7 +2160,7 @@ state 60
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 93
+    expression                     shift and go to state 94
     factor                         shift and go to state 29
 
 state 61
@@ -2149,21 +2180,22 @@ state 61
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2177,7 +2209,7 @@ state 61
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 94
+    expression                     shift and go to state 95
     factor                         shift and go to state 29
 
 state 62
@@ -2197,21 +2229,22 @@ state 62
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2225,7 +2258,7 @@ state 62
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 95
+    expression                     shift and go to state 96
     factor                         shift and go to state 29
 
 state 63
@@ -2245,21 +2278,22 @@ state 63
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2273,7 +2307,7 @@ state 63
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 96
+    expression                     shift and go to state 97
     factor                         shift and go to state 29
 
 state 64
@@ -2293,69 +2327,22 @@ state 64
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
-    NOT             shift and go to state 31
-    MINUS           shift and go to state 30
-    LPAREN          shift and go to state 23
-    SUPER           shift and go to state 32
-    IDENT           shift and go to state 18
-    THIS            shift and go to state 33
-    NIL             shift and go to state 34
-    FALSE           shift and go to state 35
-    TRUE            shift and go to state 36
-    STRING          shift and go to state 37
-    NUM             shift and go to state 38
-    REAL            shift and go to state 39
-
-    expression                     shift and go to state 97
-    factor                         shift and go to state 29
-
-state 65
-
-    (73) expression -> expression ASSIGN . expression
-    (59) expression -> . factor
-    (60) expression -> . expression NE expression
-    (61) expression -> . expression EQ expression
-    (62) expression -> . expression GE expression
-    (63) expression -> . expression GT expression
-    (64) expression -> . expression LE expression
-    (65) expression -> . expression LT expression
-    (66) expression -> . expression MODULE expression
-    (67) expression -> . expression DIVIDE expression
-    (68) expression -> . expression TIMES expression
-    (69) expression -> . expression MINUS expression
-    (70) expression -> . expression PLUS expression
-    (71) expression -> . expression AND expression
-    (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2372,49 +2359,9 @@ state 65
     expression                     shift and go to state 98
     factor                         shift and go to state 29
 
-state 66
+state 65
 
-    (49) return_stmt -> RETURN _11_expression_optional . SEMI
-    SEMI            shift and go to state 99
-
-
-state 67
-
-    (50) _11_expression_optional -> expression .
-    (60) expression -> expression . NE expression
-    (61) expression -> expression . EQ expression
-    (62) expression -> expression . GE expression
-    (63) expression -> expression . GT expression
-    (64) expression -> expression . LE expression
-    (65) expression -> expression . LT expression
-    (66) expression -> expression . MODULE expression
-    (67) expression -> expression . DIVIDE expression
-    (68) expression -> expression . TIMES expression
-    (69) expression -> expression . MINUS expression
-    (70) expression -> expression . PLUS expression
-    (71) expression -> expression . AND expression
-    (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 50 (_11_expression_optional -> expression .)
-    NE              shift and go to state 52
-    EQ              shift and go to state 53
-    GE              shift and go to state 54
-    GT              shift and go to state 55
-    LE              shift and go to state 56
-    LT              shift and go to state 57
-    MODULE          shift and go to state 58
-    DIVIDE          shift and go to state 59
-    TIMES           shift and go to state 60
-    MINUS           shift and go to state 61
-    PLUS            shift and go to state 62
-    AND             shift and go to state 63
-    OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-
-
-state 68
-
-    (48) print_stmt -> PRINT LPAREN . expression RPAREN SEMI
+    (73) expression -> expression ADDEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2429,21 +2376,71 @@ state 68
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
+    NOT             shift and go to state 31
+    MINUS           shift and go to state 30
+    LPAREN          shift and go to state 23
+    SUPER           shift and go to state 32
+    IDENT           shift and go to state 18
+    THIS            shift and go to state 33
+    NIL             shift and go to state 34
+    FALSE           shift and go to state 35
+    TRUE            shift and go to state 36
+    STRING          shift and go to state 37
+    NUM             shift and go to state 38
+    REAL            shift and go to state 39
+
+    expression                     shift and go to state 99
+    factor                         shift and go to state 29
+
+state 66
+
+    (74) expression -> expression ASSIGN . expression
+    (59) expression -> . factor
+    (60) expression -> . expression NE expression
+    (61) expression -> . expression EQ expression
+    (62) expression -> . expression GE expression
+    (63) expression -> . expression GT expression
+    (64) expression -> . expression LE expression
+    (65) expression -> . expression LT expression
+    (66) expression -> . expression MODULE expression
+    (67) expression -> . expression DIVIDE expression
+    (68) expression -> . expression TIMES expression
+    (69) expression -> . expression MINUS expression
+    (70) expression -> . expression PLUS expression
+    (71) expression -> . expression AND expression
+    (72) expression -> . expression OR expression
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2460,7 +2457,98 @@ state 68
     expression                     shift and go to state 100
     factor                         shift and go to state 29
 
+state 67
+
+    (49) return_stmt -> RETURN _11_expression_optional . SEMI
+    SEMI            shift and go to state 101
+
+
+state 68
+
+    (50) _11_expression_optional -> expression .
+    (60) expression -> expression . NE expression
+    (61) expression -> expression . EQ expression
+    (62) expression -> expression . GE expression
+    (63) expression -> expression . GT expression
+    (64) expression -> expression . LE expression
+    (65) expression -> expression . LT expression
+    (66) expression -> expression . MODULE expression
+    (67) expression -> expression . DIVIDE expression
+    (68) expression -> expression . TIMES expression
+    (69) expression -> expression . MINUS expression
+    (70) expression -> expression . PLUS expression
+    (71) expression -> expression . AND expression
+    (72) expression -> expression . OR expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 50 (_11_expression_optional -> expression .)
+    NE              shift and go to state 52
+    EQ              shift and go to state 53
+    GE              shift and go to state 54
+    GT              shift and go to state 55
+    LE              shift and go to state 56
+    LT              shift and go to state 57
+    MODULE          shift and go to state 58
+    DIVIDE          shift and go to state 59
+    TIMES           shift and go to state 60
+    MINUS           shift and go to state 61
+    PLUS            shift and go to state 62
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
+
+
 state 69
+
+    (48) print_stmt -> PRINT LPAREN . expression RPAREN SEMI
+    (59) expression -> . factor
+    (60) expression -> . expression NE expression
+    (61) expression -> . expression EQ expression
+    (62) expression -> . expression GE expression
+    (63) expression -> . expression GT expression
+    (64) expression -> . expression LE expression
+    (65) expression -> . expression LT expression
+    (66) expression -> . expression MODULE expression
+    (67) expression -> . expression DIVIDE expression
+    (68) expression -> . expression TIMES expression
+    (69) expression -> . expression MINUS expression
+    (70) expression -> . expression PLUS expression
+    (71) expression -> . expression AND expression
+    (72) expression -> . expression OR expression
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
+    NOT             shift and go to state 31
+    MINUS           shift and go to state 30
+    LPAREN          shift and go to state 23
+    SUPER           shift and go to state 32
+    IDENT           shift and go to state 18
+    THIS            shift and go to state 33
+    NIL             shift and go to state 34
+    FALSE           shift and go to state 35
+    TRUE            shift and go to state 36
+    STRING          shift and go to state 37
+    NUM             shift and go to state 38
+    REAL            shift and go to state 39
+
+    expression                     shift and go to state 102
+    factor                         shift and go to state 29
+
+state 70
 
     (43) if_stmt -> IF LPAREN . _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
     (44) _9_expression_optional -> . expression
@@ -2479,21 +2567,22 @@ state 69
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     RPAREN          reduce using rule 45 (_9_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -2508,11 +2597,11 @@ state 69
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _9_expression_optional         shift and go to state 101
-    expression                     shift and go to state 102
+    _9_expression_optional         shift and go to state 103
+    expression                     shift and go to state 104
     factor                         shift and go to state 29
 
-state 70
+state 71
 
     (31) for_stmt -> FOR LPAREN . SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
     (36) for_stmt -> FOR LPAREN . for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
@@ -2534,22 +2623,23 @@ state 70
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
-    SEMI            shift and go to state 103
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
+    SEMI            shift and go to state 105
     VAR             shift and go to state 17
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -2564,18 +2654,18 @@ state 70
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    for_initialize                 shift and go to state 104
-    expr_stmt                      shift and go to state 105
-    var_declaration                shift and go to state 106
+    for_initialize                 shift and go to state 106
+    expr_stmt                      shift and go to state 107
+    var_declaration                shift and go to state 108
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
-state 71
+state 72
 
-    (77) factor -> factor LPAREN . _13_arguments_optional RPAREN
-    (78) _13_arguments_optional -> . arguments
-    (79) _13_arguments_optional -> .
-    (99) arguments -> . expression _16_COMMA_expression_repeat
+    (78) factor -> factor LPAREN . _13_arguments_optional RPAREN
+    (79) _13_arguments_optional -> . arguments
+    (80) _13_arguments_optional -> .
+    (100) arguments -> . expression _16_COMMA_expression_repeat
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2590,22 +2680,23 @@ state 71
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
-    RPAREN          reduce using rule 79 (_13_arguments_optional -> .)
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
+    RPAREN          reduce using rule 80 (_13_arguments_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2620,81 +2711,83 @@ state 71
     REAL            shift and go to state 39
 
     factor                         shift and go to state 29
-    _13_arguments_optional         shift and go to state 107
-    arguments                      shift and go to state 108
-    expression                     shift and go to state 109
-
-state 72
-
-    (80) factor -> factor POINT . IDENT
-    IDENT           shift and go to state 110
-
+    _13_arguments_optional         shift and go to state 109
+    arguments                      shift and go to state 110
+    expression                     shift and go to state 111
 
 state 73
 
-    (75) factor -> MINUS factor .
-    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
-    (80) factor -> factor . POINT IDENT
-    LPAREN          reduce using rule 75 (factor -> MINUS factor .)
-    POINT           reduce using rule 75 (factor -> MINUS factor .)
-    SEMI            reduce using rule 75 (factor -> MINUS factor .)
-    NE              reduce using rule 75 (factor -> MINUS factor .)
-    EQ              reduce using rule 75 (factor -> MINUS factor .)
-    GE              reduce using rule 75 (factor -> MINUS factor .)
-    GT              reduce using rule 75 (factor -> MINUS factor .)
-    LE              reduce using rule 75 (factor -> MINUS factor .)
-    LT              reduce using rule 75 (factor -> MINUS factor .)
-    MODULE          reduce using rule 75 (factor -> MINUS factor .)
-    DIVIDE          reduce using rule 75 (factor -> MINUS factor .)
-    TIMES           reduce using rule 75 (factor -> MINUS factor .)
-    MINUS           reduce using rule 75 (factor -> MINUS factor .)
-    PLUS            reduce using rule 75 (factor -> MINUS factor .)
-    AND             reduce using rule 75 (factor -> MINUS factor .)
-    OR              reduce using rule 75 (factor -> MINUS factor .)
-    ASSIGN          reduce using rule 75 (factor -> MINUS factor .)
-    RPAREN          reduce using rule 75 (factor -> MINUS factor .)
-    COMMA           reduce using rule 75 (factor -> MINUS factor .)
+    (81) factor -> factor POINT . IDENT
+    IDENT           shift and go to state 112
 
 
 state 74
 
-    (74) factor -> NOT factor .
-    (77) factor -> factor . LPAREN _13_arguments_optional RPAREN
-    (80) factor -> factor . POINT IDENT
-    LPAREN          reduce using rule 74 (factor -> NOT factor .)
-    POINT           reduce using rule 74 (factor -> NOT factor .)
-    SEMI            reduce using rule 74 (factor -> NOT factor .)
-    NE              reduce using rule 74 (factor -> NOT factor .)
-    EQ              reduce using rule 74 (factor -> NOT factor .)
-    GE              reduce using rule 74 (factor -> NOT factor .)
-    GT              reduce using rule 74 (factor -> NOT factor .)
-    LE              reduce using rule 74 (factor -> NOT factor .)
-    LT              reduce using rule 74 (factor -> NOT factor .)
-    MODULE          reduce using rule 74 (factor -> NOT factor .)
-    DIVIDE          reduce using rule 74 (factor -> NOT factor .)
-    TIMES           reduce using rule 74 (factor -> NOT factor .)
-    MINUS           reduce using rule 74 (factor -> NOT factor .)
-    PLUS            reduce using rule 74 (factor -> NOT factor .)
-    AND             reduce using rule 74 (factor -> NOT factor .)
-    OR              reduce using rule 74 (factor -> NOT factor .)
-    ASSIGN          reduce using rule 74 (factor -> NOT factor .)
-    RPAREN          reduce using rule 74 (factor -> NOT factor .)
-    COMMA           reduce using rule 74 (factor -> NOT factor .)
+    (76) factor -> MINUS factor .
+    (78) factor -> factor . LPAREN _13_arguments_optional RPAREN
+    (81) factor -> factor . POINT IDENT
+    LPAREN          reduce using rule 76 (factor -> MINUS factor .)
+    POINT           reduce using rule 76 (factor -> MINUS factor .)
+    SEMI            reduce using rule 76 (factor -> MINUS factor .)
+    NE              reduce using rule 76 (factor -> MINUS factor .)
+    EQ              reduce using rule 76 (factor -> MINUS factor .)
+    GE              reduce using rule 76 (factor -> MINUS factor .)
+    GT              reduce using rule 76 (factor -> MINUS factor .)
+    LE              reduce using rule 76 (factor -> MINUS factor .)
+    LT              reduce using rule 76 (factor -> MINUS factor .)
+    MODULE          reduce using rule 76 (factor -> MINUS factor .)
+    DIVIDE          reduce using rule 76 (factor -> MINUS factor .)
+    TIMES           reduce using rule 76 (factor -> MINUS factor .)
+    MINUS           reduce using rule 76 (factor -> MINUS factor .)
+    PLUS            reduce using rule 76 (factor -> MINUS factor .)
+    AND             reduce using rule 76 (factor -> MINUS factor .)
+    OR              reduce using rule 76 (factor -> MINUS factor .)
+    ADDEQ           reduce using rule 76 (factor -> MINUS factor .)
+    ASSIGN          reduce using rule 76 (factor -> MINUS factor .)
+    RPAREN          reduce using rule 76 (factor -> MINUS factor .)
+    COMMA           reduce using rule 76 (factor -> MINUS factor .)
 
 
 state 75
 
-    (81) factor -> SUPER POINT . IDENT
-    IDENT           shift and go to state 111
+    (75) factor -> NOT factor .
+    (78) factor -> factor . LPAREN _13_arguments_optional RPAREN
+    (81) factor -> factor . POINT IDENT
+    LPAREN          reduce using rule 75 (factor -> NOT factor .)
+    POINT           reduce using rule 75 (factor -> NOT factor .)
+    SEMI            reduce using rule 75 (factor -> NOT factor .)
+    NE              reduce using rule 75 (factor -> NOT factor .)
+    EQ              reduce using rule 75 (factor -> NOT factor .)
+    GE              reduce using rule 75 (factor -> NOT factor .)
+    GT              reduce using rule 75 (factor -> NOT factor .)
+    LE              reduce using rule 75 (factor -> NOT factor .)
+    LT              reduce using rule 75 (factor -> NOT factor .)
+    MODULE          reduce using rule 75 (factor -> NOT factor .)
+    DIVIDE          reduce using rule 75 (factor -> NOT factor .)
+    TIMES           reduce using rule 75 (factor -> NOT factor .)
+    MINUS           reduce using rule 75 (factor -> NOT factor .)
+    PLUS            reduce using rule 75 (factor -> NOT factor .)
+    AND             reduce using rule 75 (factor -> NOT factor .)
+    OR              reduce using rule 75 (factor -> NOT factor .)
+    ADDEQ           reduce using rule 75 (factor -> NOT factor .)
+    ASSIGN          reduce using rule 75 (factor -> NOT factor .)
+    RPAREN          reduce using rule 75 (factor -> NOT factor .)
+    COMMA           reduce using rule 75 (factor -> NOT factor .)
 
 
 state 76
 
-    (20) var_declaration -> VAR IDENT _4_ASSIGN_expression_optional . SEMI
-    SEMI            shift and go to state 112
+    (82) factor -> SUPER POINT . IDENT
+    IDENT           shift and go to state 113
 
 
 state 77
+
+    (20) var_declaration -> VAR IDENT _4_ASSIGN_expression_optional . SEMI
+    SEMI            shift and go to state 114
+
+
+state 78
 
     (21) _4_ASSIGN_expression_optional -> ASSIGN . expression
     (59) expression -> . factor
@@ -2711,21 +2804,22 @@ state 77
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -2739,34 +2833,34 @@ state 77
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 113
+    expression                     shift and go to state 115
     factor                         shift and go to state 29
-
-state 78
-
-    (90) function -> IDENT LPAREN . _14_parameters_optional RPAREN block
-    (91) _14_parameters_optional -> . parameters
-    (92) _14_parameters_optional -> .
-    (93) parameters -> . IDENT _15_COMMA_IDENT_repeat
-    RPAREN          reduce using rule 92 (_14_parameters_optional -> .)
-    IDENT           shift and go to state 114
-
-    _14_parameters_optional        shift and go to state 115
-    parameters                     shift and go to state 116
 
 state 79
 
-    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional . LBRACE _3_function_repeat RBRACE
-    LBRACE          shift and go to state 117
+    (91) function -> IDENT LPAREN . _14_parameters_optional RPAREN block
+    (92) _14_parameters_optional -> . parameters
+    (93) _14_parameters_optional -> .
+    (94) parameters -> . IDENT _15_COMMA_IDENT_repeat
+    RPAREN          reduce using rule 93 (_14_parameters_optional -> .)
+    IDENT           shift and go to state 116
 
+    _14_parameters_optional        shift and go to state 117
+    parameters                     shift and go to state 118
 
 state 80
 
-    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN . LT IDENT RPAREN
-    LT              shift and go to state 118
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional . LBRACE _3_function_repeat RBRACE
+    LBRACE          shift and go to state 119
 
 
 state 81
+
+    (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN . LT IDENT RPAREN
+    LT              shift and go to state 120
+
+
+state 82
 
     (53) block -> LBRACE _12_declaration_repeat RBRACE .
     VAR             reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
@@ -2796,7 +2890,7 @@ state 81
     END_IF          reduce using rule 53 (block -> LBRACE _12_declaration_repeat RBRACE .)
 
 
-state 82
+state 83
 
     (56) _12_declaration_items -> _12_declaration_items _12_declaration_item .
     VAR             reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
@@ -2823,7 +2917,7 @@ state 82
     RBRACE          reduce using rule 56 (_12_declaration_items -> _12_declaration_items _12_declaration_item .)
 
 
-state 83
+state 84
 
     (52) while_stmt -> WHILE LPAREN expression . RPAREN statement
     (60) expression -> expression . NE expression
@@ -2839,8 +2933,9 @@ state 83
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    RPAREN          shift and go to state 119
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    RPAREN          shift and go to state 121
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -2854,34 +2949,36 @@ state 83
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-
-
-state 84
-
-    (76) factor -> LPAREN expression RPAREN .
-    LPAREN          reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    POINT           reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    SEMI            reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    NE              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    EQ              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    GE              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    GT              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    LE              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    LT              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    MODULE          reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    TIMES           reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    AND             reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    OR              reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    ASSIGN          reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 76 (factor -> LPAREN expression RPAREN .)
-    COMMA           reduce using rule 76 (factor -> LPAREN expression RPAREN .)
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 85
+
+    (77) factor -> LPAREN expression RPAREN .
+    LPAREN          reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    POINT           reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    SEMI            reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    NE              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    GE              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    GT              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    LE              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    LT              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    MODULE          reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    AND             reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    OR              reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    ADDEQ           reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    ASSIGN          reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 77 (factor -> LPAREN expression RPAREN .)
+
+
+state 86
 
     (60) expression -> expression NE expression .
     (60) expression -> expression . NE expression
@@ -2897,12 +2994,14 @@ state 85
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 60 (expression -> expression NE expression .)
     NE              reduce using rule 60 (expression -> expression NE expression .)
     EQ              reduce using rule 60 (expression -> expression NE expression .)
     AND             reduce using rule 60 (expression -> expression NE expression .)
     OR              reduce using rule 60 (expression -> expression NE expression .)
+    ADDEQ           reduce using rule 60 (expression -> expression NE expression .)
     ASSIGN          reduce using rule 60 (expression -> expression NE expression .)
     RPAREN          reduce using rule 60 (expression -> expression NE expression .)
     COMMA           reduce using rule 60 (expression -> expression NE expression .)
@@ -2917,7 +3016,7 @@ state 85
     PLUS            shift and go to state 62
 
 
-state 86
+state 87
 
     (61) expression -> expression EQ expression .
     (60) expression -> expression . NE expression
@@ -2933,12 +3032,14 @@ state 86
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 61 (expression -> expression EQ expression .)
     NE              reduce using rule 61 (expression -> expression EQ expression .)
     EQ              reduce using rule 61 (expression -> expression EQ expression .)
     AND             reduce using rule 61 (expression -> expression EQ expression .)
     OR              reduce using rule 61 (expression -> expression EQ expression .)
+    ADDEQ           reduce using rule 61 (expression -> expression EQ expression .)
     ASSIGN          reduce using rule 61 (expression -> expression EQ expression .)
     RPAREN          reduce using rule 61 (expression -> expression EQ expression .)
     COMMA           reduce using rule 61 (expression -> expression EQ expression .)
@@ -2953,7 +3054,7 @@ state 86
     PLUS            shift and go to state 62
 
 
-state 87
+state 88
 
     (62) expression -> expression GE expression .
     (60) expression -> expression . NE expression
@@ -2969,7 +3070,8 @@ state 87
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 62 (expression -> expression GE expression .)
     NE              reduce using rule 62 (expression -> expression GE expression .)
     EQ              reduce using rule 62 (expression -> expression GE expression .)
@@ -2979,6 +3081,7 @@ state 87
     LT              reduce using rule 62 (expression -> expression GE expression .)
     AND             reduce using rule 62 (expression -> expression GE expression .)
     OR              reduce using rule 62 (expression -> expression GE expression .)
+    ADDEQ           reduce using rule 62 (expression -> expression GE expression .)
     ASSIGN          reduce using rule 62 (expression -> expression GE expression .)
     RPAREN          reduce using rule 62 (expression -> expression GE expression .)
     COMMA           reduce using rule 62 (expression -> expression GE expression .)
@@ -2989,7 +3092,7 @@ state 87
     PLUS            shift and go to state 62
 
 
-state 88
+state 89
 
     (63) expression -> expression GT expression .
     (60) expression -> expression . NE expression
@@ -3005,7 +3108,8 @@ state 88
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 63 (expression -> expression GT expression .)
     NE              reduce using rule 63 (expression -> expression GT expression .)
     EQ              reduce using rule 63 (expression -> expression GT expression .)
@@ -3015,6 +3119,7 @@ state 88
     LT              reduce using rule 63 (expression -> expression GT expression .)
     AND             reduce using rule 63 (expression -> expression GT expression .)
     OR              reduce using rule 63 (expression -> expression GT expression .)
+    ADDEQ           reduce using rule 63 (expression -> expression GT expression .)
     ASSIGN          reduce using rule 63 (expression -> expression GT expression .)
     RPAREN          reduce using rule 63 (expression -> expression GT expression .)
     COMMA           reduce using rule 63 (expression -> expression GT expression .)
@@ -3025,7 +3130,7 @@ state 88
     PLUS            shift and go to state 62
 
 
-state 89
+state 90
 
     (64) expression -> expression LE expression .
     (60) expression -> expression . NE expression
@@ -3041,7 +3146,8 @@ state 89
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 64 (expression -> expression LE expression .)
     NE              reduce using rule 64 (expression -> expression LE expression .)
     EQ              reduce using rule 64 (expression -> expression LE expression .)
@@ -3051,6 +3157,7 @@ state 89
     LT              reduce using rule 64 (expression -> expression LE expression .)
     AND             reduce using rule 64 (expression -> expression LE expression .)
     OR              reduce using rule 64 (expression -> expression LE expression .)
+    ADDEQ           reduce using rule 64 (expression -> expression LE expression .)
     ASSIGN          reduce using rule 64 (expression -> expression LE expression .)
     RPAREN          reduce using rule 64 (expression -> expression LE expression .)
     COMMA           reduce using rule 64 (expression -> expression LE expression .)
@@ -3061,7 +3168,7 @@ state 89
     PLUS            shift and go to state 62
 
 
-state 90
+state 91
 
     (65) expression -> expression LT expression .
     (60) expression -> expression . NE expression
@@ -3077,7 +3184,8 @@ state 90
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 65 (expression -> expression LT expression .)
     NE              reduce using rule 65 (expression -> expression LT expression .)
     EQ              reduce using rule 65 (expression -> expression LT expression .)
@@ -3087,6 +3195,7 @@ state 90
     LT              reduce using rule 65 (expression -> expression LT expression .)
     AND             reduce using rule 65 (expression -> expression LT expression .)
     OR              reduce using rule 65 (expression -> expression LT expression .)
+    ADDEQ           reduce using rule 65 (expression -> expression LT expression .)
     ASSIGN          reduce using rule 65 (expression -> expression LT expression .)
     RPAREN          reduce using rule 65 (expression -> expression LT expression .)
     COMMA           reduce using rule 65 (expression -> expression LT expression .)
@@ -3097,7 +3206,7 @@ state 90
     PLUS            shift and go to state 62
 
 
-state 91
+state 92
 
     (66) expression -> expression MODULE expression .
     (60) expression -> expression . NE expression
@@ -3113,7 +3222,8 @@ state 91
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 66 (expression -> expression MODULE expression .)
     NE              reduce using rule 66 (expression -> expression MODULE expression .)
     EQ              reduce using rule 66 (expression -> expression MODULE expression .)
@@ -3128,12 +3238,13 @@ state 91
     PLUS            reduce using rule 66 (expression -> expression MODULE expression .)
     AND             reduce using rule 66 (expression -> expression MODULE expression .)
     OR              reduce using rule 66 (expression -> expression MODULE expression .)
+    ADDEQ           reduce using rule 66 (expression -> expression MODULE expression .)
     ASSIGN          reduce using rule 66 (expression -> expression MODULE expression .)
     RPAREN          reduce using rule 66 (expression -> expression MODULE expression .)
     COMMA           reduce using rule 66 (expression -> expression MODULE expression .)
 
 
-state 92
+state 93
 
     (67) expression -> expression DIVIDE expression .
     (60) expression -> expression . NE expression
@@ -3149,7 +3260,8 @@ state 92
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 67 (expression -> expression DIVIDE expression .)
     NE              reduce using rule 67 (expression -> expression DIVIDE expression .)
     EQ              reduce using rule 67 (expression -> expression DIVIDE expression .)
@@ -3164,12 +3276,13 @@ state 92
     PLUS            reduce using rule 67 (expression -> expression DIVIDE expression .)
     AND             reduce using rule 67 (expression -> expression DIVIDE expression .)
     OR              reduce using rule 67 (expression -> expression DIVIDE expression .)
+    ADDEQ           reduce using rule 67 (expression -> expression DIVIDE expression .)
     ASSIGN          reduce using rule 67 (expression -> expression DIVIDE expression .)
     RPAREN          reduce using rule 67 (expression -> expression DIVIDE expression .)
     COMMA           reduce using rule 67 (expression -> expression DIVIDE expression .)
 
 
-state 93
+state 94
 
     (68) expression -> expression TIMES expression .
     (60) expression -> expression . NE expression
@@ -3185,7 +3298,8 @@ state 93
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 68 (expression -> expression TIMES expression .)
     NE              reduce using rule 68 (expression -> expression TIMES expression .)
     EQ              reduce using rule 68 (expression -> expression TIMES expression .)
@@ -3200,12 +3314,13 @@ state 93
     PLUS            reduce using rule 68 (expression -> expression TIMES expression .)
     AND             reduce using rule 68 (expression -> expression TIMES expression .)
     OR              reduce using rule 68 (expression -> expression TIMES expression .)
+    ADDEQ           reduce using rule 68 (expression -> expression TIMES expression .)
     ASSIGN          reduce using rule 68 (expression -> expression TIMES expression .)
     RPAREN          reduce using rule 68 (expression -> expression TIMES expression .)
     COMMA           reduce using rule 68 (expression -> expression TIMES expression .)
 
 
-state 94
+state 95
 
     (69) expression -> expression MINUS expression .
     (60) expression -> expression . NE expression
@@ -3221,7 +3336,8 @@ state 94
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 69 (expression -> expression MINUS expression .)
     NE              reduce using rule 69 (expression -> expression MINUS expression .)
     EQ              reduce using rule 69 (expression -> expression MINUS expression .)
@@ -3233,6 +3349,7 @@ state 94
     PLUS            reduce using rule 69 (expression -> expression MINUS expression .)
     AND             reduce using rule 69 (expression -> expression MINUS expression .)
     OR              reduce using rule 69 (expression -> expression MINUS expression .)
+    ADDEQ           reduce using rule 69 (expression -> expression MINUS expression .)
     ASSIGN          reduce using rule 69 (expression -> expression MINUS expression .)
     RPAREN          reduce using rule 69 (expression -> expression MINUS expression .)
     COMMA           reduce using rule 69 (expression -> expression MINUS expression .)
@@ -3241,7 +3358,7 @@ state 94
     TIMES           shift and go to state 60
 
 
-state 95
+state 96
 
     (70) expression -> expression PLUS expression .
     (60) expression -> expression . NE expression
@@ -3257,7 +3374,8 @@ state 95
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 70 (expression -> expression PLUS expression .)
     NE              reduce using rule 70 (expression -> expression PLUS expression .)
     EQ              reduce using rule 70 (expression -> expression PLUS expression .)
@@ -3269,6 +3387,7 @@ state 95
     PLUS            reduce using rule 70 (expression -> expression PLUS expression .)
     AND             reduce using rule 70 (expression -> expression PLUS expression .)
     OR              reduce using rule 70 (expression -> expression PLUS expression .)
+    ADDEQ           reduce using rule 70 (expression -> expression PLUS expression .)
     ASSIGN          reduce using rule 70 (expression -> expression PLUS expression .)
     RPAREN          reduce using rule 70 (expression -> expression PLUS expression .)
     COMMA           reduce using rule 70 (expression -> expression PLUS expression .)
@@ -3277,7 +3396,7 @@ state 95
     TIMES           shift and go to state 60
 
 
-state 96
+state 97
 
     (71) expression -> expression AND expression .
     (60) expression -> expression . NE expression
@@ -3293,10 +3412,12 @@ state 96
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 71 (expression -> expression AND expression .)
     AND             reduce using rule 71 (expression -> expression AND expression .)
     OR              reduce using rule 71 (expression -> expression AND expression .)
+    ADDEQ           reduce using rule 71 (expression -> expression AND expression .)
     ASSIGN          reduce using rule 71 (expression -> expression AND expression .)
     RPAREN          reduce using rule 71 (expression -> expression AND expression .)
     COMMA           reduce using rule 71 (expression -> expression AND expression .)
@@ -3313,7 +3434,7 @@ state 96
     PLUS            shift and go to state 62
 
 
-state 97
+state 98
 
     (72) expression -> expression OR expression .
     (60) expression -> expression . NE expression
@@ -3329,9 +3450,11 @@ state 97
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 72 (expression -> expression OR expression .)
     OR              reduce using rule 72 (expression -> expression OR expression .)
+    ADDEQ           reduce using rule 72 (expression -> expression OR expression .)
     ASSIGN          reduce using rule 72 (expression -> expression OR expression .)
     RPAREN          reduce using rule 72 (expression -> expression OR expression .)
     COMMA           reduce using rule 72 (expression -> expression OR expression .)
@@ -3349,9 +3472,9 @@ state 97
     AND             shift and go to state 63
 
 
-state 98
+state 99
 
-    (73) expression -> expression ASSIGN expression .
+    (73) expression -> expression ADDEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -3365,10 +3488,11 @@ state 98
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 73 (expression -> expression ASSIGN expression .)
-    RPAREN          reduce using rule 73 (expression -> expression ASSIGN expression .)
-    COMMA           reduce using rule 73 (expression -> expression ASSIGN expression .)
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 73 (expression -> expression ADDEQ expression .)
+    RPAREN          reduce using rule 73 (expression -> expression ADDEQ expression .)
+    COMMA           reduce using rule 73 (expression -> expression ADDEQ expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3382,10 +3506,49 @@ state 98
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 99
+state 100
+
+    (74) expression -> expression ASSIGN expression .
+    (60) expression -> expression . NE expression
+    (61) expression -> expression . EQ expression
+    (62) expression -> expression . GE expression
+    (63) expression -> expression . GT expression
+    (64) expression -> expression . LE expression
+    (65) expression -> expression . LT expression
+    (66) expression -> expression . MODULE expression
+    (67) expression -> expression . DIVIDE expression
+    (68) expression -> expression . TIMES expression
+    (69) expression -> expression . MINUS expression
+    (70) expression -> expression . PLUS expression
+    (71) expression -> expression . AND expression
+    (72) expression -> expression . OR expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 74 (expression -> expression ASSIGN expression .)
+    ADDEQ           reduce using rule 74 (expression -> expression ASSIGN expression .)
+    RPAREN          reduce using rule 74 (expression -> expression ASSIGN expression .)
+    COMMA           reduce using rule 74 (expression -> expression ASSIGN expression .)
+    NE              shift and go to state 52
+    EQ              shift and go to state 53
+    GE              shift and go to state 54
+    GT              shift and go to state 55
+    LE              shift and go to state 56
+    LT              shift and go to state 57
+    MODULE          shift and go to state 58
+    DIVIDE          shift and go to state 59
+    TIMES           shift and go to state 60
+    MINUS           shift and go to state 61
+    PLUS            shift and go to state 62
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    ASSIGN          shift and go to state 66
+
+
+state 101
 
     (49) return_stmt -> RETURN _11_expression_optional SEMI .
     VAR             reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
@@ -3415,7 +3578,7 @@ state 99
     END_IF          reduce using rule 49 (return_stmt -> RETURN _11_expression_optional SEMI .)
 
 
-state 100
+state 102
 
     (48) print_stmt -> PRINT LPAREN expression . RPAREN SEMI
     (60) expression -> expression . NE expression
@@ -3431,8 +3594,9 @@ state 100
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    RPAREN          shift and go to state 120
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    RPAREN          shift and go to state 122
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3446,16 +3610,17 @@ state 100
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 101
+state 103
 
     (43) if_stmt -> IF LPAREN _9_expression_optional . RPAREN statement _10_ELSE_statement_optional END_IF
-    RPAREN          shift and go to state 121
+    RPAREN          shift and go to state 123
 
 
-state 102
+state 104
 
     (44) _9_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -3471,7 +3636,8 @@ state 102
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 44 (_9_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -3486,10 +3652,11 @@ state 102
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 103
+state 105
 
     (31) for_stmt -> FOR LPAREN SEMI . _5_expression_optional SEMI _6_expression_optional RPAREN statement
     (32) _5_expression_optional -> . expression
@@ -3508,21 +3675,22 @@ state 103
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     SEMI            reduce using rule 33 (_5_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -3537,11 +3705,11 @@ state 103
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _5_expression_optional         shift and go to state 122
-    expression                     shift and go to state 123
+    _5_expression_optional         shift and go to state 124
+    expression                     shift and go to state 125
     factor                         shift and go to state 29
 
-state 104
+state 106
 
     (36) for_stmt -> FOR LPAREN for_initialize . _7_expression_optional SEMI _8_expression_optional RPAREN statement
     (37) _7_expression_optional -> . expression
@@ -3560,21 +3728,22 @@ state 104
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     SEMI            reduce using rule 38 (_7_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -3589,11 +3758,11 @@ state 104
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _7_expression_optional         shift and go to state 124
-    expression                     shift and go to state 125
+    _7_expression_optional         shift and go to state 126
+    expression                     shift and go to state 127
     factor                         shift and go to state 29
 
-state 105
+state 107
 
     (41) for_initialize -> expr_stmt .
     NOT             reduce using rule 41 (for_initialize -> expr_stmt .)
@@ -3611,7 +3780,7 @@ state 105
     SEMI            reduce using rule 41 (for_initialize -> expr_stmt .)
 
 
-state 106
+state 108
 
     (42) for_initialize -> var_declaration .
     NOT             reduce using rule 42 (for_initialize -> var_declaration .)
@@ -3629,21 +3798,21 @@ state 106
     SEMI            reduce using rule 42 (for_initialize -> var_declaration .)
 
 
-state 107
-
-    (77) factor -> factor LPAREN _13_arguments_optional . RPAREN
-    RPAREN          shift and go to state 126
-
-
-state 108
-
-    (78) _13_arguments_optional -> arguments .
-    RPAREN          reduce using rule 78 (_13_arguments_optional -> arguments .)
-
-
 state 109
 
-    (99) arguments -> expression . _16_COMMA_expression_repeat
+    (78) factor -> factor LPAREN _13_arguments_optional . RPAREN
+    RPAREN          shift and go to state 128
+
+
+state 110
+
+    (79) _13_arguments_optional -> arguments .
+    RPAREN          reduce using rule 79 (_13_arguments_optional -> arguments .)
+
+
+state 111
+
+    (100) arguments -> expression . _16_COMMA_expression_repeat
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -3657,12 +3826,13 @@ state 109
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    (100) _16_COMMA_expression_repeat -> . _16_COMMA_expression_items
-    (101) _16_COMMA_expression_repeat -> .
-    (102) _16_COMMA_expression_items -> . _16_COMMA_expression_items _16_COMMA_expression_item
-    (103) _16_COMMA_expression_items -> . _16_COMMA_expression_item
-    (104) _16_COMMA_expression_item -> . COMMA expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    (101) _16_COMMA_expression_repeat -> . _16_COMMA_expression_items
+    (102) _16_COMMA_expression_repeat -> .
+    (103) _16_COMMA_expression_items -> . _16_COMMA_expression_items _16_COMMA_expression_item
+    (104) _16_COMMA_expression_items -> . _16_COMMA_expression_item
+    (105) _16_COMMA_expression_item -> . COMMA expression
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -3676,63 +3846,66 @@ state 109
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-    RPAREN          reduce using rule 101 (_16_COMMA_expression_repeat -> .)
-    COMMA           shift and go to state 130
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
+    RPAREN          reduce using rule 102 (_16_COMMA_expression_repeat -> .)
+    COMMA           shift and go to state 132
 
-    _16_COMMA_expression_repeat    shift and go to state 127
-    _16_COMMA_expression_items     shift and go to state 128
-    _16_COMMA_expression_item      shift and go to state 129
-
-state 110
-
-    (80) factor -> factor POINT IDENT .
-    LPAREN          reduce using rule 80 (factor -> factor POINT IDENT .)
-    POINT           reduce using rule 80 (factor -> factor POINT IDENT .)
-    SEMI            reduce using rule 80 (factor -> factor POINT IDENT .)
-    NE              reduce using rule 80 (factor -> factor POINT IDENT .)
-    EQ              reduce using rule 80 (factor -> factor POINT IDENT .)
-    GE              reduce using rule 80 (factor -> factor POINT IDENT .)
-    GT              reduce using rule 80 (factor -> factor POINT IDENT .)
-    LE              reduce using rule 80 (factor -> factor POINT IDENT .)
-    LT              reduce using rule 80 (factor -> factor POINT IDENT .)
-    MODULE          reduce using rule 80 (factor -> factor POINT IDENT .)
-    DIVIDE          reduce using rule 80 (factor -> factor POINT IDENT .)
-    TIMES           reduce using rule 80 (factor -> factor POINT IDENT .)
-    MINUS           reduce using rule 80 (factor -> factor POINT IDENT .)
-    PLUS            reduce using rule 80 (factor -> factor POINT IDENT .)
-    AND             reduce using rule 80 (factor -> factor POINT IDENT .)
-    OR              reduce using rule 80 (factor -> factor POINT IDENT .)
-    ASSIGN          reduce using rule 80 (factor -> factor POINT IDENT .)
-    RPAREN          reduce using rule 80 (factor -> factor POINT IDENT .)
-    COMMA           reduce using rule 80 (factor -> factor POINT IDENT .)
-
-
-state 111
-
-    (81) factor -> SUPER POINT IDENT .
-    LPAREN          reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    POINT           reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    SEMI            reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    NE              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    EQ              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    GE              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    GT              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    LE              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    LT              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    MODULE          reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    DIVIDE          reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    TIMES           reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    MINUS           reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    PLUS            reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    AND             reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    OR              reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    ASSIGN          reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    RPAREN          reduce using rule 81 (factor -> SUPER POINT IDENT .)
-    COMMA           reduce using rule 81 (factor -> SUPER POINT IDENT .)
-
+    _16_COMMA_expression_repeat    shift and go to state 129
+    _16_COMMA_expression_items     shift and go to state 130
+    _16_COMMA_expression_item      shift and go to state 131
 
 state 112
+
+    (81) factor -> factor POINT IDENT .
+    LPAREN          reduce using rule 81 (factor -> factor POINT IDENT .)
+    POINT           reduce using rule 81 (factor -> factor POINT IDENT .)
+    SEMI            reduce using rule 81 (factor -> factor POINT IDENT .)
+    NE              reduce using rule 81 (factor -> factor POINT IDENT .)
+    EQ              reduce using rule 81 (factor -> factor POINT IDENT .)
+    GE              reduce using rule 81 (factor -> factor POINT IDENT .)
+    GT              reduce using rule 81 (factor -> factor POINT IDENT .)
+    LE              reduce using rule 81 (factor -> factor POINT IDENT .)
+    LT              reduce using rule 81 (factor -> factor POINT IDENT .)
+    MODULE          reduce using rule 81 (factor -> factor POINT IDENT .)
+    DIVIDE          reduce using rule 81 (factor -> factor POINT IDENT .)
+    TIMES           reduce using rule 81 (factor -> factor POINT IDENT .)
+    MINUS           reduce using rule 81 (factor -> factor POINT IDENT .)
+    PLUS            reduce using rule 81 (factor -> factor POINT IDENT .)
+    AND             reduce using rule 81 (factor -> factor POINT IDENT .)
+    OR              reduce using rule 81 (factor -> factor POINT IDENT .)
+    ADDEQ           reduce using rule 81 (factor -> factor POINT IDENT .)
+    ASSIGN          reduce using rule 81 (factor -> factor POINT IDENT .)
+    RPAREN          reduce using rule 81 (factor -> factor POINT IDENT .)
+    COMMA           reduce using rule 81 (factor -> factor POINT IDENT .)
+
+
+state 113
+
+    (82) factor -> SUPER POINT IDENT .
+    LPAREN          reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    POINT           reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    SEMI            reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    NE              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    EQ              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    GE              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    GT              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    LE              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    LT              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    MODULE          reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    DIVIDE          reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    TIMES           reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    MINUS           reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    PLUS            reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    AND             reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    OR              reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    ADDEQ           reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    ASSIGN          reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    RPAREN          reduce using rule 82 (factor -> SUPER POINT IDENT .)
+    COMMA           reduce using rule 82 (factor -> SUPER POINT IDENT .)
+
+
+state 114
 
     (20) var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .
     VAR             reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
@@ -3761,7 +3934,7 @@ state 112
     SEMI            reduce using rule 20 (var_declaration -> VAR IDENT _4_ASSIGN_expression_optional SEMI .)
 
 
-state 113
+state 115
 
     (21) _4_ASSIGN_expression_optional -> ASSIGN expression .
     (60) expression -> expression . NE expression
@@ -3777,7 +3950,8 @@ state 113
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 21 (_4_ASSIGN_expression_optional -> ASSIGN expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -3792,37 +3966,38 @@ state 113
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-
-
-state 114
-
-    (93) parameters -> IDENT . _15_COMMA_IDENT_repeat
-    (94) _15_COMMA_IDENT_repeat -> . _15_COMMA_IDENT_items
-    (95) _15_COMMA_IDENT_repeat -> .
-    (96) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_items _15_COMMA_IDENT_item
-    (97) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_item
-    (98) _15_COMMA_IDENT_item -> . COMMA IDENT
-    RPAREN          reduce using rule 95 (_15_COMMA_IDENT_repeat -> .)
-    COMMA           shift and go to state 134
-
-    _15_COMMA_IDENT_repeat         shift and go to state 131
-    _15_COMMA_IDENT_items          shift and go to state 132
-    _15_COMMA_IDENT_item           shift and go to state 133
-
-state 115
-
-    (90) function -> IDENT LPAREN _14_parameters_optional . RPAREN block
-    RPAREN          shift and go to state 135
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 116
 
-    (91) _14_parameters_optional -> parameters .
-    RPAREN          reduce using rule 91 (_14_parameters_optional -> parameters .)
+    (94) parameters -> IDENT . _15_COMMA_IDENT_repeat
+    (95) _15_COMMA_IDENT_repeat -> . _15_COMMA_IDENT_items
+    (96) _15_COMMA_IDENT_repeat -> .
+    (97) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_items _15_COMMA_IDENT_item
+    (98) _15_COMMA_IDENT_items -> . _15_COMMA_IDENT_item
+    (99) _15_COMMA_IDENT_item -> . COMMA IDENT
+    RPAREN          reduce using rule 96 (_15_COMMA_IDENT_repeat -> .)
+    COMMA           shift and go to state 136
 
+    _15_COMMA_IDENT_repeat         shift and go to state 133
+    _15_COMMA_IDENT_items          shift and go to state 134
+    _15_COMMA_IDENT_item           shift and go to state 135
 
 state 117
+
+    (91) function -> IDENT LPAREN _14_parameters_optional . RPAREN block
+    RPAREN          shift and go to state 137
+
+
+state 118
+
+    (92) _14_parameters_optional -> parameters .
+    RPAREN          reduce using rule 92 (_14_parameters_optional -> parameters .)
+
+
+state 119
 
     (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE . _3_function_repeat RBRACE
     (14) _3_function_repeat -> . _3_function_items
@@ -3830,22 +4005,22 @@ state 117
     (16) _3_function_items -> . _3_function_items _3_function_item
     (17) _3_function_items -> . _3_function_item
     (18) _3_function_item -> . function
-    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
+    (91) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
     RBRACE          reduce using rule 15 (_3_function_repeat -> .)
     IDENT           shift and go to state 43
 
-    _3_function_repeat             shift and go to state 136
-    _3_function_items              shift and go to state 137
-    _3_function_item               shift and go to state 138
-    function                       shift and go to state 139
+    _3_function_repeat             shift and go to state 138
+    _3_function_items              shift and go to state 139
+    _3_function_item               shift and go to state 140
+    function                       shift and go to state 141
 
-state 118
+state 120
 
     (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT . IDENT RPAREN
-    IDENT           shift and go to state 140
+    IDENT           shift and go to state 142
 
 
-state 119
+state 121
 
     (52) while_stmt -> WHILE LPAREN expression RPAREN . statement
     (23) statement -> . block
@@ -3877,21 +4052,22 @@ state 119
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     LBRACE          shift and go to state 21
     WHILE           shift and go to state 22
     RETURN          shift and go to state 25
@@ -3912,7 +4088,7 @@ state 119
     REAL            shift and go to state 39
 
     expression                     shift and go to state 24
-    statement                      shift and go to state 141
+    statement                      shift and go to state 143
     block                          shift and go to state 10
     while_stmt                     shift and go to state 11
     return_stmt                    shift and go to state 12
@@ -3922,13 +4098,13 @@ state 119
     expr_stmt                      shift and go to state 16
     factor                         shift and go to state 29
 
-state 120
+state 122
 
     (48) print_stmt -> PRINT LPAREN expression RPAREN . SEMI
-    SEMI            shift and go to state 142
+    SEMI            shift and go to state 144
 
 
-state 121
+state 123
 
     (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN . statement _10_ELSE_statement_optional END_IF
     (23) statement -> . block
@@ -3960,21 +4136,22 @@ state 121
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     LBRACE          shift and go to state 21
     WHILE           shift and go to state 22
     RETURN          shift and go to state 25
@@ -3994,7 +4171,7 @@ state 121
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    statement                      shift and go to state 143
+    statement                      shift and go to state 145
     block                          shift and go to state 10
     while_stmt                     shift and go to state 11
     return_stmt                    shift and go to state 12
@@ -4005,13 +4182,13 @@ state 121
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
-state 122
+state 124
 
     (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional . SEMI _6_expression_optional RPAREN statement
-    SEMI            shift and go to state 144
+    SEMI            shift and go to state 146
 
 
-state 123
+state 125
 
     (32) _5_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -4027,7 +4204,8 @@ state 123
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 32 (_5_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -4042,16 +4220,17 @@ state 123
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 124
+state 126
 
     (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional . SEMI _8_expression_optional RPAREN statement
-    SEMI            shift and go to state 145
+    SEMI            shift and go to state 147
 
 
-state 125
+state 127
 
     (37) _7_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -4067,7 +4246,8 @@ state 125
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 37 (_7_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -4082,59 +4262,61 @@ state 125
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-
-
-state 126
-
-    (77) factor -> factor LPAREN _13_arguments_optional RPAREN .
-    LPAREN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    POINT           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    SEMI            reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    NE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    EQ              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    GE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    GT              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    LE              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    LT              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    MODULE          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    DIVIDE          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    TIMES           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    MINUS           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    PLUS            reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    AND             reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    OR              reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    ASSIGN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    RPAREN          reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    COMMA           reduce using rule 77 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-
-
-state 127
-
-    (99) arguments -> expression _16_COMMA_expression_repeat .
-    RPAREN          reduce using rule 99 (arguments -> expression _16_COMMA_expression_repeat .)
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 128
 
-    (100) _16_COMMA_expression_repeat -> _16_COMMA_expression_items .
-    (102) _16_COMMA_expression_items -> _16_COMMA_expression_items . _16_COMMA_expression_item
-    (104) _16_COMMA_expression_item -> . COMMA expression
-    RPAREN          reduce using rule 100 (_16_COMMA_expression_repeat -> _16_COMMA_expression_items .)
-    COMMA           shift and go to state 130
+    (78) factor -> factor LPAREN _13_arguments_optional RPAREN .
+    LPAREN          reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    POINT           reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    SEMI            reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    NE              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    EQ              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    GE              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    GT              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    LE              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    LT              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    MODULE          reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    DIVIDE          reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    TIMES           reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    MINUS           reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    PLUS            reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    AND             reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    OR              reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    ADDEQ           reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    ASSIGN          reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    RPAREN          reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    COMMA           reduce using rule 78 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
 
-    _16_COMMA_expression_item      shift and go to state 146
 
 state 129
 
-    (103) _16_COMMA_expression_items -> _16_COMMA_expression_item .
-    COMMA           reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
-    RPAREN          reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
+    (100) arguments -> expression _16_COMMA_expression_repeat .
+    RPAREN          reduce using rule 100 (arguments -> expression _16_COMMA_expression_repeat .)
 
 
 state 130
 
-    (104) _16_COMMA_expression_item -> COMMA . expression
+    (101) _16_COMMA_expression_repeat -> _16_COMMA_expression_items .
+    (103) _16_COMMA_expression_items -> _16_COMMA_expression_items . _16_COMMA_expression_item
+    (105) _16_COMMA_expression_item -> . COMMA expression
+    RPAREN          reduce using rule 101 (_16_COMMA_expression_repeat -> _16_COMMA_expression_items .)
+    COMMA           shift and go to state 132
+
+    _16_COMMA_expression_item      shift and go to state 148
+
+state 131
+
+    (104) _16_COMMA_expression_items -> _16_COMMA_expression_item .
+    COMMA           reduce using rule 104 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
+    RPAREN          reduce using rule 104 (_16_COMMA_expression_items -> _16_COMMA_expression_item .)
+
+
+state 132
+
+    (105) _16_COMMA_expression_item -> COMMA . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -4149,21 +4331,22 @@ state 130
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -4177,85 +4360,85 @@ state 130
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    expression                     shift and go to state 147
+    expression                     shift and go to state 149
     factor                         shift and go to state 29
-
-state 131
-
-    (93) parameters -> IDENT _15_COMMA_IDENT_repeat .
-    RPAREN          reduce using rule 93 (parameters -> IDENT _15_COMMA_IDENT_repeat .)
-
-
-state 132
-
-    (94) _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .
-    (96) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items . _15_COMMA_IDENT_item
-    (98) _15_COMMA_IDENT_item -> . COMMA IDENT
-    RPAREN          reduce using rule 94 (_15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .)
-    COMMA           shift and go to state 134
-
-    _15_COMMA_IDENT_item           shift and go to state 148
 
 state 133
 
-    (97) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .
-    COMMA           reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
-    RPAREN          reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
+    (94) parameters -> IDENT _15_COMMA_IDENT_repeat .
+    RPAREN          reduce using rule 94 (parameters -> IDENT _15_COMMA_IDENT_repeat .)
 
 
 state 134
 
-    (98) _15_COMMA_IDENT_item -> COMMA . IDENT
-    IDENT           shift and go to state 149
+    (95) _15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .
+    (97) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items . _15_COMMA_IDENT_item
+    (99) _15_COMMA_IDENT_item -> . COMMA IDENT
+    RPAREN          reduce using rule 95 (_15_COMMA_IDENT_repeat -> _15_COMMA_IDENT_items .)
+    COMMA           shift and go to state 136
 
+    _15_COMMA_IDENT_item           shift and go to state 150
 
 state 135
 
-    (90) function -> IDENT LPAREN _14_parameters_optional RPAREN . block
-    (53) block -> . LBRACE _12_declaration_repeat RBRACE
-    LBRACE          shift and go to state 21
+    (98) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .
+    COMMA           reduce using rule 98 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
+    RPAREN          reduce using rule 98 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_item .)
 
-    block                          shift and go to state 150
 
 state 136
 
-    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat . RBRACE
-    RBRACE          shift and go to state 151
+    (99) _15_COMMA_IDENT_item -> COMMA . IDENT
+    IDENT           shift and go to state 151
 
 
 state 137
 
+    (91) function -> IDENT LPAREN _14_parameters_optional RPAREN . block
+    (53) block -> . LBRACE _12_declaration_repeat RBRACE
+    LBRACE          shift and go to state 21
+
+    block                          shift and go to state 152
+
+state 138
+
+    (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat . RBRACE
+    RBRACE          shift and go to state 153
+
+
+state 139
+
     (14) _3_function_repeat -> _3_function_items .
     (16) _3_function_items -> _3_function_items . _3_function_item
     (18) _3_function_item -> . function
-    (90) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
+    (91) function -> . IDENT LPAREN _14_parameters_optional RPAREN block
     RBRACE          reduce using rule 14 (_3_function_repeat -> _3_function_items .)
     IDENT           shift and go to state 43
 
-    _3_function_item               shift and go to state 152
-    function                       shift and go to state 139
+    _3_function_item               shift and go to state 154
+    function                       shift and go to state 141
 
-state 138
+state 140
 
     (17) _3_function_items -> _3_function_item .
     IDENT           reduce using rule 17 (_3_function_items -> _3_function_item .)
     RBRACE          reduce using rule 17 (_3_function_items -> _3_function_item .)
 
 
-state 139
+state 141
 
     (18) _3_function_item -> function .
     IDENT           reduce using rule 18 (_3_function_item -> function .)
     RBRACE          reduce using rule 18 (_3_function_item -> function .)
 
 
-state 140
+state 142
 
     (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT . RPAREN
-    RPAREN          shift and go to state 153
+    RPAREN          shift and go to state 155
 
 
-state 141
+state 143
 
     (52) while_stmt -> WHILE LPAREN expression RPAREN statement .
     VAR             reduce using rule 52 (while_stmt -> WHILE LPAREN expression RPAREN statement .)
@@ -4285,7 +4468,7 @@ state 141
     END_IF          reduce using rule 52 (while_stmt -> WHILE LPAREN expression RPAREN statement .)
 
 
-state 142
+state 144
 
     (48) print_stmt -> PRINT LPAREN expression RPAREN SEMI .
     VAR             reduce using rule 48 (print_stmt -> PRINT LPAREN expression RPAREN SEMI .)
@@ -4315,17 +4498,17 @@ state 142
     END_IF          reduce using rule 48 (print_stmt -> PRINT LPAREN expression RPAREN SEMI .)
 
 
-state 143
+state 145
 
     (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement . _10_ELSE_statement_optional END_IF
     (46) _10_ELSE_statement_optional -> . ELSE statement
     (47) _10_ELSE_statement_optional -> .
-    ELSE            shift and go to state 155
+    ELSE            shift and go to state 157
     END_IF          reduce using rule 47 (_10_ELSE_statement_optional -> .)
 
-    _10_ELSE_statement_optional    shift and go to state 154
+    _10_ELSE_statement_optional    shift and go to state 156
 
-state 144
+state 146
 
     (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI . _6_expression_optional RPAREN statement
     (34) _6_expression_optional -> . expression
@@ -4344,21 +4527,22 @@ state 144
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     RPAREN          reduce using rule 35 (_6_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -4373,11 +4557,11 @@ state 144
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _6_expression_optional         shift and go to state 156
-    expression                     shift and go to state 157
+    _6_expression_optional         shift and go to state 158
+    expression                     shift and go to state 159
     factor                         shift and go to state 29
 
-state 145
+state 147
 
     (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI . _8_expression_optional RPAREN statement
     (39) _8_expression_optional -> . expression
@@ -4396,21 +4580,22 @@ state 145
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     RPAREN          reduce using rule 40 (_8_expression_optional -> .)
     NOT             shift and go to state 31
     MINUS           shift and go to state 30
@@ -4425,20 +4610,20 @@ state 145
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    _8_expression_optional         shift and go to state 158
-    expression                     shift and go to state 159
+    _8_expression_optional         shift and go to state 160
+    expression                     shift and go to state 161
     factor                         shift and go to state 29
 
-state 146
+state 148
 
-    (102) _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .
-    COMMA           reduce using rule 102 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
-    RPAREN          reduce using rule 102 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
+    (103) _16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .
+    COMMA           reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
+    RPAREN          reduce using rule 103 (_16_COMMA_expression_items -> _16_COMMA_expression_items _16_COMMA_expression_item .)
 
 
-state 147
+state 149
 
-    (104) _16_COMMA_expression_item -> COMMA expression .
+    (105) _16_COMMA_expression_item -> COMMA expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4452,9 +4637,10 @@ state 147
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
-    COMMA           reduce using rule 104 (_16_COMMA_expression_item -> COMMA expression .)
-    RPAREN          reduce using rule 104 (_16_COMMA_expression_item -> COMMA expression .)
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
+    COMMA           reduce using rule 105 (_16_COMMA_expression_item -> COMMA expression .)
+    RPAREN          reduce using rule 105 (_16_COMMA_expression_item -> COMMA expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
     GE              shift and go to state 54
@@ -4468,52 +4654,53 @@ state 147
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
-
-
-state 148
-
-    (96) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .
-    COMMA           reduce using rule 96 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
-    RPAREN          reduce using rule 96 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
-
-
-state 149
-
-    (98) _15_COMMA_IDENT_item -> COMMA IDENT .
-    COMMA           reduce using rule 98 (_15_COMMA_IDENT_item -> COMMA IDENT .)
-    RPAREN          reduce using rule 98 (_15_COMMA_IDENT_item -> COMMA IDENT .)
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
 state 150
 
-    (90) function -> IDENT LPAREN _14_parameters_optional RPAREN block .
-    VAR             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    FUN             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    CLASS           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    LBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    WHILE           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    RETURN          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    PRINT           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    IF              reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    FOR             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    NOT             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    MINUS           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    LPAREN          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    SUPER           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    IDENT           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    THIS            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    NIL             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    FALSE           reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    TRUE            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    STRING          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    NUM             reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    REAL            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    $end            reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
-    RBRACE          reduce using rule 90 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    (97) _15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .
+    COMMA           reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
+    RPAREN          reduce using rule 97 (_15_COMMA_IDENT_items -> _15_COMMA_IDENT_items _15_COMMA_IDENT_item .)
 
 
 state 151
+
+    (99) _15_COMMA_IDENT_item -> COMMA IDENT .
+    COMMA           reduce using rule 99 (_15_COMMA_IDENT_item -> COMMA IDENT .)
+    RPAREN          reduce using rule 99 (_15_COMMA_IDENT_item -> COMMA IDENT .)
+
+
+state 152
+
+    (91) function -> IDENT LPAREN _14_parameters_optional RPAREN block .
+    VAR             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FUN             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    CLASS           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    LBRACE          reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    WHILE           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    RETURN          reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    PRINT           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    IF              reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FOR             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NOT             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    MINUS           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    LPAREN          reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    SUPER           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    IDENT           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    THIS            reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NIL             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    FALSE           reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    TRUE            reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    STRING          reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    NUM             reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    REAL            reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    $end            reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+    RBRACE          reduce using rule 91 (function -> IDENT LPAREN _14_parameters_optional RPAREN block .)
+
+
+state 153
 
     (11) class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .
     VAR             reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
@@ -4541,26 +4728,26 @@ state 151
     RBRACE          reduce using rule 11 (class_declaration -> CLASS IDENT _2_LPAREN_LT_IDENT_RPAREN_optional LBRACE _3_function_repeat RBRACE .)
 
 
-state 152
+state 154
 
     (16) _3_function_items -> _3_function_items _3_function_item .
     IDENT           reduce using rule 16 (_3_function_items -> _3_function_items _3_function_item .)
     RBRACE          reduce using rule 16 (_3_function_items -> _3_function_items _3_function_item .)
 
 
-state 153
+state 155
 
     (12) _2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT RPAREN .
     LBRACE          reduce using rule 12 (_2_LPAREN_LT_IDENT_RPAREN_optional -> LPAREN LT IDENT RPAREN .)
 
 
-state 154
+state 156
 
     (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional . END_IF
-    END_IF          shift and go to state 160
+    END_IF          shift and go to state 162
 
 
-state 155
+state 157
 
     (46) _10_ELSE_statement_optional -> ELSE . statement
     (23) statement -> . block
@@ -4592,21 +4779,22 @@ state 155
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     LBRACE          shift and go to state 21
     WHILE           shift and go to state 22
     RETURN          shift and go to state 25
@@ -4626,7 +4814,7 @@ state 155
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    statement                      shift and go to state 161
+    statement                      shift and go to state 163
     block                          shift and go to state 10
     while_stmt                     shift and go to state 11
     return_stmt                    shift and go to state 12
@@ -4637,13 +4825,13 @@ state 155
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
-state 156
+state 158
 
     (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional . RPAREN statement
-    RPAREN          shift and go to state 162
+    RPAREN          shift and go to state 164
 
 
-state 157
+state 159
 
     (34) _6_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -4659,7 +4847,8 @@ state 157
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 34 (_6_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -4674,16 +4863,17 @@ state 157
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 158
+state 160
 
     (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional . RPAREN statement
-    RPAREN          shift and go to state 163
+    RPAREN          shift and go to state 165
 
 
-state 159
+state 161
 
     (39) _8_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -4699,7 +4889,8 @@ state 159
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (73) expression -> expression . ASSIGN expression
+    (73) expression -> expression . ADDEQ expression
+    (74) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 39 (_8_expression_optional -> expression .)
     NE              shift and go to state 52
     EQ              shift and go to state 53
@@ -4714,10 +4905,11 @@ state 159
     PLUS            shift and go to state 62
     AND             shift and go to state 63
     OR              shift and go to state 64
-    ASSIGN          shift and go to state 65
+    ADDEQ           shift and go to state 65
+    ASSIGN          shift and go to state 66
 
 
-state 160
+state 162
 
     (43) if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .
     VAR             reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
@@ -4747,13 +4939,13 @@ state 160
     END_IF          reduce using rule 43 (if_stmt -> IF LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF .)
 
 
-state 161
+state 163
 
     (46) _10_ELSE_statement_optional -> ELSE statement .
     END_IF          reduce using rule 46 (_10_ELSE_statement_optional -> ELSE statement .)
 
 
-state 162
+state 164
 
     (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN . statement
     (23) statement -> . block
@@ -4785,21 +4977,22 @@ state 162
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     LBRACE          shift and go to state 21
     WHILE           shift and go to state 22
     RETURN          shift and go to state 25
@@ -4819,7 +5012,7 @@ state 162
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    statement                      shift and go to state 164
+    statement                      shift and go to state 166
     block                          shift and go to state 10
     while_stmt                     shift and go to state 11
     return_stmt                    shift and go to state 12
@@ -4830,7 +5023,7 @@ state 162
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
-state 163
+state 165
 
     (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN . statement
     (23) statement -> . block
@@ -4862,21 +5055,22 @@ state 163
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . expression ASSIGN expression
-    (74) factor -> . NOT factor
-    (75) factor -> . MINUS factor
-    (76) factor -> . LPAREN expression RPAREN
-    (77) factor -> . factor LPAREN _13_arguments_optional RPAREN
-    (80) factor -> . factor POINT IDENT
-    (81) factor -> . SUPER POINT IDENT
-    (82) factor -> . IDENT
-    (83) factor -> . THIS
-    (84) factor -> . NIL
-    (85) factor -> . FALSE
-    (86) factor -> . TRUE
-    (87) factor -> . STRING
-    (88) factor -> . NUM
-    (89) factor -> . REAL
+    (73) expression -> . expression ADDEQ expression
+    (74) expression -> . expression ASSIGN expression
+    (75) factor -> . NOT factor
+    (76) factor -> . MINUS factor
+    (77) factor -> . LPAREN expression RPAREN
+    (78) factor -> . factor LPAREN _13_arguments_optional RPAREN
+    (81) factor -> . factor POINT IDENT
+    (82) factor -> . SUPER POINT IDENT
+    (83) factor -> . IDENT
+    (84) factor -> . THIS
+    (85) factor -> . NIL
+    (86) factor -> . FALSE
+    (87) factor -> . TRUE
+    (88) factor -> . STRING
+    (89) factor -> . NUM
+    (90) factor -> . REAL
     LBRACE          shift and go to state 21
     WHILE           shift and go to state 22
     RETURN          shift and go to state 25
@@ -4896,7 +5090,7 @@ state 163
     NUM             shift and go to state 38
     REAL            shift and go to state 39
 
-    statement                      shift and go to state 165
+    statement                      shift and go to state 167
     block                          shift and go to state 10
     while_stmt                     shift and go to state 11
     return_stmt                    shift and go to state 12
@@ -4907,7 +5101,7 @@ state 163
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
-state 164
+state 166
 
     (31) for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .
     VAR             reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
@@ -4937,7 +5131,7 @@ state 164
     END_IF          reduce using rule 31 (for_stmt -> FOR LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement .)
 
 
-state 165
+state 167
 
     (36) for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .
     VAR             reduce using rule 36 (for_stmt -> FOR LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement .)

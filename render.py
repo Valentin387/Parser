@@ -198,7 +198,8 @@ class DotRender(Visitor):
 
     def visit(self, node : Assign):
         name = self.name()
-        self.dot.node(name, label=fr"Assign\nname: '{node.name}'")
+        label = "Assign" if node.op == '=' else node.op
+        self.dot.node(name, label=fr"{label}\nname: '{node.name}'")
         self.dot.edge(name, self.visit(node.expr))
         return name
 

@@ -83,7 +83,9 @@ class Lexer(sly.Lexer):
         #LSQBRA, RSQBRA,
 
         # Otros tokens
-        IDENT, NUM, REAL, STRING
+        IDENT, NUM, REAL, STRING,
+
+        ADDEQ
     }
     literals = '+-*/%=(){}[];,'
 
@@ -106,6 +108,7 @@ class Lexer(sly.Lexer):
         self.lineno += 1
 
     # Definicion de Tokens a traves de regexp
+    ADDEQ = r'\+='
     PLUS = r'\+'
     MINUS =r'-'
     TIMES =r'\*'
