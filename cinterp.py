@@ -265,7 +265,19 @@ class Interpreter(Visitor): #This is a visitor
 		return self.visit(node.expr)
 
 	def visit(self, node: Assign):
-		expr = self.visit(node.expr)
+		expr = 0
+		if node.op == "=":
+			expr = self.visit(node.expr)
+		elif node.op == "+=":
+			expr = self.env[node.name] + self.visit(node.expr)
+		elif node.op == "-=":
+			expr = self.env[node.name] - self.visit(node.expr)
+		elif node.op == "*=":
+			expr = self.env[node.name] * self.visit(node.expr)
+		elif node.op == "/=":
+			expr = self.env[node.name] / self.visit(node.expr)
+		elif node.op == "%=":
+			expr = self.env[node.name] % self.visit(node.expr)
 		self.env[node.name] = expr
 
 	def visit(self, node: Call):

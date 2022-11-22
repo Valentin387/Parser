@@ -14,6 +14,10 @@ class Parser(sly.Parser):
     # preceencia de operadores
     precedence = (
         ('right', ADDEQ),
+        ('right', MINEQ),
+        ('right', TIMESEQ),
+        ('right', DIVIDEEQ),
+        ('right', MODULEEQ),
         ('right', ASSIGN),     # menor precedencia
         ('left', OR),
         ('left', AND),
@@ -98,7 +102,11 @@ class Parser(sly.Parser):
         return Block(p.declaration)
 
     @_("expression ASSIGN expression",
-       "expression ADDEQ expression")
+       "expression ADDEQ expression",
+       "expression MINEQ expression",
+       "expression TIMESEQ expression",
+       "expression DIVIDEEQ expression",
+       "expression MODULEEQ expression")
     def expression(self, p):
         if isinstance(p.expression0, Variable):
             return Assign(p[1], p.expression0.name, p.expression1)
