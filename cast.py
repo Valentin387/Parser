@@ -147,6 +147,16 @@ class Assign(Expression):
     expr   : Expression
 
 @dataclass
+class AssignPostfix(Expression):
+    op     : str
+    expr   : Expression
+
+@dataclass
+class AssignPrefix(Expression):
+    op     : str
+    expr   : Expression
+
+@dataclass
 class Call(Expression):
     func  : Expression
     args  : List[Expression]=field(default_factory=list)

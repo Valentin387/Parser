@@ -13,8 +13,8 @@ class Parser(sly.Parser):
 
     # preceencia de operadores
     precedence = (
-        ('right', PLUSPLUS),
-        ('right', MINUSMINUS),
+        ('left', PLUSPLUS),
+        ('left', MINUSMINUS),
         ('right', ADDEQ),
         ('right', MINEQ),
         ('right', TIMESEQ),
@@ -117,19 +117,6 @@ class Parser(sly.Parser):
         else:
             raise SyntaxError(f"{p.lineno}: PARSER ERROR, it was impossible to assign {p.expression0}")
 
-##################################################################################################
-    @_("expression PLUSPLUS",
-       "expression MINUSMINUS")
-    def expression(self, p):
-        return Assign(p[1], p.expression.name, Literal(1))
-
-    @_("PLUSPLUS expression",
-       "MINUSMINUS expression")
-    def expression(self, p):
-        return Assign(p[0], p.expression.name, Literal(1))
-
-##################################################################################################
-
     @_("expression OR  expression",
        "expression AND expression")
     def expression(self, p):
@@ -193,6 +180,21 @@ class Parser(sly.Parser):
        "NOT factor %prec UNARY")
     def factor(self, p):
         return Unary(p[0], p.factor)
+
+##################################################################################################
+    @_("factor PLUSPLUS",
+       "factor MINUSMINUS")
+    def factor(self, p):
+        print("sufijo")
+        return AssignPostfix(p[1], p.factor)
+
+    @_("PLUSPLUS factor",
+       "MINUSMINUS factor")
+    def factor(self, p):
+        print("prefijo")
+        return AssignPrefix(p[0], p.factor)
+
+##################################################################################################
 
     @_("IDENT LPAREN [ parameters ] RPAREN block")
     def function(self, p):

@@ -278,11 +278,26 @@ class Interpreter(Visitor): #This is a visitor
 			expr = self.env[node.name] / self.visit(node.expr)
 		elif node.op == "%=":
 			expr = self.env[node.name] % self.visit(node.expr)
-		elif node.op == "++":
-			expr = self.env[node.name] + 1
-		elif node.op == "--":
-			expr = self.env[node.name] - 1
 		self.env[node.name] = expr
+
+	def visit(self, node: AssignPostfix):
+		temp = self.visit(node.expr)
+		expr=0
+		if node.op == "++":
+			expr = self.visit(node.expr) + 1
+		else:
+			expr = self.visit(node.expr) - 1
+		self.env[node.expr.name]=expr
+		return temp
+
+	def visit(self, node: AssignPrefix):
+		expr = 0
+		if node.op == "++":
+			expr = self.visit(node.expr) + 1
+		else:
+			expr = self.visit(node.expr) - 1
+		self.env[node.expr.name]=expr
+		return expr
 
 	def visit(self, node: Call):
 		callee = self.visit(node.func)

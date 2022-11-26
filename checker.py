@@ -282,6 +282,12 @@ class Checker(Visitor):
 
         self.visit(node.expr, env)
 
+    def visit(self, node: AssignPostfix, env: Symtab):
+        self.visit(node.expr, env)
+
+    def visit(self, node: AssignPrefix, env: Symtab):
+        self.visit(node.expr, env)
+
     def visit(self, node: Call, env: Symtab):
         '''
         1. Buscar la funcion en la tabla de simbolos

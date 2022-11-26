@@ -203,6 +203,20 @@ class DotRender(Visitor):
         self.dot.edge(name, self.visit(node.expr))
         return name
 
+    def visit(self, node : AssignPostfix):
+        name = self.name()
+        label = node.op
+        self.dot.node(name, label=fr"{label}\n Postfix")
+        self.dot.edge(name, self.visit(node.expr))
+        return name
+
+    def visit(self, node : AssignPrefix):
+        name = self.name()
+        label = node.op
+        self.dot.node(name, label=fr"{label}\n Prefix")
+        self.dot.edge(name, self.visit(node.expr))
+        return name
+
     def visit(self, node : Call):
         name = self.name()
         self.dot.node(name, label=f"Call ")

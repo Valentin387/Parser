@@ -73,16 +73,16 @@ Rule 69    expression -> expression MINUS expression  [precedence=left, level=13
 Rule 70    expression -> expression PLUS expression  [precedence=left, level=13]
 Rule 71    expression -> expression AND expression  [precedence=left, level=10]
 Rule 72    expression -> expression OR expression  [precedence=left, level=9]
-Rule 73    expression -> MINUSMINUS expression  [precedence=right, level=2]
-Rule 74    expression -> PLUSPLUS expression  [precedence=right, level=1]
-Rule 75    expression -> expression MINUSMINUS  [precedence=right, level=2]
-Rule 76    expression -> expression PLUSPLUS  [precedence=right, level=1]
-Rule 77    expression -> expression MODULEEQ expression  [precedence=right, level=7]
-Rule 78    expression -> expression DIVIDEEQ expression  [precedence=right, level=6]
-Rule 79    expression -> expression TIMESEQ expression  [precedence=right, level=5]
-Rule 80    expression -> expression MINEQ expression  [precedence=right, level=4]
-Rule 81    expression -> expression ADDEQ expression  [precedence=right, level=3]
-Rule 82    expression -> expression ASSIGN expression  [precedence=right, level=8]
+Rule 73    expression -> expression MODULEEQ expression  [precedence=right, level=7]
+Rule 74    expression -> expression DIVIDEEQ expression  [precedence=right, level=6]
+Rule 75    expression -> expression TIMESEQ expression  [precedence=right, level=5]
+Rule 76    expression -> expression MINEQ expression  [precedence=right, level=4]
+Rule 77    expression -> expression ADDEQ expression  [precedence=right, level=3]
+Rule 78    expression -> expression ASSIGN expression  [precedence=right, level=8]
+Rule 79    factor -> MINUSMINUS factor  [precedence=left, level=2]
+Rule 80    factor -> PLUSPLUS factor  [precedence=left, level=1]
+Rule 81    factor -> factor MINUSMINUS  [precedence=left, level=2]
+Rule 82    factor -> factor PLUSPLUS  [precedence=left, level=1]
 Rule 83    factor -> NOT factor  [precedence=right, level=15]
 Rule 84    factor -> MINUS factor  [precedence=right, level=15]
 Rule 85    factor -> LPAREN expression RPAREN
@@ -117,13 +117,13 @@ Rule 113   _16_COMMA_expression_item -> COMMA expression
 
 Terminals, with rules where they appear:
 
-ADDEQ                : 81
+ADDEQ                : 77
 AND                  : 71
-ASSIGN               : 21 82
+ASSIGN               : 21 78
 CLASS                : 11
 COMMA                : 107 113
 DIVIDE               : 67
-DIVIDEEQ             : 78
+DIVIDEEQ             : 74
 ELSE                 : 46
 END_IF               : 43
 EQ                   : 61
@@ -138,18 +138,18 @@ LBRACE               : 11 53
 LE                   : 64
 LPAREN               : 12 31 36 43 48 52 85 86 99
 LT                   : 12 65
-MINEQ                : 80
+MINEQ                : 76
 MINUS                : 69 84
-MINUSMINUS           : 73 75
+MINUSMINUS           : 79 81
 MODULE               : 66
-MODULEEQ             : 77
+MODULEEQ             : 73
 NE                   : 60
 NIL                  : 93
 NOT                  : 83
 NUM                  : 97
 OR                   : 72
 PLUS                 : 70
-PLUSPLUS             : 74 76
+PLUSPLUS             : 80 82
 POINT                : 89 90
 PRINT                : 48
 RBRACE               : 11 53
@@ -161,7 +161,7 @@ STRING               : 96
 SUPER                : 90
 THIS                 : 92
 TIMES                : 68
-TIMESEQ              : 79
+TIMESEQ              : 75
 TRUE                 : 95
 VAR                  : 20
 WHILE                : 52
@@ -200,8 +200,8 @@ block                : 23 99
 class_declaration    : 10
 declaration          : 6 58
 expr_stmt            : 29 41
-expression           : 21 30 32 34 37 39 44 48 50 52 60 60 61 61 62 62 63 63 64 64 65 65 66 66 67 67 68 68 69 69 70 70 71 71 72 72 73 74 75 76 77 77 78 78 79 79 80 80 81 81 82 82 85 108 113
-factor               : 59 83 84 86 89
+expression           : 21 30 32 34 37 39 44 48 50 52 60 60 61 61 62 62 63 63 64 64 65 65 66 66 67 67 68 68 69 69 70 70 71 71 72 72 73 73 74 74 75 75 76 76 77 77 78 78 85 108 113
+factor               : 59 79 80 81 82 83 84 86 89
 for_initialize       : 36
 for_stmt             : 28
 func_declaration     : 9
@@ -261,16 +261,16 @@ state 0
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -381,16 +381,16 @@ state 3
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -857,6 +857,8 @@ state 17
 state 18
 
     (91) factor -> IDENT .
+    MINUSMINUS      reduce using rule 91 (factor -> IDENT .)
+    PLUSPLUS        reduce using rule 91 (factor -> IDENT .)
     LPAREN          reduce using rule 91 (factor -> IDENT .)
     POINT           reduce using rule 91 (factor -> IDENT .)
     SEMI            reduce using rule 91 (factor -> IDENT .)
@@ -873,8 +875,6 @@ state 18
     PLUS            reduce using rule 91 (factor -> IDENT .)
     AND             reduce using rule 91 (factor -> IDENT .)
     OR              reduce using rule 91 (factor -> IDENT .)
-    MINUSMINUS      reduce using rule 91 (factor -> IDENT .)
-    PLUSPLUS        reduce using rule 91 (factor -> IDENT .)
     MODULEEQ        reduce using rule 91 (factor -> IDENT .)
     DIVIDEEQ        reduce using rule 91 (factor -> IDENT .)
     TIMESEQ         reduce using rule 91 (factor -> IDENT .)
@@ -943,16 +943,16 @@ state 21
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1033,16 +1033,16 @@ state 23
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1091,14 +1091,12 @@ state 24
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            shift and go to state 53
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -1113,14 +1111,12 @@ state 24
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 25
@@ -1142,16 +1138,16 @@ state 25
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1182,32 +1178,34 @@ state 25
     NUM             shift and go to state 40
     REAL            shift and go to state 41
 
-    _11_expression_optional        shift and go to state 75
-    expression                     shift and go to state 76
+    _11_expression_optional        shift and go to state 73
+    expression                     shift and go to state 74
     factor                         shift and go to state 29
 
 state 26
 
     (48) print_stmt -> PRINT . LPAREN expression RPAREN SEMI
-    LPAREN          shift and go to state 77
+    LPAREN          shift and go to state 75
 
 
 state 27
 
     (43) if_stmt -> IF . LPAREN _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
-    LPAREN          shift and go to state 78
+    LPAREN          shift and go to state 76
 
 
 state 28
 
     (31) for_stmt -> FOR . LPAREN SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
     (36) for_stmt -> FOR . LPAREN for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
-    LPAREN          shift and go to state 79
+    LPAREN          shift and go to state 77
 
 
 state 29
 
     (59) expression -> factor .
+    (81) factor -> factor . MINUSMINUS
+    (82) factor -> factor . PLUSPLUS
     (86) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (89) factor -> factor . POINT IDENT
     SEMI            reduce using rule 59 (expression -> factor .)
@@ -1224,8 +1222,6 @@ state 29
     PLUS            reduce using rule 59 (expression -> factor .)
     AND             reduce using rule 59 (expression -> factor .)
     OR              reduce using rule 59 (expression -> factor .)
-    MINUSMINUS      reduce using rule 59 (expression -> factor .)
-    PLUSPLUS        reduce using rule 59 (expression -> factor .)
     MODULEEQ        reduce using rule 59 (expression -> factor .)
     DIVIDEEQ        reduce using rule 59 (expression -> factor .)
     TIMESEQ         reduce using rule 59 (expression -> factor .)
@@ -1234,6 +1230,8 @@ state 29
     ASSIGN          reduce using rule 59 (expression -> factor .)
     RPAREN          reduce using rule 59 (expression -> factor .)
     COMMA           reduce using rule 59 (expression -> factor .)
+    MINUSMINUS      shift and go to state 78
+    PLUSPLUS        shift and go to state 79
     LPAREN          shift and go to state 80
     POINT           shift and go to state 81
 
@@ -1241,6 +1239,10 @@ state 29
 state 30
 
     (84) factor -> MINUS . factor
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1255,6 +1257,8 @@ state 30
     (96) factor -> . STRING
     (97) factor -> . NUM
     (98) factor -> . REAL
+    MINUSMINUS      shift and go to state 31
+    PLUSPLUS        shift and go to state 32
     NOT             shift and go to state 33
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1272,31 +1276,11 @@ state 30
 
 state 31
 
-    (73) expression -> MINUSMINUS . expression
-    (59) expression -> . factor
-    (60) expression -> . expression NE expression
-    (61) expression -> . expression EQ expression
-    (62) expression -> . expression GE expression
-    (63) expression -> . expression GT expression
-    (64) expression -> . expression LE expression
-    (65) expression -> . expression LT expression
-    (66) expression -> . expression MODULE expression
-    (67) expression -> . expression DIVIDE expression
-    (68) expression -> . expression TIMES expression
-    (69) expression -> . expression MINUS expression
-    (70) expression -> . expression PLUS expression
-    (71) expression -> . expression AND expression
-    (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (79) factor -> MINUSMINUS . factor
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1326,36 +1310,15 @@ state 31
     NUM             shift and go to state 40
     REAL            shift and go to state 41
 
-    expression                     shift and go to state 83
-    factor                         shift and go to state 29
+    factor                         shift and go to state 83
 
 state 32
 
-    (74) expression -> PLUSPLUS . expression
-    (59) expression -> . factor
-    (60) expression -> . expression NE expression
-    (61) expression -> . expression EQ expression
-    (62) expression -> . expression GE expression
-    (63) expression -> . expression GT expression
-    (64) expression -> . expression LE expression
-    (65) expression -> . expression LT expression
-    (66) expression -> . expression MODULE expression
-    (67) expression -> . expression DIVIDE expression
-    (68) expression -> . expression TIMES expression
-    (69) expression -> . expression MINUS expression
-    (70) expression -> . expression PLUS expression
-    (71) expression -> . expression AND expression
-    (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (80) factor -> PLUSPLUS . factor
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1385,12 +1348,15 @@ state 32
     NUM             shift and go to state 40
     REAL            shift and go to state 41
 
-    expression                     shift and go to state 84
-    factor                         shift and go to state 29
+    factor                         shift and go to state 84
 
 state 33
 
     (83) factor -> NOT . factor
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1405,6 +1371,8 @@ state 33
     (96) factor -> . STRING
     (97) factor -> . NUM
     (98) factor -> . REAL
+    MINUSMINUS      shift and go to state 31
+    PLUSPLUS        shift and go to state 32
     NOT             shift and go to state 33
     MINUS           shift and go to state 30
     LPAREN          shift and go to state 23
@@ -1429,6 +1397,8 @@ state 34
 state 35
 
     (92) factor -> THIS .
+    MINUSMINUS      reduce using rule 92 (factor -> THIS .)
+    PLUSPLUS        reduce using rule 92 (factor -> THIS .)
     LPAREN          reduce using rule 92 (factor -> THIS .)
     POINT           reduce using rule 92 (factor -> THIS .)
     SEMI            reduce using rule 92 (factor -> THIS .)
@@ -1445,8 +1415,6 @@ state 35
     PLUS            reduce using rule 92 (factor -> THIS .)
     AND             reduce using rule 92 (factor -> THIS .)
     OR              reduce using rule 92 (factor -> THIS .)
-    MINUSMINUS      reduce using rule 92 (factor -> THIS .)
-    PLUSPLUS        reduce using rule 92 (factor -> THIS .)
     MODULEEQ        reduce using rule 92 (factor -> THIS .)
     DIVIDEEQ        reduce using rule 92 (factor -> THIS .)
     TIMESEQ         reduce using rule 92 (factor -> THIS .)
@@ -1460,6 +1428,8 @@ state 35
 state 36
 
     (93) factor -> NIL .
+    MINUSMINUS      reduce using rule 93 (factor -> NIL .)
+    PLUSPLUS        reduce using rule 93 (factor -> NIL .)
     LPAREN          reduce using rule 93 (factor -> NIL .)
     POINT           reduce using rule 93 (factor -> NIL .)
     SEMI            reduce using rule 93 (factor -> NIL .)
@@ -1476,8 +1446,6 @@ state 36
     PLUS            reduce using rule 93 (factor -> NIL .)
     AND             reduce using rule 93 (factor -> NIL .)
     OR              reduce using rule 93 (factor -> NIL .)
-    MINUSMINUS      reduce using rule 93 (factor -> NIL .)
-    PLUSPLUS        reduce using rule 93 (factor -> NIL .)
     MODULEEQ        reduce using rule 93 (factor -> NIL .)
     DIVIDEEQ        reduce using rule 93 (factor -> NIL .)
     TIMESEQ         reduce using rule 93 (factor -> NIL .)
@@ -1491,6 +1459,8 @@ state 36
 state 37
 
     (94) factor -> FALSE .
+    MINUSMINUS      reduce using rule 94 (factor -> FALSE .)
+    PLUSPLUS        reduce using rule 94 (factor -> FALSE .)
     LPAREN          reduce using rule 94 (factor -> FALSE .)
     POINT           reduce using rule 94 (factor -> FALSE .)
     SEMI            reduce using rule 94 (factor -> FALSE .)
@@ -1507,8 +1477,6 @@ state 37
     PLUS            reduce using rule 94 (factor -> FALSE .)
     AND             reduce using rule 94 (factor -> FALSE .)
     OR              reduce using rule 94 (factor -> FALSE .)
-    MINUSMINUS      reduce using rule 94 (factor -> FALSE .)
-    PLUSPLUS        reduce using rule 94 (factor -> FALSE .)
     MODULEEQ        reduce using rule 94 (factor -> FALSE .)
     DIVIDEEQ        reduce using rule 94 (factor -> FALSE .)
     TIMESEQ         reduce using rule 94 (factor -> FALSE .)
@@ -1522,6 +1490,8 @@ state 37
 state 38
 
     (95) factor -> TRUE .
+    MINUSMINUS      reduce using rule 95 (factor -> TRUE .)
+    PLUSPLUS        reduce using rule 95 (factor -> TRUE .)
     LPAREN          reduce using rule 95 (factor -> TRUE .)
     POINT           reduce using rule 95 (factor -> TRUE .)
     SEMI            reduce using rule 95 (factor -> TRUE .)
@@ -1538,8 +1508,6 @@ state 38
     PLUS            reduce using rule 95 (factor -> TRUE .)
     AND             reduce using rule 95 (factor -> TRUE .)
     OR              reduce using rule 95 (factor -> TRUE .)
-    MINUSMINUS      reduce using rule 95 (factor -> TRUE .)
-    PLUSPLUS        reduce using rule 95 (factor -> TRUE .)
     MODULEEQ        reduce using rule 95 (factor -> TRUE .)
     DIVIDEEQ        reduce using rule 95 (factor -> TRUE .)
     TIMESEQ         reduce using rule 95 (factor -> TRUE .)
@@ -1553,6 +1521,8 @@ state 38
 state 39
 
     (96) factor -> STRING .
+    MINUSMINUS      reduce using rule 96 (factor -> STRING .)
+    PLUSPLUS        reduce using rule 96 (factor -> STRING .)
     LPAREN          reduce using rule 96 (factor -> STRING .)
     POINT           reduce using rule 96 (factor -> STRING .)
     SEMI            reduce using rule 96 (factor -> STRING .)
@@ -1569,8 +1539,6 @@ state 39
     PLUS            reduce using rule 96 (factor -> STRING .)
     AND             reduce using rule 96 (factor -> STRING .)
     OR              reduce using rule 96 (factor -> STRING .)
-    MINUSMINUS      reduce using rule 96 (factor -> STRING .)
-    PLUSPLUS        reduce using rule 96 (factor -> STRING .)
     MODULEEQ        reduce using rule 96 (factor -> STRING .)
     DIVIDEEQ        reduce using rule 96 (factor -> STRING .)
     TIMESEQ         reduce using rule 96 (factor -> STRING .)
@@ -1584,6 +1552,8 @@ state 39
 state 40
 
     (97) factor -> NUM .
+    MINUSMINUS      reduce using rule 97 (factor -> NUM .)
+    PLUSPLUS        reduce using rule 97 (factor -> NUM .)
     LPAREN          reduce using rule 97 (factor -> NUM .)
     POINT           reduce using rule 97 (factor -> NUM .)
     SEMI            reduce using rule 97 (factor -> NUM .)
@@ -1600,8 +1570,6 @@ state 40
     PLUS            reduce using rule 97 (factor -> NUM .)
     AND             reduce using rule 97 (factor -> NUM .)
     OR              reduce using rule 97 (factor -> NUM .)
-    MINUSMINUS      reduce using rule 97 (factor -> NUM .)
-    PLUSPLUS        reduce using rule 97 (factor -> NUM .)
     MODULEEQ        reduce using rule 97 (factor -> NUM .)
     DIVIDEEQ        reduce using rule 97 (factor -> NUM .)
     TIMESEQ         reduce using rule 97 (factor -> NUM .)
@@ -1615,6 +1583,8 @@ state 40
 state 41
 
     (98) factor -> REAL .
+    MINUSMINUS      reduce using rule 98 (factor -> REAL .)
+    PLUSPLUS        reduce using rule 98 (factor -> REAL .)
     LPAREN          reduce using rule 98 (factor -> REAL .)
     POINT           reduce using rule 98 (factor -> REAL .)
     SEMI            reduce using rule 98 (factor -> REAL .)
@@ -1631,8 +1601,6 @@ state 41
     PLUS            reduce using rule 98 (factor -> REAL .)
     AND             reduce using rule 98 (factor -> REAL .)
     OR              reduce using rule 98 (factor -> REAL .)
-    MINUSMINUS      reduce using rule 98 (factor -> REAL .)
-    PLUSPLUS        reduce using rule 98 (factor -> REAL .)
     MODULEEQ        reduce using rule 98 (factor -> REAL .)
     DIVIDEEQ        reduce using rule 98 (factor -> REAL .)
     TIMESEQ         reduce using rule 98 (factor -> REAL .)
@@ -1775,16 +1743,16 @@ state 48
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1915,16 +1883,16 @@ state 51
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -1973,14 +1941,12 @@ state 52
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          shift and go to state 95
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -1995,14 +1961,12 @@ state 52
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 53
@@ -2055,16 +2019,16 @@ state 54
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2114,16 +2078,16 @@ state 55
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2173,16 +2137,16 @@ state 56
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2232,16 +2196,16 @@ state 57
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2291,16 +2255,16 @@ state 58
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2350,16 +2314,16 @@ state 59
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2409,16 +2373,16 @@ state 60
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2468,16 +2432,16 @@ state 61
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2527,16 +2491,16 @@ state 62
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2586,16 +2550,16 @@ state 63
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2645,16 +2609,16 @@ state 64
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2704,16 +2668,16 @@ state 65
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2763,16 +2727,16 @@ state 66
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2807,65 +2771,7 @@ state 66
 
 state 67
 
-    (75) expression -> expression MINUSMINUS .
-    SEMI            reduce using rule 75 (expression -> expression MINUSMINUS .)
-    NE              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    EQ              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    GE              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    GT              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    LE              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    LT              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    MODULE          reduce using rule 75 (expression -> expression MINUSMINUS .)
-    DIVIDE          reduce using rule 75 (expression -> expression MINUSMINUS .)
-    TIMES           reduce using rule 75 (expression -> expression MINUSMINUS .)
-    MINUS           reduce using rule 75 (expression -> expression MINUSMINUS .)
-    PLUS            reduce using rule 75 (expression -> expression MINUSMINUS .)
-    AND             reduce using rule 75 (expression -> expression MINUSMINUS .)
-    OR              reduce using rule 75 (expression -> expression MINUSMINUS .)
-    MINUSMINUS      reduce using rule 75 (expression -> expression MINUSMINUS .)
-    PLUSPLUS        reduce using rule 75 (expression -> expression MINUSMINUS .)
-    MODULEEQ        reduce using rule 75 (expression -> expression MINUSMINUS .)
-    DIVIDEEQ        reduce using rule 75 (expression -> expression MINUSMINUS .)
-    TIMESEQ         reduce using rule 75 (expression -> expression MINUSMINUS .)
-    MINEQ           reduce using rule 75 (expression -> expression MINUSMINUS .)
-    ADDEQ           reduce using rule 75 (expression -> expression MINUSMINUS .)
-    ASSIGN          reduce using rule 75 (expression -> expression MINUSMINUS .)
-    RPAREN          reduce using rule 75 (expression -> expression MINUSMINUS .)
-    COMMA           reduce using rule 75 (expression -> expression MINUSMINUS .)
-
-
-state 68
-
-    (76) expression -> expression PLUSPLUS .
-    SEMI            reduce using rule 76 (expression -> expression PLUSPLUS .)
-    NE              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    EQ              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    GE              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    GT              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    LE              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    LT              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    MODULE          reduce using rule 76 (expression -> expression PLUSPLUS .)
-    DIVIDE          reduce using rule 76 (expression -> expression PLUSPLUS .)
-    TIMES           reduce using rule 76 (expression -> expression PLUSPLUS .)
-    MINUS           reduce using rule 76 (expression -> expression PLUSPLUS .)
-    PLUS            reduce using rule 76 (expression -> expression PLUSPLUS .)
-    AND             reduce using rule 76 (expression -> expression PLUSPLUS .)
-    OR              reduce using rule 76 (expression -> expression PLUSPLUS .)
-    MINUSMINUS      reduce using rule 76 (expression -> expression PLUSPLUS .)
-    PLUSPLUS        reduce using rule 76 (expression -> expression PLUSPLUS .)
-    MODULEEQ        reduce using rule 76 (expression -> expression PLUSPLUS .)
-    DIVIDEEQ        reduce using rule 76 (expression -> expression PLUSPLUS .)
-    TIMESEQ         reduce using rule 76 (expression -> expression PLUSPLUS .)
-    MINEQ           reduce using rule 76 (expression -> expression PLUSPLUS .)
-    ADDEQ           reduce using rule 76 (expression -> expression PLUSPLUS .)
-    ASSIGN          reduce using rule 76 (expression -> expression PLUSPLUS .)
-    RPAREN          reduce using rule 76 (expression -> expression PLUSPLUS .)
-    COMMA           reduce using rule 76 (expression -> expression PLUSPLUS .)
-
-
-state 69
-
-    (77) expression -> expression MODULEEQ . expression
+    (73) expression -> expression MODULEEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2880,16 +2786,16 @@ state 69
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2922,9 +2828,9 @@ state 69
     expression                     shift and go to state 109
     factor                         shift and go to state 29
 
-state 70
+state 68
 
-    (78) expression -> expression DIVIDEEQ . expression
+    (74) expression -> expression DIVIDEEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2939,16 +2845,16 @@ state 70
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -2981,9 +2887,9 @@ state 70
     expression                     shift and go to state 110
     factor                         shift and go to state 29
 
-state 71
+state 69
 
-    (79) expression -> expression TIMESEQ . expression
+    (75) expression -> expression TIMESEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -2998,16 +2904,16 @@ state 71
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3040,9 +2946,9 @@ state 71
     expression                     shift and go to state 111
     factor                         shift and go to state 29
 
-state 72
+state 70
 
-    (80) expression -> expression MINEQ . expression
+    (76) expression -> expression MINEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -3057,16 +2963,16 @@ state 72
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3099,9 +3005,9 @@ state 72
     expression                     shift and go to state 112
     factor                         shift and go to state 29
 
-state 73
+state 71
 
-    (81) expression -> expression ADDEQ . expression
+    (77) expression -> expression ADDEQ . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -3116,16 +3022,16 @@ state 73
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3158,9 +3064,9 @@ state 73
     expression                     shift and go to state 113
     factor                         shift and go to state 29
 
-state 74
+state 72
 
-    (82) expression -> expression ASSIGN . expression
+    (78) expression -> expression ASSIGN . expression
     (59) expression -> . factor
     (60) expression -> . expression NE expression
     (61) expression -> . expression EQ expression
@@ -3175,16 +3081,16 @@ state 74
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3217,13 +3123,13 @@ state 74
     expression                     shift and go to state 114
     factor                         shift and go to state 29
 
-state 75
+state 73
 
     (49) return_stmt -> RETURN _11_expression_optional . SEMI
     SEMI            shift and go to state 115
 
 
-state 76
+state 74
 
     (50) _11_expression_optional -> expression .
     (60) expression -> expression . NE expression
@@ -3239,14 +3145,12 @@ state 76
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 50 (_11_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -3261,17 +3165,15 @@ state 76
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
-state 77
+state 75
 
     (48) print_stmt -> PRINT LPAREN . expression RPAREN SEMI
     (59) expression -> . factor
@@ -3288,16 +3190,16 @@ state 77
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3330,7 +3232,7 @@ state 77
     expression                     shift and go to state 116
     factor                         shift and go to state 29
 
-state 78
+state 76
 
     (43) if_stmt -> IF LPAREN . _9_expression_optional RPAREN statement _10_ELSE_statement_optional END_IF
     (44) _9_expression_optional -> . expression
@@ -3349,16 +3251,16 @@ state 78
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3393,7 +3295,7 @@ state 78
     expression                     shift and go to state 118
     factor                         shift and go to state 29
 
-state 79
+state 77
 
     (31) for_stmt -> FOR LPAREN . SEMI _5_expression_optional SEMI _6_expression_optional RPAREN statement
     (36) for_stmt -> FOR LPAREN . for_initialize _7_expression_optional SEMI _8_expression_optional RPAREN statement
@@ -3415,16 +3317,16 @@ state 79
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3462,6 +3364,68 @@ state 79
     expression                     shift and go to state 24
     factor                         shift and go to state 29
 
+state 78
+
+    (81) factor -> factor MINUSMINUS .
+    MINUSMINUS      reduce using rule 81 (factor -> factor MINUSMINUS .)
+    PLUSPLUS        reduce using rule 81 (factor -> factor MINUSMINUS .)
+    LPAREN          reduce using rule 81 (factor -> factor MINUSMINUS .)
+    POINT           reduce using rule 81 (factor -> factor MINUSMINUS .)
+    SEMI            reduce using rule 81 (factor -> factor MINUSMINUS .)
+    NE              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    EQ              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    GE              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    GT              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    LE              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    LT              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    MODULE          reduce using rule 81 (factor -> factor MINUSMINUS .)
+    DIVIDE          reduce using rule 81 (factor -> factor MINUSMINUS .)
+    TIMES           reduce using rule 81 (factor -> factor MINUSMINUS .)
+    MINUS           reduce using rule 81 (factor -> factor MINUSMINUS .)
+    PLUS            reduce using rule 81 (factor -> factor MINUSMINUS .)
+    AND             reduce using rule 81 (factor -> factor MINUSMINUS .)
+    OR              reduce using rule 81 (factor -> factor MINUSMINUS .)
+    MODULEEQ        reduce using rule 81 (factor -> factor MINUSMINUS .)
+    DIVIDEEQ        reduce using rule 81 (factor -> factor MINUSMINUS .)
+    TIMESEQ         reduce using rule 81 (factor -> factor MINUSMINUS .)
+    MINEQ           reduce using rule 81 (factor -> factor MINUSMINUS .)
+    ADDEQ           reduce using rule 81 (factor -> factor MINUSMINUS .)
+    ASSIGN          reduce using rule 81 (factor -> factor MINUSMINUS .)
+    RPAREN          reduce using rule 81 (factor -> factor MINUSMINUS .)
+    COMMA           reduce using rule 81 (factor -> factor MINUSMINUS .)
+
+
+state 79
+
+    (82) factor -> factor PLUSPLUS .
+    MINUSMINUS      reduce using rule 82 (factor -> factor PLUSPLUS .)
+    PLUSPLUS        reduce using rule 82 (factor -> factor PLUSPLUS .)
+    LPAREN          reduce using rule 82 (factor -> factor PLUSPLUS .)
+    POINT           reduce using rule 82 (factor -> factor PLUSPLUS .)
+    SEMI            reduce using rule 82 (factor -> factor PLUSPLUS .)
+    NE              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    EQ              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    GE              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    GT              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    LE              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    LT              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    MODULE          reduce using rule 82 (factor -> factor PLUSPLUS .)
+    DIVIDE          reduce using rule 82 (factor -> factor PLUSPLUS .)
+    TIMES           reduce using rule 82 (factor -> factor PLUSPLUS .)
+    MINUS           reduce using rule 82 (factor -> factor PLUSPLUS .)
+    PLUS            reduce using rule 82 (factor -> factor PLUSPLUS .)
+    AND             reduce using rule 82 (factor -> factor PLUSPLUS .)
+    OR              reduce using rule 82 (factor -> factor PLUSPLUS .)
+    MODULEEQ        reduce using rule 82 (factor -> factor PLUSPLUS .)
+    DIVIDEEQ        reduce using rule 82 (factor -> factor PLUSPLUS .)
+    TIMESEQ         reduce using rule 82 (factor -> factor PLUSPLUS .)
+    MINEQ           reduce using rule 82 (factor -> factor PLUSPLUS .)
+    ADDEQ           reduce using rule 82 (factor -> factor PLUSPLUS .)
+    ASSIGN          reduce using rule 82 (factor -> factor PLUSPLUS .)
+    RPAREN          reduce using rule 82 (factor -> factor PLUSPLUS .)
+    COMMA           reduce using rule 82 (factor -> factor PLUSPLUS .)
+
+
 state 80
 
     (86) factor -> factor LPAREN . _13_arguments_optional RPAREN
@@ -3482,16 +3446,16 @@ state 80
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3536,8 +3500,12 @@ state 81
 state 82
 
     (84) factor -> MINUS factor .
+    (81) factor -> factor . MINUSMINUS
+    (82) factor -> factor . PLUSPLUS
     (86) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (89) factor -> factor . POINT IDENT
+    MINUSMINUS      reduce using rule 84 (factor -> MINUS factor .)
+    PLUSPLUS        reduce using rule 84 (factor -> MINUS factor .)
     LPAREN          reduce using rule 84 (factor -> MINUS factor .)
     POINT           reduce using rule 84 (factor -> MINUS factor .)
     SEMI            reduce using rule 84 (factor -> MINUS factor .)
@@ -3554,8 +3522,6 @@ state 82
     PLUS            reduce using rule 84 (factor -> MINUS factor .)
     AND             reduce using rule 84 (factor -> MINUS factor .)
     OR              reduce using rule 84 (factor -> MINUS factor .)
-    MINUSMINUS      reduce using rule 84 (factor -> MINUS factor .)
-    PLUSPLUS        reduce using rule 84 (factor -> MINUS factor .)
     MODULEEQ        reduce using rule 84 (factor -> MINUS factor .)
     DIVIDEEQ        reduce using rule 84 (factor -> MINUS factor .)
     TIMESEQ         reduce using rule 84 (factor -> MINUS factor .)
@@ -3568,109 +3534,83 @@ state 82
 
 state 83
 
-    (73) expression -> MINUSMINUS expression .
-    (60) expression -> expression . NE expression
-    (61) expression -> expression . EQ expression
-    (62) expression -> expression . GE expression
-    (63) expression -> expression . GT expression
-    (64) expression -> expression . LE expression
-    (65) expression -> expression . LT expression
-    (66) expression -> expression . MODULE expression
-    (67) expression -> expression . DIVIDE expression
-    (68) expression -> expression . TIMES expression
-    (69) expression -> expression . MINUS expression
-    (70) expression -> expression . PLUS expression
-    (71) expression -> expression . AND expression
-    (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 73 (expression -> MINUSMINUS expression .)
-    PLUSPLUS        reduce using rule 73 (expression -> MINUSMINUS expression .)
-    RPAREN          reduce using rule 73 (expression -> MINUSMINUS expression .)
-    COMMA           reduce using rule 73 (expression -> MINUSMINUS expression .)
-    NE              shift and go to state 54
-    EQ              shift and go to state 55
-    GE              shift and go to state 56
-    GT              shift and go to state 57
-    LE              shift and go to state 58
-    LT              shift and go to state 59
-    MODULE          shift and go to state 60
-    DIVIDE          shift and go to state 61
-    TIMES           shift and go to state 62
-    MINUS           shift and go to state 63
-    PLUS            shift and go to state 64
-    AND             shift and go to state 65
-    OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    (79) factor -> MINUSMINUS factor .
+    (81) factor -> factor . MINUSMINUS
+    (82) factor -> factor . PLUSPLUS
+    (86) factor -> factor . LPAREN _13_arguments_optional RPAREN
+    (89) factor -> factor . POINT IDENT
+    MINUSMINUS      reduce using rule 79 (factor -> MINUSMINUS factor .)
+    PLUSPLUS        reduce using rule 79 (factor -> MINUSMINUS factor .)
+    LPAREN          reduce using rule 79 (factor -> MINUSMINUS factor .)
+    POINT           reduce using rule 79 (factor -> MINUSMINUS factor .)
+    SEMI            reduce using rule 79 (factor -> MINUSMINUS factor .)
+    NE              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    EQ              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    GE              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    GT              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    LE              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    LT              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    MODULE          reduce using rule 79 (factor -> MINUSMINUS factor .)
+    DIVIDE          reduce using rule 79 (factor -> MINUSMINUS factor .)
+    TIMES           reduce using rule 79 (factor -> MINUSMINUS factor .)
+    MINUS           reduce using rule 79 (factor -> MINUSMINUS factor .)
+    PLUS            reduce using rule 79 (factor -> MINUSMINUS factor .)
+    AND             reduce using rule 79 (factor -> MINUSMINUS factor .)
+    OR              reduce using rule 79 (factor -> MINUSMINUS factor .)
+    MODULEEQ        reduce using rule 79 (factor -> MINUSMINUS factor .)
+    DIVIDEEQ        reduce using rule 79 (factor -> MINUSMINUS factor .)
+    TIMESEQ         reduce using rule 79 (factor -> MINUSMINUS factor .)
+    MINEQ           reduce using rule 79 (factor -> MINUSMINUS factor .)
+    ADDEQ           reduce using rule 79 (factor -> MINUSMINUS factor .)
+    ASSIGN          reduce using rule 79 (factor -> MINUSMINUS factor .)
+    RPAREN          reduce using rule 79 (factor -> MINUSMINUS factor .)
+    COMMA           reduce using rule 79 (factor -> MINUSMINUS factor .)
 
 
 state 84
 
-    (74) expression -> PLUSPLUS expression .
-    (60) expression -> expression . NE expression
-    (61) expression -> expression . EQ expression
-    (62) expression -> expression . GE expression
-    (63) expression -> expression . GT expression
-    (64) expression -> expression . LE expression
-    (65) expression -> expression . LT expression
-    (66) expression -> expression . MODULE expression
-    (67) expression -> expression . DIVIDE expression
-    (68) expression -> expression . TIMES expression
-    (69) expression -> expression . MINUS expression
-    (70) expression -> expression . PLUS expression
-    (71) expression -> expression . AND expression
-    (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 74 (expression -> PLUSPLUS expression .)
-    RPAREN          reduce using rule 74 (expression -> PLUSPLUS expression .)
-    COMMA           reduce using rule 74 (expression -> PLUSPLUS expression .)
-    NE              shift and go to state 54
-    EQ              shift and go to state 55
-    GE              shift and go to state 56
-    GT              shift and go to state 57
-    LE              shift and go to state 58
-    LT              shift and go to state 59
-    MODULE          shift and go to state 60
-    DIVIDE          shift and go to state 61
-    TIMES           shift and go to state 62
-    MINUS           shift and go to state 63
-    PLUS            shift and go to state 64
-    AND             shift and go to state 65
-    OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    (80) factor -> PLUSPLUS factor .
+    (81) factor -> factor . MINUSMINUS
+    (82) factor -> factor . PLUSPLUS
+    (86) factor -> factor . LPAREN _13_arguments_optional RPAREN
+    (89) factor -> factor . POINT IDENT
+    PLUSPLUS        reduce using rule 80 (factor -> PLUSPLUS factor .)
+    LPAREN          reduce using rule 80 (factor -> PLUSPLUS factor .)
+    POINT           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    SEMI            reduce using rule 80 (factor -> PLUSPLUS factor .)
+    NE              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    EQ              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    GE              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    GT              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    LE              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    LT              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    MODULE          reduce using rule 80 (factor -> PLUSPLUS factor .)
+    DIVIDE          reduce using rule 80 (factor -> PLUSPLUS factor .)
+    TIMES           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    MINUS           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    PLUS            reduce using rule 80 (factor -> PLUSPLUS factor .)
+    AND             reduce using rule 80 (factor -> PLUSPLUS factor .)
+    OR              reduce using rule 80 (factor -> PLUSPLUS factor .)
+    MODULEEQ        reduce using rule 80 (factor -> PLUSPLUS factor .)
+    DIVIDEEQ        reduce using rule 80 (factor -> PLUSPLUS factor .)
+    TIMESEQ         reduce using rule 80 (factor -> PLUSPLUS factor .)
+    MINEQ           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    ADDEQ           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    ASSIGN          reduce using rule 80 (factor -> PLUSPLUS factor .)
+    RPAREN          reduce using rule 80 (factor -> PLUSPLUS factor .)
+    COMMA           reduce using rule 80 (factor -> PLUSPLUS factor .)
+    MINUSMINUS      shift and go to state 78
 
 
 state 85
 
     (83) factor -> NOT factor .
+    (81) factor -> factor . MINUSMINUS
+    (82) factor -> factor . PLUSPLUS
     (86) factor -> factor . LPAREN _13_arguments_optional RPAREN
     (89) factor -> factor . POINT IDENT
+    MINUSMINUS      reduce using rule 83 (factor -> NOT factor .)
+    PLUSPLUS        reduce using rule 83 (factor -> NOT factor .)
     LPAREN          reduce using rule 83 (factor -> NOT factor .)
     POINT           reduce using rule 83 (factor -> NOT factor .)
     SEMI            reduce using rule 83 (factor -> NOT factor .)
@@ -3687,8 +3627,6 @@ state 85
     PLUS            reduce using rule 83 (factor -> NOT factor .)
     AND             reduce using rule 83 (factor -> NOT factor .)
     OR              reduce using rule 83 (factor -> NOT factor .)
-    MINUSMINUS      reduce using rule 83 (factor -> NOT factor .)
-    PLUSPLUS        reduce using rule 83 (factor -> NOT factor .)
     MODULEEQ        reduce using rule 83 (factor -> NOT factor .)
     DIVIDEEQ        reduce using rule 83 (factor -> NOT factor .)
     TIMESEQ         reduce using rule 83 (factor -> NOT factor .)
@@ -3728,16 +3666,16 @@ state 88
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -3871,14 +3809,12 @@ state 94
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          shift and go to state 135
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -3893,19 +3829,19 @@ state 94
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 95
 
     (85) factor -> LPAREN expression RPAREN .
+    MINUSMINUS      reduce using rule 85 (factor -> LPAREN expression RPAREN .)
+    PLUSPLUS        reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     LPAREN          reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     POINT           reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     SEMI            reduce using rule 85 (factor -> LPAREN expression RPAREN .)
@@ -3922,8 +3858,6 @@ state 95
     PLUS            reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     AND             reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     OR              reduce using rule 85 (factor -> LPAREN expression RPAREN .)
-    MINUSMINUS      reduce using rule 85 (factor -> LPAREN expression RPAREN .)
-    PLUSPLUS        reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     MODULEEQ        reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     DIVIDEEQ        reduce using rule 85 (factor -> LPAREN expression RPAREN .)
     TIMESEQ         reduce using rule 85 (factor -> LPAREN expression RPAREN .)
@@ -3950,21 +3884,17 @@ state 96
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 60 (expression -> expression NE expression .)
     NE              reduce using rule 60 (expression -> expression NE expression .)
     EQ              reduce using rule 60 (expression -> expression NE expression .)
     AND             reduce using rule 60 (expression -> expression NE expression .)
     OR              reduce using rule 60 (expression -> expression NE expression .)
-    MINUSMINUS      reduce using rule 60 (expression -> expression NE expression .)
-    PLUSPLUS        reduce using rule 60 (expression -> expression NE expression .)
     MODULEEQ        reduce using rule 60 (expression -> expression NE expression .)
     DIVIDEEQ        reduce using rule 60 (expression -> expression NE expression .)
     TIMESEQ         reduce using rule 60 (expression -> expression NE expression .)
@@ -4000,21 +3930,17 @@ state 97
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 61 (expression -> expression EQ expression .)
     NE              reduce using rule 61 (expression -> expression EQ expression .)
     EQ              reduce using rule 61 (expression -> expression EQ expression .)
     AND             reduce using rule 61 (expression -> expression EQ expression .)
     OR              reduce using rule 61 (expression -> expression EQ expression .)
-    MINUSMINUS      reduce using rule 61 (expression -> expression EQ expression .)
-    PLUSPLUS        reduce using rule 61 (expression -> expression EQ expression .)
     MODULEEQ        reduce using rule 61 (expression -> expression EQ expression .)
     DIVIDEEQ        reduce using rule 61 (expression -> expression EQ expression .)
     TIMESEQ         reduce using rule 61 (expression -> expression EQ expression .)
@@ -4050,14 +3976,12 @@ state 98
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 62 (expression -> expression GE expression .)
     NE              reduce using rule 62 (expression -> expression GE expression .)
     EQ              reduce using rule 62 (expression -> expression GE expression .)
@@ -4067,8 +3991,6 @@ state 98
     LT              reduce using rule 62 (expression -> expression GE expression .)
     AND             reduce using rule 62 (expression -> expression GE expression .)
     OR              reduce using rule 62 (expression -> expression GE expression .)
-    MINUSMINUS      reduce using rule 62 (expression -> expression GE expression .)
-    PLUSPLUS        reduce using rule 62 (expression -> expression GE expression .)
     MODULEEQ        reduce using rule 62 (expression -> expression GE expression .)
     DIVIDEEQ        reduce using rule 62 (expression -> expression GE expression .)
     TIMESEQ         reduce using rule 62 (expression -> expression GE expression .)
@@ -4100,14 +4022,12 @@ state 99
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 63 (expression -> expression GT expression .)
     NE              reduce using rule 63 (expression -> expression GT expression .)
     EQ              reduce using rule 63 (expression -> expression GT expression .)
@@ -4117,8 +4037,6 @@ state 99
     LT              reduce using rule 63 (expression -> expression GT expression .)
     AND             reduce using rule 63 (expression -> expression GT expression .)
     OR              reduce using rule 63 (expression -> expression GT expression .)
-    MINUSMINUS      reduce using rule 63 (expression -> expression GT expression .)
-    PLUSPLUS        reduce using rule 63 (expression -> expression GT expression .)
     MODULEEQ        reduce using rule 63 (expression -> expression GT expression .)
     DIVIDEEQ        reduce using rule 63 (expression -> expression GT expression .)
     TIMESEQ         reduce using rule 63 (expression -> expression GT expression .)
@@ -4150,14 +4068,12 @@ state 100
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 64 (expression -> expression LE expression .)
     NE              reduce using rule 64 (expression -> expression LE expression .)
     EQ              reduce using rule 64 (expression -> expression LE expression .)
@@ -4167,8 +4083,6 @@ state 100
     LT              reduce using rule 64 (expression -> expression LE expression .)
     AND             reduce using rule 64 (expression -> expression LE expression .)
     OR              reduce using rule 64 (expression -> expression LE expression .)
-    MINUSMINUS      reduce using rule 64 (expression -> expression LE expression .)
-    PLUSPLUS        reduce using rule 64 (expression -> expression LE expression .)
     MODULEEQ        reduce using rule 64 (expression -> expression LE expression .)
     DIVIDEEQ        reduce using rule 64 (expression -> expression LE expression .)
     TIMESEQ         reduce using rule 64 (expression -> expression LE expression .)
@@ -4200,14 +4114,12 @@ state 101
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 65 (expression -> expression LT expression .)
     NE              reduce using rule 65 (expression -> expression LT expression .)
     EQ              reduce using rule 65 (expression -> expression LT expression .)
@@ -4217,8 +4129,6 @@ state 101
     LT              reduce using rule 65 (expression -> expression LT expression .)
     AND             reduce using rule 65 (expression -> expression LT expression .)
     OR              reduce using rule 65 (expression -> expression LT expression .)
-    MINUSMINUS      reduce using rule 65 (expression -> expression LT expression .)
-    PLUSPLUS        reduce using rule 65 (expression -> expression LT expression .)
     MODULEEQ        reduce using rule 65 (expression -> expression LT expression .)
     DIVIDEEQ        reduce using rule 65 (expression -> expression LT expression .)
     TIMESEQ         reduce using rule 65 (expression -> expression LT expression .)
@@ -4250,14 +4160,12 @@ state 102
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 66 (expression -> expression MODULE expression .)
     NE              reduce using rule 66 (expression -> expression MODULE expression .)
     EQ              reduce using rule 66 (expression -> expression MODULE expression .)
@@ -4272,8 +4180,6 @@ state 102
     PLUS            reduce using rule 66 (expression -> expression MODULE expression .)
     AND             reduce using rule 66 (expression -> expression MODULE expression .)
     OR              reduce using rule 66 (expression -> expression MODULE expression .)
-    MINUSMINUS      reduce using rule 66 (expression -> expression MODULE expression .)
-    PLUSPLUS        reduce using rule 66 (expression -> expression MODULE expression .)
     MODULEEQ        reduce using rule 66 (expression -> expression MODULE expression .)
     DIVIDEEQ        reduce using rule 66 (expression -> expression MODULE expression .)
     TIMESEQ         reduce using rule 66 (expression -> expression MODULE expression .)
@@ -4300,14 +4206,12 @@ state 103
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 67 (expression -> expression DIVIDE expression .)
     NE              reduce using rule 67 (expression -> expression DIVIDE expression .)
     EQ              reduce using rule 67 (expression -> expression DIVIDE expression .)
@@ -4322,8 +4226,6 @@ state 103
     PLUS            reduce using rule 67 (expression -> expression DIVIDE expression .)
     AND             reduce using rule 67 (expression -> expression DIVIDE expression .)
     OR              reduce using rule 67 (expression -> expression DIVIDE expression .)
-    MINUSMINUS      reduce using rule 67 (expression -> expression DIVIDE expression .)
-    PLUSPLUS        reduce using rule 67 (expression -> expression DIVIDE expression .)
     MODULEEQ        reduce using rule 67 (expression -> expression DIVIDE expression .)
     DIVIDEEQ        reduce using rule 67 (expression -> expression DIVIDE expression .)
     TIMESEQ         reduce using rule 67 (expression -> expression DIVIDE expression .)
@@ -4350,14 +4252,12 @@ state 104
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 68 (expression -> expression TIMES expression .)
     NE              reduce using rule 68 (expression -> expression TIMES expression .)
     EQ              reduce using rule 68 (expression -> expression TIMES expression .)
@@ -4372,8 +4272,6 @@ state 104
     PLUS            reduce using rule 68 (expression -> expression TIMES expression .)
     AND             reduce using rule 68 (expression -> expression TIMES expression .)
     OR              reduce using rule 68 (expression -> expression TIMES expression .)
-    MINUSMINUS      reduce using rule 68 (expression -> expression TIMES expression .)
-    PLUSPLUS        reduce using rule 68 (expression -> expression TIMES expression .)
     MODULEEQ        reduce using rule 68 (expression -> expression TIMES expression .)
     DIVIDEEQ        reduce using rule 68 (expression -> expression TIMES expression .)
     TIMESEQ         reduce using rule 68 (expression -> expression TIMES expression .)
@@ -4400,14 +4298,12 @@ state 105
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 69 (expression -> expression MINUS expression .)
     NE              reduce using rule 69 (expression -> expression MINUS expression .)
     EQ              reduce using rule 69 (expression -> expression MINUS expression .)
@@ -4419,8 +4315,6 @@ state 105
     PLUS            reduce using rule 69 (expression -> expression MINUS expression .)
     AND             reduce using rule 69 (expression -> expression MINUS expression .)
     OR              reduce using rule 69 (expression -> expression MINUS expression .)
-    MINUSMINUS      reduce using rule 69 (expression -> expression MINUS expression .)
-    PLUSPLUS        reduce using rule 69 (expression -> expression MINUS expression .)
     MODULEEQ        reduce using rule 69 (expression -> expression MINUS expression .)
     DIVIDEEQ        reduce using rule 69 (expression -> expression MINUS expression .)
     TIMESEQ         reduce using rule 69 (expression -> expression MINUS expression .)
@@ -4450,14 +4344,12 @@ state 106
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 70 (expression -> expression PLUS expression .)
     NE              reduce using rule 70 (expression -> expression PLUS expression .)
     EQ              reduce using rule 70 (expression -> expression PLUS expression .)
@@ -4469,8 +4361,6 @@ state 106
     PLUS            reduce using rule 70 (expression -> expression PLUS expression .)
     AND             reduce using rule 70 (expression -> expression PLUS expression .)
     OR              reduce using rule 70 (expression -> expression PLUS expression .)
-    MINUSMINUS      reduce using rule 70 (expression -> expression PLUS expression .)
-    PLUSPLUS        reduce using rule 70 (expression -> expression PLUS expression .)
     MODULEEQ        reduce using rule 70 (expression -> expression PLUS expression .)
     DIVIDEEQ        reduce using rule 70 (expression -> expression PLUS expression .)
     TIMESEQ         reduce using rule 70 (expression -> expression PLUS expression .)
@@ -4500,19 +4390,15 @@ state 107
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 71 (expression -> expression AND expression .)
     AND             reduce using rule 71 (expression -> expression AND expression .)
     OR              reduce using rule 71 (expression -> expression AND expression .)
-    MINUSMINUS      reduce using rule 71 (expression -> expression AND expression .)
-    PLUSPLUS        reduce using rule 71 (expression -> expression AND expression .)
     MODULEEQ        reduce using rule 71 (expression -> expression AND expression .)
     DIVIDEEQ        reduce using rule 71 (expression -> expression AND expression .)
     TIMESEQ         reduce using rule 71 (expression -> expression AND expression .)
@@ -4550,18 +4436,14 @@ state 108
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 72 (expression -> expression OR expression .)
     OR              reduce using rule 72 (expression -> expression OR expression .)
-    MINUSMINUS      reduce using rule 72 (expression -> expression OR expression .)
-    PLUSPLUS        reduce using rule 72 (expression -> expression OR expression .)
     MODULEEQ        reduce using rule 72 (expression -> expression OR expression .)
     DIVIDEEQ        reduce using rule 72 (expression -> expression OR expression .)
     TIMESEQ         reduce using rule 72 (expression -> expression OR expression .)
@@ -4586,7 +4468,7 @@ state 108
 
 state 109
 
-    (77) expression -> expression MODULEEQ expression .
+    (73) expression -> expression MODULEEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4600,23 +4482,19 @@ state 109
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    MINUSMINUS      reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    PLUSPLUS        reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    DIVIDEEQ        reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    TIMESEQ         reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    MINEQ           reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    ADDEQ           reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    RPAREN          reduce using rule 77 (expression -> expression MODULEEQ expression .)
-    COMMA           reduce using rule 77 (expression -> expression MODULEEQ expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    DIVIDEEQ        reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    TIMESEQ         reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    MINEQ           reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    ADDEQ           reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    RPAREN          reduce using rule 73 (expression -> expression MODULEEQ expression .)
+    COMMA           reduce using rule 73 (expression -> expression MODULEEQ expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4630,13 +4508,13 @@ state 109
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MODULEEQ        shift and go to state 69
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    ASSIGN          shift and go to state 72
 
 
 state 110
 
-    (78) expression -> expression DIVIDEEQ expression .
+    (74) expression -> expression DIVIDEEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4650,22 +4528,18 @@ state 110
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    MINUSMINUS      reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    PLUSPLUS        reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    TIMESEQ         reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    MINEQ           reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    ADDEQ           reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    RPAREN          reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
-    COMMA           reduce using rule 78 (expression -> expression DIVIDEEQ expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
+    TIMESEQ         reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
+    MINEQ           reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
+    ADDEQ           reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
+    RPAREN          reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
+    COMMA           reduce using rule 74 (expression -> expression DIVIDEEQ expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4679,14 +4553,14 @@ state 110
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    ASSIGN          shift and go to state 72
 
 
 state 111
 
-    (79) expression -> expression TIMESEQ expression .
+    (75) expression -> expression TIMESEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4700,21 +4574,17 @@ state 111
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    MINUSMINUS      reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    PLUSPLUS        reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    MINEQ           reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    ADDEQ           reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    RPAREN          reduce using rule 79 (expression -> expression TIMESEQ expression .)
-    COMMA           reduce using rule 79 (expression -> expression TIMESEQ expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 75 (expression -> expression TIMESEQ expression .)
+    MINEQ           reduce using rule 75 (expression -> expression TIMESEQ expression .)
+    ADDEQ           reduce using rule 75 (expression -> expression TIMESEQ expression .)
+    RPAREN          reduce using rule 75 (expression -> expression TIMESEQ expression .)
+    COMMA           reduce using rule 75 (expression -> expression TIMESEQ expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4728,15 +4598,15 @@ state 111
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    ASSIGN          shift and go to state 72
 
 
 state 112
 
-    (80) expression -> expression MINEQ expression .
+    (76) expression -> expression MINEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4750,20 +4620,16 @@ state 112
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 80 (expression -> expression MINEQ expression .)
-    MINUSMINUS      reduce using rule 80 (expression -> expression MINEQ expression .)
-    PLUSPLUS        reduce using rule 80 (expression -> expression MINEQ expression .)
-    ADDEQ           reduce using rule 80 (expression -> expression MINEQ expression .)
-    RPAREN          reduce using rule 80 (expression -> expression MINEQ expression .)
-    COMMA           reduce using rule 80 (expression -> expression MINEQ expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 76 (expression -> expression MINEQ expression .)
+    ADDEQ           reduce using rule 76 (expression -> expression MINEQ expression .)
+    RPAREN          reduce using rule 76 (expression -> expression MINEQ expression .)
+    COMMA           reduce using rule 76 (expression -> expression MINEQ expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4777,16 +4643,16 @@ state 112
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ASSIGN          shift and go to state 72
 
 
 state 113
 
-    (81) expression -> expression ADDEQ expression .
+    (77) expression -> expression ADDEQ expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4800,19 +4666,15 @@ state 113
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 81 (expression -> expression ADDEQ expression .)
-    MINUSMINUS      reduce using rule 81 (expression -> expression ADDEQ expression .)
-    PLUSPLUS        reduce using rule 81 (expression -> expression ADDEQ expression .)
-    RPAREN          reduce using rule 81 (expression -> expression ADDEQ expression .)
-    COMMA           reduce using rule 81 (expression -> expression ADDEQ expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 77 (expression -> expression ADDEQ expression .)
+    RPAREN          reduce using rule 77 (expression -> expression ADDEQ expression .)
+    COMMA           reduce using rule 77 (expression -> expression ADDEQ expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4826,17 +4688,17 @@ state 113
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 114
 
-    (82) expression -> expression ASSIGN expression .
+    (78) expression -> expression ASSIGN expression .
     (60) expression -> expression . NE expression
     (61) expression -> expression . EQ expression
     (62) expression -> expression . GE expression
@@ -4850,24 +4712,20 @@ state 114
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
-    SEMI            reduce using rule 82 (expression -> expression ASSIGN expression .)
-    MINUSMINUS      reduce using rule 82 (expression -> expression ASSIGN expression .)
-    PLUSPLUS        reduce using rule 82 (expression -> expression ASSIGN expression .)
-    MODULEEQ        reduce using rule 82 (expression -> expression ASSIGN expression .)
-    DIVIDEEQ        reduce using rule 82 (expression -> expression ASSIGN expression .)
-    TIMESEQ         reduce using rule 82 (expression -> expression ASSIGN expression .)
-    MINEQ           reduce using rule 82 (expression -> expression ASSIGN expression .)
-    ADDEQ           reduce using rule 82 (expression -> expression ASSIGN expression .)
-    RPAREN          reduce using rule 82 (expression -> expression ASSIGN expression .)
-    COMMA           reduce using rule 82 (expression -> expression ASSIGN expression .)
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
+    SEMI            reduce using rule 78 (expression -> expression ASSIGN expression .)
+    MODULEEQ        reduce using rule 78 (expression -> expression ASSIGN expression .)
+    DIVIDEEQ        reduce using rule 78 (expression -> expression ASSIGN expression .)
+    TIMESEQ         reduce using rule 78 (expression -> expression ASSIGN expression .)
+    MINEQ           reduce using rule 78 (expression -> expression ASSIGN expression .)
+    ADDEQ           reduce using rule 78 (expression -> expression ASSIGN expression .)
+    RPAREN          reduce using rule 78 (expression -> expression ASSIGN expression .)
+    COMMA           reduce using rule 78 (expression -> expression ASSIGN expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
     GE              shift and go to state 56
@@ -4881,7 +4739,7 @@ state 114
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    ASSIGN          shift and go to state 74
+    ASSIGN          shift and go to state 72
 
 
 state 115
@@ -4932,14 +4790,12 @@ state 116
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          shift and go to state 136
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -4954,14 +4810,12 @@ state 116
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 117
@@ -4986,14 +4840,12 @@ state 118
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 44 (_9_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -5008,14 +4860,12 @@ state 118
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 119
@@ -5037,16 +4887,16 @@ state 119
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -5100,16 +4950,16 @@ state 120
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -5212,14 +5062,12 @@ state 125
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     (109) _16_COMMA_expression_repeat -> . _16_COMMA_expression_items
     (110) _16_COMMA_expression_repeat -> .
     (111) _16_COMMA_expression_items -> . _16_COMMA_expression_items _16_COMMA_expression_item
@@ -5238,14 +5086,12 @@ state 125
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
     RPAREN          reduce using rule 110 (_16_COMMA_expression_repeat -> .)
     COMMA           shift and go to state 146
 
@@ -5256,6 +5102,8 @@ state 125
 state 126
 
     (89) factor -> factor POINT IDENT .
+    MINUSMINUS      reduce using rule 89 (factor -> factor POINT IDENT .)
+    PLUSPLUS        reduce using rule 89 (factor -> factor POINT IDENT .)
     LPAREN          reduce using rule 89 (factor -> factor POINT IDENT .)
     POINT           reduce using rule 89 (factor -> factor POINT IDENT .)
     SEMI            reduce using rule 89 (factor -> factor POINT IDENT .)
@@ -5272,8 +5120,6 @@ state 126
     PLUS            reduce using rule 89 (factor -> factor POINT IDENT .)
     AND             reduce using rule 89 (factor -> factor POINT IDENT .)
     OR              reduce using rule 89 (factor -> factor POINT IDENT .)
-    MINUSMINUS      reduce using rule 89 (factor -> factor POINT IDENT .)
-    PLUSPLUS        reduce using rule 89 (factor -> factor POINT IDENT .)
     MODULEEQ        reduce using rule 89 (factor -> factor POINT IDENT .)
     DIVIDEEQ        reduce using rule 89 (factor -> factor POINT IDENT .)
     TIMESEQ         reduce using rule 89 (factor -> factor POINT IDENT .)
@@ -5287,6 +5133,8 @@ state 126
 state 127
 
     (90) factor -> SUPER POINT IDENT .
+    MINUSMINUS      reduce using rule 90 (factor -> SUPER POINT IDENT .)
+    PLUSPLUS        reduce using rule 90 (factor -> SUPER POINT IDENT .)
     LPAREN          reduce using rule 90 (factor -> SUPER POINT IDENT .)
     POINT           reduce using rule 90 (factor -> SUPER POINT IDENT .)
     SEMI            reduce using rule 90 (factor -> SUPER POINT IDENT .)
@@ -5303,8 +5151,6 @@ state 127
     PLUS            reduce using rule 90 (factor -> SUPER POINT IDENT .)
     AND             reduce using rule 90 (factor -> SUPER POINT IDENT .)
     OR              reduce using rule 90 (factor -> SUPER POINT IDENT .)
-    MINUSMINUS      reduce using rule 90 (factor -> SUPER POINT IDENT .)
-    PLUSPLUS        reduce using rule 90 (factor -> SUPER POINT IDENT .)
     MODULEEQ        reduce using rule 90 (factor -> SUPER POINT IDENT .)
     DIVIDEEQ        reduce using rule 90 (factor -> SUPER POINT IDENT .)
     TIMESEQ         reduce using rule 90 (factor -> SUPER POINT IDENT .)
@@ -5362,14 +5208,12 @@ state 129
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 21 (_4_ASSIGN_expression_optional -> ASSIGN expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -5384,14 +5228,12 @@ state 129
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 130
@@ -5476,16 +5318,16 @@ state 135
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -5570,16 +5412,16 @@ state 137
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -5648,14 +5490,12 @@ state 139
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 32 (_5_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -5670,14 +5510,12 @@ state 139
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 140
@@ -5702,14 +5540,12 @@ state 141
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     SEMI            reduce using rule 37 (_7_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -5724,19 +5560,19 @@ state 141
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 142
 
     (86) factor -> factor LPAREN _13_arguments_optional RPAREN .
+    MINUSMINUS      reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
+    PLUSPLUS        reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     LPAREN          reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     POINT           reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     SEMI            reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
@@ -5753,8 +5589,6 @@ state 142
     PLUS            reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     AND             reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     OR              reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    MINUSMINUS      reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
-    PLUSPLUS        reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     MODULEEQ        reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     DIVIDEEQ        reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
     TIMESEQ         reduce using rule 86 (factor -> factor LPAREN _13_arguments_optional RPAREN .)
@@ -5805,16 +5639,16 @@ state 146
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -6015,16 +5849,16 @@ state 160
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -6078,16 +5912,16 @@ state 161
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -6145,14 +5979,12 @@ state 163
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     COMMA           reduce using rule 113 (_16_COMMA_expression_item -> COMMA expression .)
     RPAREN          reduce using rule 113 (_16_COMMA_expression_item -> COMMA expression .)
     NE              shift and go to state 54
@@ -6168,14 +6000,12 @@ state 163
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 164
@@ -6303,16 +6133,16 @@ state 171
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -6381,14 +6211,12 @@ state 173
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 34 (_6_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -6403,14 +6231,12 @@ state 173
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 174
@@ -6435,14 +6261,12 @@ state 175
     (70) expression -> expression . PLUS expression
     (71) expression -> expression . AND expression
     (72) expression -> expression . OR expression
-    (75) expression -> expression . MINUSMINUS
-    (76) expression -> expression . PLUSPLUS
-    (77) expression -> expression . MODULEEQ expression
-    (78) expression -> expression . DIVIDEEQ expression
-    (79) expression -> expression . TIMESEQ expression
-    (80) expression -> expression . MINEQ expression
-    (81) expression -> expression . ADDEQ expression
-    (82) expression -> expression . ASSIGN expression
+    (73) expression -> expression . MODULEEQ expression
+    (74) expression -> expression . DIVIDEEQ expression
+    (75) expression -> expression . TIMESEQ expression
+    (76) expression -> expression . MINEQ expression
+    (77) expression -> expression . ADDEQ expression
+    (78) expression -> expression . ASSIGN expression
     RPAREN          reduce using rule 39 (_8_expression_optional -> expression .)
     NE              shift and go to state 54
     EQ              shift and go to state 55
@@ -6457,14 +6281,12 @@ state 175
     PLUS            shift and go to state 64
     AND             shift and go to state 65
     OR              shift and go to state 66
-    MINUSMINUS      shift and go to state 67
-    PLUSPLUS        shift and go to state 68
-    MODULEEQ        shift and go to state 69
-    DIVIDEEQ        shift and go to state 70
-    TIMESEQ         shift and go to state 71
-    MINEQ           shift and go to state 72
-    ADDEQ           shift and go to state 73
-    ASSIGN          shift and go to state 74
+    MODULEEQ        shift and go to state 67
+    DIVIDEEQ        shift and go to state 68
+    TIMESEQ         shift and go to state 69
+    MINEQ           shift and go to state 70
+    ADDEQ           shift and go to state 71
+    ASSIGN          shift and go to state 72
 
 
 state 176
@@ -6537,16 +6359,16 @@ state 178
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
@@ -6625,16 +6447,16 @@ state 179
     (70) expression -> . expression PLUS expression
     (71) expression -> . expression AND expression
     (72) expression -> . expression OR expression
-    (73) expression -> . MINUSMINUS expression
-    (74) expression -> . PLUSPLUS expression
-    (75) expression -> . expression MINUSMINUS
-    (76) expression -> . expression PLUSPLUS
-    (77) expression -> . expression MODULEEQ expression
-    (78) expression -> . expression DIVIDEEQ expression
-    (79) expression -> . expression TIMESEQ expression
-    (80) expression -> . expression MINEQ expression
-    (81) expression -> . expression ADDEQ expression
-    (82) expression -> . expression ASSIGN expression
+    (73) expression -> . expression MODULEEQ expression
+    (74) expression -> . expression DIVIDEEQ expression
+    (75) expression -> . expression TIMESEQ expression
+    (76) expression -> . expression MINEQ expression
+    (77) expression -> . expression ADDEQ expression
+    (78) expression -> . expression ASSIGN expression
+    (79) factor -> . MINUSMINUS factor
+    (80) factor -> . PLUSPLUS factor
+    (81) factor -> . factor MINUSMINUS
+    (82) factor -> . factor PLUSPLUS
     (83) factor -> . NOT factor
     (84) factor -> . MINUS factor
     (85) factor -> . LPAREN expression RPAREN
