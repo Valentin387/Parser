@@ -65,7 +65,20 @@ I start to work in final delivery of the compiler
 
 * (FinalProject_v2)
 I created this branch after being successful with a first version of the interpreter
+Point 1 and 2 successfully implemented:
 
+1. operadores de asignacion: 
+  +=, -=, *=, /=, %=
 
+2. operadores de incremento (++) y decremento (--)
+   Notacion: prefija y sufija
+
+   prefijo:  var a = 12;
+            var b = ++a;    // b = 13, a = 13
+
+   postfijo  var a = 12;
+             var b = a++;   // b = 12, a = 13 
+
+* (FinalProject_v3)
 
 
