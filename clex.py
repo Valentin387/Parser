@@ -87,7 +87,7 @@ class Lexer(sly.Lexer):
 
         ADDEQ, MINEQ, TIMESEQ, DIVIDEEQ, MODULEEQ,
 
-        PLUSPLUS, MINUSMINUS
+        PLUSPLUS, MINUSMINUS, CONTINUE, BREAK
     }
     literals = '+-*/%=(){}[];,'
 
@@ -160,6 +160,8 @@ class Lexer(sly.Lexer):
     IDENT['this']  = THIS
     IDENT['super']  = SUPER
     IDENT['end_if'] = END_IF
+    IDENT['continue'] = CONTINUE
+    IDENT['break'] = BREAK
 
     @_(r'".*"')
     def STRING(self, t):

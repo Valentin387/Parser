@@ -103,6 +103,14 @@ class ExprStmt(Statement):
 class Block(Statement):
     stmts :  List[Statement] = field(default_factory=list)
 
+@dataclass
+class Continue(Statement):
+    name   : str
+
+@dataclass
+class Break(Statement):
+    name   : str
+
 #---------------------------------------------------------------
 # Expression representan valores
 #---------------------------------------------------------------

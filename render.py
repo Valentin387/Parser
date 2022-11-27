@@ -249,6 +249,18 @@ class DotRender(Visitor):
         self.dot.node(name, label=f'super {node.name}')
         return name
 
+###########################################################
+    def visit(self, node : Continue):
+        name = self.name()
+        self.dot.node(name, label=f'continue')
+        return name
+
+    def visit(self, node : Break):
+        name = self.name()
+        self.dot.node(name, label=f'break')
+        return name
+##########################################################
+
     def visit(self, node : List):
         name = self.name()
         self.dot.node(name, label=f'list {node.name}')

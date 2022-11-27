@@ -184,6 +184,14 @@ class Interpreter(Visitor): #This is a visitor
 		while _is_truthy(self.visit(node.cond)):
 			self.visit(node.body)
 
+##########################################################
+	def visit(self, node: Continue):
+		pass
+
+	def visit(self, node: Break):
+		pass
+#########################################################
+
 	def visit(self, node: ForStmt):
 		self.visit(node.for_init)
 		while _is_truthy(self.visit(node.for_cond)):

@@ -68,7 +68,7 @@ class Symtab:
             return None
 
 
-
+InLoop=False
 class Checker(Visitor):
     '''
     Visitante que crea y enlaza tablas de simbolos al AST
@@ -182,7 +182,6 @@ class Checker(Visitor):
         2. Visitar las instrucciones del then
         3. Visitar las instrucciones del opt, si esta definido
         '''
-
         self.visit(node.cond, env)
         #env = Symtab(env)
         self.visit(node.cons, env)
@@ -194,18 +193,22 @@ class Checker(Visitor):
         1. Visitar la condicion
         2. Visitar las instrucciones del cuerpo
         '''
-
+        global InLoop
         self.visit(node.cond, env)
         #env = Symtab(env)
+        InLoop=True
         self.visit(node.body, env)
+        InLoop=False
 
     def visit(self, node: ForStmt, env: Symtab):
-
+        global InLoop
         env = Symtab(env)
         self.visit(node.for_init, env)
         self.visit(node.for_cond, env)
         self.visit(node.for_increment, env)
+        InLoop=True
         self.visit(node.for_body, env)
+        InLoop=False
 
     def visit(self, node: Return, env: Symtab):
         '''
@@ -213,6 +216,18 @@ class Checker(Visitor):
         '''
         if node.expr:
             self.visit(node.expr, env)
+
+###################################################
+
+    def visit(self, node: Continue, env: Symtab):
+        if not InLoop:
+            self.error(node, f"Checker error, '{node.name}' not in a loop")
+
+    def visit(self, node: Break, env: Symtab):
+        if not InLoop:
+            self.error(node, f"Checker error, '{node.name}' not in a loop")
+
+##################################################
 
     def visit(self, node: ExprStmt, env: Symtab):
         '''

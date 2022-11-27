@@ -60,14 +60,15 @@ class Parser(sly.Parser):
        "print_stmt",
        "return_stmt",
        "while_stmt",
-       "block")
+       "block",
+       "continue_stmt",
+       "break_stmt")
     def statement(self, p):
         return p[0]
 
     @_("expression SEMI")
     def expr_stmt(self, p):
         return ExprStmt(p.expression)
-        #pass
 
     @_("FOR LPAREN for_initialize [ expression ] SEMI [ expression ] RPAREN statement")
     def for_stmt(self, p):
@@ -81,6 +82,16 @@ class Parser(sly.Parser):
         "expr_stmt")
     def for_initialize(self, p):
         return p[0]
+
+
+#########################################
+    @_("CONTINUE SEMI")
+    def continue_stmt(self, p):
+        return Continue(p[0])
+
+    @_("BREAK SEMI")
+    def break_stmt(self, p):
+        return Break(p[0])
 #########################################
     @_("IF LPAREN [ expression ] RPAREN statement [ ELSE statement ] END_IF")
     def if_stmt(self, p):
@@ -185,13 +196,11 @@ class Parser(sly.Parser):
     @_("factor PLUSPLUS",
        "factor MINUSMINUS")
     def factor(self, p):
-        print("sufijo")
         return AssignPostfix(p[1], p.factor)
 
     @_("PLUSPLUS factor",
        "MINUSMINUS factor")
     def factor(self, p):
-        print("prefijo")
         return AssignPrefix(p[0], p.factor)
 
 ##################################################################################################
