@@ -1,9 +1,9 @@
 
-var i = 0;
-while(i<20){
-  if(i==10){
-    break;
+for(var i=0; i<10; i++){
+
+  if(i==5){
+    i++;
+    continue;
   }end_if
   print(i);
-  i++;
 }

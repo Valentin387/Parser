@@ -103,6 +103,8 @@ class Instance:
 	def set(self, name, value):
 		self.data[name] = value
 
+ThereIsBreak=False
+ThereIsContinue=False
 
 class Interpreter(Visitor): #This is a visitor
 	def __init__(self, ctxt):
@@ -140,9 +142,13 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Block):
 		#self.env = self.env.new_child() #think about it as a typewriter, it advances one row
-										#and then you have to reset the pointer
+		#and then you have to reset the pointer
 		for stmt in node.stmts:
 			self.visit(stmt)
+			if ThereIsBreak:
+				return 0
+			if ThereIsContinue:
+				return 1
 		#self.env = self.env.parents		#you "reset" the pointer
 
 	def visit(self, node: Program):
@@ -181,21 +187,47 @@ class Interpreter(Visitor): #This is a visitor
 		print(self.visit(node.expr))
 
 	def visit(self, node: WhileStmt):
+		global ThereIsContinue
+		global ThereIsBreak
+
 		while _is_truthy(self.visit(node.cond)):
-			self.visit(node.body)
+			ThereIsContinue = False
+			ThereIsBreak = False
+			#Something will return from Block
+			flowControl = self.visit(node.body)
+			if flowControl == 0:
+				break
+			elif flowControl == 1:
+				continue
+			else:
+				pass
 
 ##########################################################
 	def visit(self, node: Continue):
-		pass
+		global ThereIsContinue
+		ThereIsContinue = True
 
 	def visit(self, node: Break):
-		pass
+		global ThereIsBreak
+		ThereIsBreak = True
 #########################################################
 
 	def visit(self, node: ForStmt):
+		global ThereIsContinue
+		global ThereIsBreak
+
 		self.visit(node.for_init)
 		while _is_truthy(self.visit(node.for_cond)):
-			self.visit(node.for_body)
+			ThereIsContinue = False
+			ThereIsBreak = False
+			#Something will return from Block
+			flowControl = self.visit(node.for_body)
+			if flowControl == 0:
+				break
+			elif flowControl == 1:
+				continue
+			else:
+				pass
 			self.visit(node.for_increment)
 
 	def visit(self, node: IfStmt):
