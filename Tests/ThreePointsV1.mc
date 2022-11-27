@@ -1,9 +1,2 @@
 
-for(var i=0; i<10; i++){
-
-  if(i==5){
-    i++;
-    continue;
-  }end_if
-  print(i);
-}
+print(format("Salut tout le monde %d, %d, %d, GO!", 3,2,1));
