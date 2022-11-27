@@ -80,5 +80,11 @@ Point 1 and 2 successfully implemented:
              var b = a++;   // b = 12, a = 13 
 
 * (FinalProject_v3)
+Point 1, 2 and 3 successfully implemented:
 
+    Incorporar las instrucciones break y continue
+   Nota: Solo deben de aparecer dentro de un bucle
+   
+______________
 
+* (FinalProject_v4)
