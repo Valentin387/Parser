@@ -222,4 +222,4 @@ class Parser(sly.Parser):
             self.ctxt.error(p, f"PARSER ERROR, Syntax error in the Token {p.type} due to: {p}")
             # Just discard the token and tell the parser it's okay.
         else:
-            self.ctxt.error(p, f"PARSER ERROR, Syntax Error in EOF. Check braces and semicolons ")
+            self.ctxt.error(p, f"PARSER ERROR, Syntax Error in EOF. Check braces, semicolons and END_IF ")
