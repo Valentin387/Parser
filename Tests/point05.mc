@@ -23,3 +23,38 @@ fun input_f(){
   print(a);
   print(a-1);
 }
+
+fun validation_f(){
+  var a = input("ingrese un valor: ");
+
+  if (isInteger(a) == true){
+    print("It's int");
+  }end_if
+
+  if (isFloat(a) == true){
+    print("It's float");
+  }end_if
+
+  if (isStr(a) == true){
+    print("It's str");
+  }end_if
+
+}
+
+//str()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

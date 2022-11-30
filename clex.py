@@ -155,7 +155,6 @@ class Lexer(sly.Lexer):
     IDENT['class']  = CLASS
     IDENT['for']  = FOR
     IDENT['while']  = WHILE
-    IDENT['true']  = TRUE
     IDENT['nil']  = NIL
     IDENT['this']  = THIS
     IDENT['super']  = SUPER

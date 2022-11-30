@@ -4,13 +4,49 @@ import time
 class CallError(Exception):
 	pass
 
+class IsStr:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'IsStr' only receives 1 argument")
+		if isinstance(args[0], (str)):
+			return True
+		else:
+			return False
+
+	def __str__(self):
+		return '<builtins: IsStr>'
+
+class IsFloat:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'IsFloat' only receives 1 argument")
+		if isinstance(args[0], (float)):
+			return True
+		else:
+			return False
+
+	def __str__(self):
+		return '<builtins: IsFloat>'
+
+class IsInteger:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'isInteger' only receives 1 argument")
+		if isinstance(args[0], (int)):
+			return True
+		else:
+			return False
+
+	def __str__(self):
+		return '<builtins: isInteger>'
+
 class Input:
 	def __call__(self, interp, *args):
 		print(args[0], end="")
 		information = input()
 		try:
 			information = int(information)
-			return information #it is int 
+			return information #it is int
 		except ValueError:
 			try:
 				information = float(information)
@@ -105,5 +141,8 @@ stdlibFunctions = {
 	'NAN':math.nan,
 	'clock':Clock(),
 	'len':Len(),
-	'input':Input()
+	'input':Input(),
+	'isInteger':IsInteger(),
+	'isFloat':IsFloat(),
+	'isStr':IsStr()
 }
