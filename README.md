@@ -96,7 +96,7 @@ Eliminar print como instruccion e incorporarla como funcion, similar
 
    En python: def printf(format, *args):
    
-  * (FinalProject_v5)
+* (FinalProject_v5)
   
   Incorporar las siguientes funciones:
    - clock()
