@@ -4,29 +4,42 @@ import time
 class CallError(Exception):
 	pass
 
+
+class ConvertToStr:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'str' only receives 1 argument")
+		if isinstance(args[0], (str)):
+			return args[0]
+		else:
+			return str(args[0])
+
+	def __str__(self):
+		return '<builtins: str>'
+
 class IsStr:
 	def __call__(self, interp, *args):
 		if len(args) != 1:
-			raise CallError("'IsStr' only receives 1 argument")
+			raise CallError("'isStr' only receives 1 argument")
 		if isinstance(args[0], (str)):
 			return True
 		else:
 			return False
 
 	def __str__(self):
-		return '<builtins: IsStr>'
+		return '<builtins: isStr>'
 
 class IsFloat:
 	def __call__(self, interp, *args):
 		if len(args) != 1:
-			raise CallError("'IsFloat' only receives 1 argument")
+			raise CallError("'isFloat' only receives 1 argument")
 		if isinstance(args[0], (float)):
 			return True
 		else:
 			return False
 
 	def __str__(self):
-		return '<builtins: IsFloat>'
+		return '<builtins: isFloat>'
 
 class IsInteger:
 	def __call__(self, interp, *args):
@@ -67,7 +80,7 @@ class Len:
 			return len(args[0])-2
 
 	def __str__(self):
-		return '<builtins: Len>'
+		return '<builtins: len>'
 
 class Clock:
 	def __call__(self, interp, *args):
@@ -83,7 +96,7 @@ class Clock:
 			raise CallError("'clock' only receives 1:perf_counter or 0:process_time")
 
 	def __str__(self):
-		return '<builtins: Clock>'
+		return '<builtins: clock>'
 #(1) perf_counter() -> does include time elapsed during sleep
 #(0) process_time() -> does NOT include time elapsed during sleep
 #--sleep refers to dead time, like the system waiting a user input
@@ -99,7 +112,7 @@ class Format:
 		return args[0].replace('\\n','\n') % args[1:]
 
 	def __str__(self):
-		return '<builtins: Format>'
+		return '<builtins: format>'
 """
 %s - String (or any object with a string representation, like numbers)
 %d - Integers
@@ -107,10 +120,63 @@ class Format:
 %.<number of digits>f - Floating point numbers with a fixed amount of digits to the right of the dot.
 %x/%X - Integers in hex representation (lowercase/uppercase)
 """
+
+class Sine:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'sine' only receives 1 argument")
+		if not isinstance(args[0], (int, float)):
+			raise CallError("'sine' argument must be number type ")
+		return math.sin(args[0])
+
+	def __str__(self):
+		return '<builtins: sine>'
+
+class Cosine:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'cosine' only receives 1 argument")
+		if not isinstance(args[0], (int, float)):
+			raise CallError("'cosine' argument must be number type ")
+		return math.cos(args[0])
+	def __str__(self):
+		return '<builtins: cosine>'
+
+class Tan:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'tan' only receives 1 argument")
+		if not isinstance(args[0], (int, float)):
+			raise CallError("'tan' argument must be number type ")
+		return math.tan(args[0])
+
+	def __str__(self):
+		return '<builtins: tan>'
+
+class ArcSine:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'asin' only receives 1 argument")
+		if not isinstance(args[0], (int, float)):
+			raise CallError("'asin' argument must be number type ")
+		return math.asin(args[0])
+	def __str__(self):
+		return '<builtins: asin>'
+
+class ArcCosine:
+	def __call__(self, interp, *args):
+		if len(args) != 1:
+			raise CallError("'acos' only receives 1 argument")
+		if not isinstance(args[0], (int, float)):
+			raise CallError("'acos' argument must be number type ")
+		return math.acos(args[0])
+	def __str__(self):
+		return '<builtins: acos>'
+
 class ArcTang:
     def __call__(self, interp, *args):
         if len(args) != 1:
-            raise CallError("Error in argument in 'atan' ")
+            raise CallError("'atan' only receives 1 argument")
         if not isinstance(args[0], (int, float)):
             raise CallError("'atan' argument must be number type ")
         return math.atan(args[0])
@@ -121,13 +187,35 @@ class ArcTang:
 class Logarithm:
     def __call__(self, interp, *args):
         if len(args) != 1:
-            raise CallError("Error in argument in 'log' ")
+            raise CallError("'log' only receives 1 argument")
         if not isinstance(args[0], (int, float)):
-            raise CallError("'atan' argument must be number type ")
-        return math.log(args[0])
+            raise CallError("'log' argument must be number type ")
+        return math.log(args[0]) #ln()
 
     def __str__(self):
         return '<builtins: log>'
+
+class RadToDeg:
+    def __call__(self, interp, *args):
+        if len(args) != 1:
+            raise CallError("'radToDeg' only receives 1 argument")
+        if not isinstance(args[0], (int, float)):
+            raise CallError("'radToDeg' argument must be number type ")
+        return math.degrees(args[0])
+
+    def __str__(self):
+        return '<builtins: radToDeg>'
+
+class DegToRad:
+    def __call__(self, interp, *args):
+        if len(args) != 1:
+            raise CallError("'degToRad' only receives 1 argument")
+        if not isinstance(args[0], (int, float)):
+            raise CallError("'degToRad' argument must be number type ")
+        return math.radians(args[0])
+
+    def __str__(self):
+        return '<builtins: degToRad>'
 
 stdlibFunctions = {
 
@@ -144,5 +232,14 @@ stdlibFunctions = {
 	'input':Input(),
 	'isInteger':IsInteger(),
 	'isFloat':IsFloat(),
-	'isStr':IsStr()
+	'isStr':IsStr(),
+	'str':ConvertToStr(),
+	'sin':Sine(),
+	'cos':Cosine(),
+	'tan':Tan(),
+	'asin':ArcSine(),
+	'acos':ArcCosine(),
+	'radToDeg':RadToDeg(),
+	'degToRad':DegToRad()
+
 }
