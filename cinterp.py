@@ -6,6 +6,7 @@ from collections import ChainMap
 from cast    import *
 from checker import Checker
 from rich    import print
+from stdlib import *
 
 import math
 
@@ -153,6 +154,10 @@ class Interpreter(Visitor): #This is a visitor
 
 	def visit(self, node: Program):
 		#self.env = self.env.new_child()
+		#########################################
+		for k,v in stdlibFunctions.items():
+			self.env[k]=v
+		#########################################
 		for d in node.decl:
 			self.visit(d)
 		#self.env = self.env.parents

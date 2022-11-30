@@ -1,17 +1,15 @@
 import math
 
 class Format:
-    def call(self, interp, *args):
+    def __call__(self, interp, *args):
 
-        if not isinstance(args[0], (str)):
-            raise CallError("'format' argument must be str type ")
-        return #?
+        return args[0]
 
     def __str__(self):
         return '<builtins: Format>'
 
 class ArcTang:
-    def call(self, interp, *args):
+    def __call__(self, interp, *args):
         if len(args) != 1:
             raise CallError("Error in argument in 'atan' ")
         if not isinstance(args[0], (int, float)):
@@ -22,7 +20,7 @@ class ArcTang:
         return '<builtins: atan>'
 
 class Logarithm:
-    def call(self, interp, *args):
+    def __call__(self, interp, *args):
         if len(args) != 1:
             raise CallError("Error in argument in 'log' ")
         if not isinstance(args[0], (int, float)):
@@ -34,7 +32,7 @@ class Logarithm:
 
 stdlibFunctions = {
 
-    'format':'Format',
-    'atan':'ArcTang',
-    'log':'Logarithm'
+    'format':Format(),
+    'atan':ArcTang(),
+    'log':Logarithm()
 }
