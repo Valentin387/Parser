@@ -1,8 +1,15 @@
 import math
 
+
+class CallError(Exception):
+	pass
+
 class Format:
     def __call__(self, interp, *args):
-
+        if len(args) != 1:
+            raise CallError("Error in argument in 'format' ")
+        if not isinstance(args[0], (str)):
+            raise CallError("'format' argument must be string type ")
         return args[0]
 
     def __str__(self):

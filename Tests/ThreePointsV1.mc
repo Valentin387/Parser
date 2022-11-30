@@ -1,2 +1,2 @@
 
-print(format("Salut tout le monde GO!"));
+print(format("Format function works %d %d %d"));

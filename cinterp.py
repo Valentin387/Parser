@@ -25,10 +25,10 @@ class ReturnException(Exception):
 
 class MiniCExit(BaseException):
 	pass
-
+"""
 class CallError(Exception):
 	pass
-
+"""
 class AttributeError(Exception):
 	pass
 
