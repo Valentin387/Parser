@@ -88,3 +88,20 @@ Point 1, 2 and 3 successfully implemented:
 ______________
 
 * (FinalProject_v4)
+Eliminar print como instruccion e incorporarla como funcion, similar
+   a printf de C.
+
+   Ej.  var PI = 3.14159265;
+        print("%.8f", PI);
+
+   En python: def printf(format, *args):
+   
+  * (FinalProject_v5)
+  
+  Incorporar las siguientes funciones:
+   - clock()
+   - len()
+   - input()  - asimilar a scanf()  Ej. var nombre = input("Entre el nombre: ");
+   - isinteger()
+   - str()
+   - funciones de math.h que consideren necesarias, incluyendo constantes.
