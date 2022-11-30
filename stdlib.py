@@ -4,7 +4,24 @@ import time
 class CallError(Exception):
 	pass
 
-class Len():
+class Input:
+	def __call__(self, interp, *args):
+		print(args[0], end="")
+		information = input()
+		try:
+			information = int(information)
+			return information #it is int 
+		except ValueError:
+			try:
+				information = float(information)
+				return information #it's float
+			except ValueError:
+				return information #it's string
+
+	def __str__(self):
+		return '<builtins: input>'
+
+class Len:
 	def __call__(self, interp, *args):
 		if not isinstance(args[0], (str)):
 			raise CallError("'len' argument must be str type")
@@ -16,7 +33,7 @@ class Len():
 	def __str__(self):
 		return '<builtins: Len>'
 
-class Clock():
+class Clock:
 	def __call__(self, interp, *args):
 		if not isinstance(args[0], (int)):
 			raise CallError("'clock' argument must be int type")
@@ -87,5 +104,6 @@ stdlibFunctions = {
 	'INF':math.inf,
 	'NAN':math.nan,
 	'clock':Clock(),
-	'len':Len()
+	'len':Len(),
+	'input':Input()
 }

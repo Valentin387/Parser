@@ -10,9 +10,16 @@ fun clock_f(){
 }
 
 //len
-var cad = "abc d";
-var lon = len(cad);
-print(cad);
-print(format("longitud: %d",lon));
+fun len_f(){
+  var cad = "abc d";
+  var lon = len(cad);
+  print(cad);
+  print(format("longitud: %d",lon));
+}
 
-//
+//input
+fun input_f(){
+  var a = input("Ingresa algo: ");
+  print(a);
+  print(a-1);
+}
