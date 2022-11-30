@@ -1,12 +1,43 @@
 import math
-
+import time
 
 class CallError(Exception):
 	pass
 
+class Len():
+	def __call__(self, interp, *args):
+		if not isinstance(args[0], (str)):
+			raise CallError("'len' argument must be str type")
+		if len(args) != 1:
+			raise CallError("'len' only receives 1 argument")
+		if isinstance(args[0], (str)):
+			return len(args[0])-2
+
+	def __str__(self):
+		return '<builtins: Len>'
+
+class Clock():
+	def __call__(self, interp, *args):
+		if not isinstance(args[0], (int)):
+			raise CallError("'clock' argument must be int type")
+		if len(args) != 1:
+			raise CallError("'clock' only receives 1 argument")
+		if args[0] == 0:
+			return time.process_time()
+		elif args[0] == 1:
+			return time.perf_counter()
+		else:
+			raise CallError("'clock' only receives 1:perf_counter or 0:process_time")
+
+	def __str__(self):
+		return '<builtins: Clock>'
+#(1) perf_counter() -> does include time elapsed during sleep
+#(0) process_time() -> does NOT include time elapsed during sleep
+#--sleep refers to dead time, like the system waiting a user input
+
+
 class Format:
 	def __call__(self, interp, *args):
-		print(args[1:])
 		if not isinstance(args[0], (str)):
 			raise CallError("'format' argument must be string type ")
 		if args[0].count('%') != len(args[1:]):
@@ -54,5 +85,7 @@ stdlibFunctions = {
 	'EULER':math.e,
 	'TAU':math.tau,
 	'INF':math.inf,
-	'NAN':math.nan
+	'NAN':math.nan,
+	'clock':Clock(),
+	'len':Len()
 }
