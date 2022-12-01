@@ -133,9 +133,9 @@ class Interpreter(Visitor): #This is a visitor
 		try:
 			Checker.check(node, self.ctxt) #First, you must call the Checker
 			if not self.ctxt.have_errors:
-				print("Starting interptreting \n")
+				#print("Starting interpreting \n")
 				self.visit(node)
-				print("\nInterpreting finished")
+				#print("\nInterpreting finished")
 			else:
 				print("\n The interpreter could not start because the Checker returned errors")
 		except MiniCExit as e:

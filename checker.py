@@ -97,9 +97,9 @@ class Checker(Visitor):
     def check(cls, model, ctxt):
         cls.ctxt = ctxt
         check = cls()
-        print("***********Starting cheking process*********** \n")
+        #print("***********Starting cheking process*********** \n")
         model.accept(check)
-        print("\n***********Cheking process finished***********")
+        #print("\n***********Cheking process finished***********")
         return check
 
     ###################

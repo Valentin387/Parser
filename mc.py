@@ -1,61 +1,80 @@
-# mc.py
-'''
-usage: mc.py [-h] [-d] [-o OUT] [-l] [-D] [-p] [-I] [--sym] [-S] [-R] input
-
-Compiler for MiniC programs
-
-positional arguments:
-  input              MiniC program file to compile
-
-optional arguments:
-  -h, --help         show this help message and exit
-  -d, --debug        Generate assembly with extra information (for debugging
-                     purposes)
-  -o OUT, --out OUT  File name to store generated executable
-  -l, --lex          Store output of lexer
-  -D, --dot          Generate AST graph as DOT format
-  -p, --png          Generate AST graph as png format
-  -I, --ir           Dump the generated Intermediate representation
-  --sym              Dump the symbol table
-  -S, --asm          Store the generated assembly file
-  -R, --exec         Execute the generated program
-'''
 #import docopt
 
 #from argparse import ArgumentParser
 from context2 import Context
 from rich import print
 from render import DotRender
+from rich import print
+import sys
+
+def menu():
+    print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
+    print("usage: mc.py [-h] [-d] [-o OUT] [-l] [-a] [-D] [-p] [-I] [--sym] [-S] [-R] input\n")
+
+    print("Compiler for MiniC programs\n")
+
+    print("positional arguments:")
+    print("input MiniC            program file to compile\n")
+
+    print("optional arguments:")
+    print("-h, --help             show this help message and exit")
+    print("-d, --debug            Generate assembly with extra information (for debugging purposes)")
+    print("-o OUT, --out OUT      File name to store generated executable")
+    print("-l, --lex              Store output of lexer")
+    print("-a, --AST              Display AST")
+    print("-D, --dot              Generate AST graph as DOT format")
+    print("-p, --png              Generate AST graph as png format")
+    print("-I, --ir               Dump the generated Intermediate representation")
+    print("--sym                  Dump the symbol table")
+    print("-S, --asm              Store the generated assembly file")
+    print("-R, --exec             Execute the generated program")
 
 
 def main(argv):
-    if len(argv) > 2:
-        raise SystemExit(f'usage: mc.py filename')
-
-    ctxt = Context()
     if len(argv) == 2:
-        with open(argv[1]) as file:
-            source = file.read()
+        menu()
+        raise SystemExit()
 
-        print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
+    print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
+    ctxt = Context()
+    if len(argv) > 2:
+        source = ""
+        with open(argv[2]) as file:
+            source = file.read()
         ctxt.parse(source)
         if not ctxt.have_errors:
-            print("\n\n\t\t********** AST ********** \n\n")
-            print(ctxt.ast)
-            print("\n\n DOT LANGUAGE \n")
-            dot = DotRender.render(ctxt.ast) #render
-            print(dot)
-
-            print("\n CHECKER + INTERPRETER \n")
-            ctxt.run()
-
+            if argv[1] in ["-h","--help"]:
+                menu()
+                #raise SystemExit()
+            elif argv[1] in ["-l","--lex"]:
+                print("\n\n\t\t********** TOKENS ********** \n\n")
+                tokens = ctxt.lexer.tokenize(source)
+                for tok in tokens:
+                    print(tok)
+            elif argv[1] in ["-a","--AST"]:
+                print("\n\n\t\t********** AST ********** \n\n")
+                print(ctxt.ast)
+            elif argv[1] in ["-D","--dot"]:
+                print("\n\n DOT LANGUAGE \n")
+                dot = DotRender.render(ctxt.ast) #render
+                print(dot)
+            elif argv[1] in ["-s","--sym"]:
+                print(ctxt.interp.env)
+            elif argv[1] in ["-R", "--exec"]:
+                print("\n CHECKER + INTERPRETER \n")
+                ctxt.run()
+            else:
+                print("Not defined action")
+                op = int(input("Do you need help? 1:yes/2:no :: "))
+                if op == 1:
+                    menu()
     else:
         try:
             while True:
                 source = input("mc > ")
                 ctxt.parse(source)
                 if ctxt.have_errors: continue
-                for stmt in ctxt.ast.stmts:
+                for stmt in ctxt.ast.decl:
                     ctxt.ast = stmt
                     ctxt.run()
 
@@ -64,5 +83,4 @@ def main(argv):
 
 if __name__ == "__main__":
     from sys import argv
-
     main(argv)
