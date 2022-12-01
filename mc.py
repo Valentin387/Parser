@@ -1,12 +1,25 @@
 #import docopt
-
 #from argparse import ArgumentParser
 from context2 import Context
 from rich import print
 from render import DotRender
-from rich import print
-import sys
+#from rich import print
+from tabulate import tabulate
 
+"""
+    print("optional arguments:")
+    print("-h, --help             show this help message and exit")
+    print("-d, --debug            Generate assembly with extra information (for debugging purposes)")
+    print("-o OUT, --out OUT      File name to store generated executable")
+    print("-l, --lex              Store output of lexer")
+    print("-a, --AST              Display AST")
+    print("-D, --dot              Generate AST graph as DOT format")
+    print("-p, --png              Generate AST graph as png format")
+    print("-I, --ir               Dump the generated Intermediate representation")
+    print("--sym                  Dump the symbol table") #the Checker one
+    print("-S, --asm              Store the generated assembly file")
+    print("-R, --exec             Execute the generated program")
+"""
 def menu():
     print("\t\t\t\n ################################ Valentin's MiniC Compiler ################################  \n")
     print("usage: mc.py [-h] [-d] [-o OUT] [-l] [-a] [-D] [-p] [-I] [--sym] [-S] [-R] input\n")
@@ -18,15 +31,11 @@ def menu():
 
     print("optional arguments:")
     print("-h, --help             show this help message and exit")
-    print("-d, --debug            Generate assembly with extra information (for debugging purposes)")
-    print("-o OUT, --out OUT      File name to store generated executable")
-    print("-l, --lex              Store output of lexer")
+    print("-l, --lex              display tokens from lexer")
     print("-a, --AST              Display AST")
     print("-D, --dot              Generate AST graph as DOT format")
-    print("-p, --png              Generate AST graph as png format")
-    print("-I, --ir               Dump the generated Intermediate representation")
-    print("--sym                  Dump the symbol table")
-    print("-S, --asm              Store the generated assembly file")
+    #print("-p, --png              Generate AST graph as png format")
+    print("--sym                  Dump the symbol table") #the Checker one
     print("-R, --exec             Execute the generated program")
 
 
@@ -49,8 +58,14 @@ def main(argv):
             elif argv[1] in ["-l","--lex"]:
                 print("\n\n\t\t********** TOKENS ********** \n\n")
                 tokens = ctxt.lexer.tokenize(source)
+                table=[["Type","Value","At line"]]
                 for tok in tokens:
-                    print(tok)
+                    row=[]
+                    row.append(tok.type)
+                    row.append(tok.value)
+                    row.append(tok.lineno)
+                    table.append(row)
+                print(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
             elif argv[1] in ["-a","--AST"]:
                 print("\n\n\t\t********** AST ********** \n\n")
                 print(ctxt.ast)
@@ -71,7 +86,7 @@ def main(argv):
     else:
         try:
             while True:
-                source = input("mc > ")
+                source = input("mc > ") #This one works for very simple one line stuff, but the environments of neither Checker or Interpret work properly.
                 ctxt.parse(source)
                 if ctxt.have_errors: continue
                 for stmt in ctxt.ast.decl:
